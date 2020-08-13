@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('homeBD', 'ProjectController@itemproject');
+
+Route::view('index', 'homeBD');
 
 Route::get('index', function () {
     return view('homeBDuser');
@@ -63,12 +67,17 @@ Route::get('SearchAdvance', function () {
     return view('searchAV');
 });
 
-Route::get('itemdetaliBD', function () {
-    return view('project.itemdetaliBD');
-});
-Route::get('itemdetaliMDD', function () {
-    return view('project.itemdetaliMDD');
-});
+// Route::get('itemdetaliBD', function () {
+//     return view('project.itemdetaliBD');
+// });
+
+
+Route::get('itemdetaliBD','ProjectController@index');
+Route::get('itemdetaliBD/{project_id}','ProjectController@detailitem');
+
+// Route::get('itemdetaliMDD', function () {
+//     return view('project.itemdetaliMDD');
+// });
 
 
 Route::get('Detailproject', function () {
@@ -142,41 +151,14 @@ Route::get('home', 'HomeController@index')->name('home');
 // โชว์ข้อมูล
 Route::get('dataview', 'ListdataController@Datalist');
 Route::get('viewadmin', 'ListdataController@Datalistadmin');
-Route::get('viewproject', 'ProjectdataController@showdata');
+Route::get('viewproject', 'ProjectController@showdata');
+Route::get('viewprojectmdd', 'ProjectController@showdatamdd');
 // ลบข้อมูล
 Route::get('delete/{id}', 'ListdataController@destroy');
 Route::get('delete/{id}', 'DataadminController@destroy');
 Route::get('delete/{id}', 'ListdataController@deleteproject');
 
 // Route::get('edit/{id}', 'DatauserController@edit');
-Route::get('edit','DatauserController@index');
-Route::get('edit/{id}','DatauserController@show');
-Route::post('edit/{id}', 'DatauserController@edit');
-
-Route::get('edituseradmin','DataadminController@index');
-Route::get('edituseradmin/{id}','DataadminController@show');
-Route::post('edituseradmin/{id}', 'DataadminController@update');
-
-// Route::get('profile','ProfileController@index');
-// Route::get('profile/{id}','ProfileController@show');
-// Route::post('profile/{id}', 'ProfileController@update');
-
-
-// Route::view('profile','profileuser');
-Route::get('profile','ProfileController@show');
-Route::post('profileupdate', 'ProfileController@store')->name('update');
-Route::get('profileadmin','profileadminController@show');
-Route::post('profileupdateadmin', 'profileadminController@store')->name('update');
-// Route::post('uploadimg', 'ProfileController@store')->name('store');
-// Route::get('uploadimg', function () {
-//     dd(request()->all());
-// });
-
-
-// Route::get('homeBD', 'ListdataController@Data');
-
-// Route::view('edit', 'editdatauser');
-
 
 
 // Route::get('update/{id}', 'DatauserController@update');
@@ -184,14 +166,43 @@ Route::post('profileupdateadmin', 'profileadminController@store')->name('update'
 Route::view('adduser', 'createdatauser');
 Route::post('adddata', 'ListdataController@adduser');
 
-// Route::post('adduser', 'ListdataController@adduser');
+// USER..
 
-// Route::view('adduser', 'createdatauser');
+    // โปรไฟล์ผู้ใช้ทั่วไป
+    Route::get('profile','ProfileController@show');
+    Route::post('profileupdate', 'ProfileController@store')->name('update');
+    
+    
 
-// Route::resource('adduser', 'DatauserController');
+// ADMIN...
 
-// Route::view('form', 'edittest');
-// Route::get('update', 'updatedatauserController@update');
+    // โปรไฟล์ผู้ดูเเลระบบ
+    Route::get('profileadmin','profileadminController@show');
+    Route::post('profileupdateadmin', 'profileadminController@store')->name('update');
 
+    // อัพเดทโปรเจคป.ตรี
+    Route::post('editprojectbd', 'ProjectController@editprojectbd');
+    Route::get('projectviewbd/{project_id}', 'ProjectController@projectbd');
 
-// Route::get('update/{id}', 'ListdataController@update');
+    // อัพเดทโปรเจคป.โท/ป.เอก
+    Route::post('editprojectmdd', 'Project_MDDController@editprojectadmin');
+    Route::get('projectviewmdd/{project_id}', 'Project_MDDController@projectmdd');
+    
+
+    // เเก้ไขข้อมูลผู้ใช้ทั่วไป
+    Route::get('edit','DatauserController@index');
+    Route::get('edit/{id}','DatauserController@show');
+    Route::post('edit/{id}', 'DatauserController@edit');
+
+    // เเก้ไขข้อมูลผู้ดูเเลระบบ
+    Route::get('edituseradmin','DataadminController@index');
+    Route::get('edituseradmin/{admin_company_id}','DataadminController@show');
+    Route::post('edituseradmin/{admin_company_id}', 'DataadminController@update');
+
+    //เพิ่มข้อมูลprojectBD
+    Route::get('addBD','AdminController@viewaddbd');
+    Route::post('insertBD','AdminController@insertprojectBD_Ad')->name('insertBD');
+
+    //เพิ่มข้อมูลprojectMDD
+    Route::get('addMDD','AdminController@viewaddmdd');
+    Route::post('insertMDD','AdminController@insertprojectMDD_Ad')->name('insertMDD');

@@ -176,6 +176,10 @@
 </head> 
 <body class="body1">
         <div class="border2">
+        <ul class="app-breadcrumb breadcrumb magne-right">
+            <li class="breadcrumb-item magne-right-text"><a href="{{action('ProjectController@itemproject')}}">หน้าหลัก</a></li>
+            <li class="breadcrumb-item magne-right-text"><a href="#">เเสดงผลงาน</a></li>
+        </ul><br>
             <div class="tile">
                 
                 <center><h1><div class="containeradd textadd" >เเก้ไขรายละเอียดผลงาน</div></h1></center>
@@ -185,7 +189,7 @@
                             <center><label for="text" class="">เกี่ยวกับผลงาน</label><br></center>
                             @foreach($data as $datas)
                             <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่อง: <input type="text" class="" name="project_name" id="project_name" value="<?php echo $datas->project_name; ?>"><br></center>
-                            <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่องภาษาอังกฤษ: <input type="text" class="" name="project_name_en" id="project_name_en" value="<?php echo $datas->name; ?>"><br></center>
+                            <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่องภาษาอังกฤษ: <input type="text" class="" name="project_name_en" id="project_name_en" value="<?php echo $datas->project_m_name_en; ?>"><br></center>
                             <center style="margin-top:10px;margin-left:-40px;">คำสำคัญ: <input type="text" class="" name="keyword_project" id="keyword_project" value="<?php echo $datas->keyword_project; ?>"><br></center>
                             <center style="margin-top:10px;margin-left:-71px;">คำอธิบายย่อ: <input type="text" class="input-tb" name="des_project" id="des_project" value="<?php echo $datas->des_project; ?>"><br></center>
                             

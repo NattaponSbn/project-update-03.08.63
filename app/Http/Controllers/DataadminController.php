@@ -16,7 +16,7 @@ class DataadminController extends Controller
     {
         //
         $datauseradmin = DB::select('SELECT * FROM admin_company');
-        return view('editdatauseradmin',['datauseradmin'=>$datauseradmin]);
+        return view('admin.editdatauseradmin',compact('datauseradmin'));
     }
 
     /**
@@ -49,10 +49,9 @@ class DataadminController extends Controller
     public function show($admin_company_id)
     {
         //
-        $datauseradmin = DB::select('SELECT * FROM admin_company WHERE admin_company_id = ?',[$admin_company_id]);
-        return view('editdatauseradmin', ['datauseradmin'=>$datauseradmin]);
-        // $users = DB::select('SELECT * FROM admin_company WHERE admin_company_id = ?',[$id]);
-        // return view('editdatauseradmin',['users'=>$users]);
+        $admin = DB::select('SELECT * FROM admin_company WHERE admin_company_id = ?',[$admin_company_id]);
+        return view('admin.editdatauseradmin', compact('admin'));
+        
     }
 
     /**
@@ -74,14 +73,14 @@ class DataadminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $admin_company_id)
     {
         //
         $adminname = $request->input('admin_company_name');
         $adminuser = $request->input('admin_company_user');
-        DB::update('UPDATE admin_company SET admin_company_name = ?, admin_company_user=? WHERE admin_company_id = ?', [$adminname,$adminuser,$id]);
-        echo $adminname;
-        // return redirect('viewadmin')->with('success', 'อัพเดทข้อมูลเรียบร้อย');
+        DB::update('UPDATE admin_company SET admin_company_name = ?, admin_company_user=? WHERE admin_company_id = ?', [$adminname,$adminuser,$admin_company_id]);
+     
+        return redirect('viewadmin')->with('success', 'อัพเดทข้อมูลเรียบร้อย');
     }
 
     /**
@@ -90,11 +89,9 @@ class DataadminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($admin_company_id)
     {
-        //
-        // DB::delete('DELETE FROM admin_company WHERE admin_company_id=?',[$admin_company_id]);
-        echo $admin_company_id:
-        // return redirect('dataviewadmin')->with('success', 'ลบข้อมูลเรียบร้อย'); 
+        DB::delete('DELETE FROM admin_company WHERE id=?',[$admin_company_id]);
+        return redirect('dataview')->with('success', 'ลบข้อมูลเรียบร้อย'); 
     }
 }

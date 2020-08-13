@@ -17,7 +17,7 @@ class DatauserController extends Controller
     {
         //
         $users = DB::select('SELECT * FROM users');
-        return view('editdatauser',['users'=>$users]);
+        return view('admin.editdatauser',['users'=>$users]);
     }
 
     /**
@@ -53,7 +53,7 @@ class DatauserController extends Controller
     {
         //
         $users = DB::select('SELECT * FROM users WHERE id = ?',[$id]);
-        return view('editdatauser',['users'=>$users]);
+        return view('admin.editdatauser',['users'=>$users]);
     
     }
 

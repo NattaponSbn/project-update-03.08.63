@@ -15428,14 +15428,19 @@ be a descendant of the grid when it is being dragged.
   }
 }
 
+.magne-right {
+  text-align: right;
+  margin-left: 80%;
+  font-family: 'Athiti', sans-serif;
+
+}
+
 .app-breadcrumb {
   margin-bottom: 0;
   text-align: right;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 16px;
   text-transform: capitalize;
-  padding: 0;
-  text-align: left;
   padding: 0;
   background-color: transparent;
 }

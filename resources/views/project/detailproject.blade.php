@@ -25,15 +25,12 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
-    <link href="../css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
-    <link href="../themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
-    <link rel="shortcut icon" href="/assets/favicon.ico">
-    <link rel="stylesheet" href="./src/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> 
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>project</title>
     <style>
 
@@ -299,8 +296,21 @@
 
     </style>
 </head> 
-<body class="body1">
+    <body class="body1">
+        @if ($message = Session::get('successupdate'))
+            <script>
+            swal({
+                title: "อัพเดทข้อมูลเรียบร้อย",
+                icon: "success",
+                button: "ตกลง",
+            });
+            </script>
+        @endif
         <div class="border2">
+        <ul class="app-breadcrumb breadcrumb magne-right">
+            <li class="breadcrumb-item magne-right-text"><a href="{{action('ProjectController@itemproject')}}">หน้าหลัก</a></li>
+            <li class="breadcrumb-item magne-right-text"><a href="#">เเสดงผลงาน</a></li>
+        </ul><br>
             <div class="tile">
                 <script language="JavaScript">
                     function showPreviewlogo(ele)
@@ -334,8 +344,6 @@
                    
                 </script>
 
-                
-
                 <center><h1><div class="containeradd textadd" >เเก้ไขรายละเอียดผลงาน</div></h1></center>
                     <form id="addprojectfrom" action="editproject" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -343,61 +351,66 @@
                             <center>
                             <div class="container my-4">
                                 <label for="text" class="">โลโก้ผลงาน</label><br>
-                                <div class="drop-zone">
-                                @foreach($data as $datas)
-                                    <img class="img-logo" src="project\img_logo\<?php echo $datas->logo; ?>" alt=""><span class="drop-zone__prompt">Drop file here or click to upload</span>
-                                    <!-- <div class="drop-zone__thumb" data-label="myfile.txt"></div> --> 
-                                @endforeach
-                                    <input type="file" name="myFile" name="filelogo" class="drop-zone__input">
+                                <div class="col-md-4">
+                                    @foreach($dataimg as $imglogo)
+                                        <img id="showlogo" style="background:#9d9d9d;width:170px;height:180px;" src="project\img_logo\<?php echo $imglogo->logo; ?>">
+                                    @endforeach
                                 </div>
-                                <!-- <div class="col-md-4">
-                                    <img id="showlogo" style="background:#9d9d9d;width:170px;height:180px;">
-                                </div> -->
-                                
-                                <label for="text" class="">ภาพโชว์ผลงาน</label><br>
-                                <div class="drop-zone-img">
-                                @foreach($data as $datas)
-                                    <span class="drop-zone__prompt">Drop file here or click to upload<img class="img-back" src="project\img_backgrund\defaultimg1.png" alt=""></span>
-                                    <!-- <div class="drop-zone__thumb" data-label="myfile.txt"></div> -->
-                                @endforeach
-                                    <input type="file" name="myFile" name="fileimg" class="drop-zone-img__input">
-                                </div>
-                                
-                                <!-- <div class="col-md-4">
-                                    <img id="showimage" style="background:#9d9d9d;width:200px;height:300px;margin-right:10px;">
-                                </div> -->
-                                    <!-- <input type="file" name="filelogo" id="fileimgToUpload" class="" OnChange="showPreviewlogo(this)"><br>
-                                    <label for="text" class="">ภาพโชว์ผลงาน</label><span class="text-muted">(.PDF)</span><br>
-                                    <input type="file" name="fileimg" id="fileimgToUpload" class="" OnChange="showPreview(this)"><br>
-                            </div> -->
-                            <!-- <div class="drop-zone">
-                                <span class="drop-zone__prompt">Drop file here or click to upload</span>
-                                <div class="drop-zone__thumb" data-label="myfile.txt"></div> -->
-                                <!-- <input type="file" name="myFile" class="drop-zone__input">
-                            </div> -->
 
+                                <label for="text" class="">ภาพโชว์ผลงาน</label><br>
+                                <div class="col-md-4">
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="table-responsive">
+                                                    @foreach($dataimg as $imglogo)
+                                                        <img id="showimage" style="background:#9d9d9d;width:400px;height:250px;margin-left:-80px;" src="project\img_backgrund\<?php echo $imglogo->img_p_1; ?>">
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="table-responsive">
+                                                    @foreach($dataimg as $imglogo)
+                                                        <img id="showimage" style="background:#9d9d9d;width:400px;height:250px;margin-left:-80px;" src="project\img_backgrund\<?php echo $imglogo->img_p_2; ?>">
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <a class="carousel-control-next" href="#carouselExampleIndicators" id="next" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a> 
+                                            <a class="carousel-control-prev" href="#carouselExampleIndicators" id="prev" role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">prev</span>
+                                            </a>   
+                                        </div>
+                                    </div>            
+                                </div>
+
+                                <label for="text" class="">โลโก้</label><span class="text-muted">(.PNG)</span><br>
+                                <input type="file" name="filelogo" id="fileimgToUpload" class="" OnChange="showPreviewlogo(this)"><br>
+
+                                <label for="text" class="">ภาพโชว์ผลงาน</label><span class="text-muted">(.PNG)</span><br>
+                                <input type="file" multiple name="fileimg[]" id="fileToUpload"  OnChange="showPreview(this)">
+                                <!-- @if(!isset($_SESSION['project'])) {
+                                    
+                                } @elseif (isset($_SESSION['project'])){ -->
+                                    
+                                <!-- }
+
+                                @endif -->
                                 
-                                <!-- <div class="container my-4">   
-                                    <div class="form-group">
-                                    <label for="text" class="">โลโก้</label><span class="text-muted">(.PNG)</span>
-                                        <div class="file-loading">
-                                            <input id="file-4" type="file" class="file" name="filelogo"  data-theme="fas">
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="form-group">
-                                    <label for="text" class="">ภาพโชว์ผลงาน</label><br>
-                                        <div class="file-loading">
-                                            <input id="file-5" class="file" type="file" multiple data-preview-file-type="any" data-upload-url="#" data-theme="fas">
-                                        </div>
-                                    </div>
-                                </form>    -->
+                                   <!-- <img class="img-logo drop-zone__prompt" src="project\img_logo\" alt=""> -->
+                                    <!-- <div class="drop-zone__thumb" data-label="myfile.txt"></div> --> 
+                                    
+                               
+                                   
                             </center>
 
                             <center><label for="text" class="">เกี่ยวกับผลงาน</label><br></center>
                             @foreach($data as $datas)
                             <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่อง: <input type="text" class="" name="project_name" id="project_name" value="<?php echo $datas->project_name; ?>"><br></center>
-                            <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่องภาษาอังกฤษ: <input type="text" class="" name="project_name_en" id="project_name_en" value="<?php echo $datas->name; ?>"><br></center>
+                            <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่องภาษาอังกฤษ: <input type="text" class="" name="project_name_en" id="project_name_en" value="<?php echo $datas->name_en; ?>"><br></center>
                             <center style="margin-top:10px;margin-left:-40px;">คำสำคัญ: <input type="text" class="" name="keyword_project" id="keyword_project" value="<?php echo $datas->keyword_project; ?>"><br></center>
                             <center style="margin-top:10px;margin-left:-71px;">คำอธิบายย่อ: <input type="text" class="input-tb" name="des_project" id="des_project" value="<?php echo $datas->des_project; ?>"><br></center>
                             
@@ -428,9 +441,11 @@
                                         @endforeach
                                     </select><br></center>
                                     <center><label for="text" class="">ข้อมูลติดต่อ</label><br></center>
-                            <center style="margin-top:10px;margin-left:-63px;">Facebook: <input type="text" class="input-tbb" name="facebook" id="facebook" oninput="this.className = ''"><br></center>
-                            <center style="margin-top:10px;margin-left:-35px;">Email: <input type="email" class="input-tbbb" name="email" id="email" oninput="this.className = ''"><br></center>
-                            <center style="margin-top:10px;margin-left:-55px;">เบอร์โทร: <input type="phone" class="input-tbbbb" name="phone" id="phone" oninput="this.className = ''"><br></center>
+                                @foreach($datapubilc as $pubilc)
+                                    <center style="margin-top:10px;margin-left:-63px;">Facebook: <input type="text" class="input-tbb" name="facebook" id="facebook" value="<?php echo $pubilc->facebook; ?>"><br></center>
+                                    <center style="margin-top:10px;margin-left:-35px;">Email: <input type="email" class="input-tbbb" name="email" id="email" value="<?php echo $pubilc->email; ?>"><br></center>
+                                    <center style="margin-top:10px;margin-left:-55px;">เบอร์โทร: <input type="phone" class="input-tbbbb" name="phone" id="phone" value="<?php echo $pubilc->phone; ?>"><br></center>
+                                @endforeach
                             @endforeach
                            
                         <div style="overflow:10px;">
@@ -486,11 +501,6 @@
         <script src="js/formimg.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="../js/plugins/piexif.js" type="text/javascript"></script>
-        <script src="../js/plugins/sortable.js" type="text/javascript"></script>
-        <script src="../js/fileinput.js" type="text/javascript"></script>
-        <script src="../js/locales/fr.js" type="text/javascript"></script>
-        <script src="../js/locales/es.js" type="text/javascript"></script>
         <script src="../themes/fas/theme.js" type="text/javascript"></script>
         <script src="../themes/explorer-fas/theme.js" type="text/javascript"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>

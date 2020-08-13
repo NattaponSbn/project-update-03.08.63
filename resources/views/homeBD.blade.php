@@ -22,12 +22,12 @@
                             <div class="carousel-item active">
                                 <div class="table-responsive">
                                 @foreach($item as $items)
-                                    <a href="itemdetaliBD"><div class="column" ><div class="columnimg"><img src="img/fromimg.png" alt="" class="fromimg"></div></a>
-                                        <center><a href="itemdetaliBD"><div class="textimg"><?php echo $items->project_name?></div></a></center>
-                                        <center><a href="itemdetaliBD"><div class="textimg2"><?php echo $items->type_name?></div></a></center>
+                                    <a href="itemdetaliBD/{{$items->project_id}}"><div class="column" ><div class="columnimg"><img src="project\img_logo\<?php echo $items->logo;?>" alt="" class="fromimg"></div></a>
+                                        <center><a href="itemdetaliBD/{{$items->project_id}}"><div class="textimg"><?php echo $items->project_name;?></div></a></center>
+                                        <center><a href="itemdetaliBD"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
                                     </div>
                                 @endforeach
-                                    <a href="itemdetaliBD"><div class="column1"><div class="columnimg"><img src="img/fromimg.png" alt="" class="fromimg"></div></a>
+                                    <!-- <a href="itemdetaliBD"><div class="column1"><div class="columnimg"><img src="img/fromimg.png" alt="" class="fromimg"></div></a>
                                         <center><a href="itemdetaliBD"><div class="textimg">เรื่อง</div></a></center>
                                         <center><a href="itemdetaliBD"><div class="textimg2">ประเภท</div></a></center>
                                     </div>
@@ -39,14 +39,14 @@
                                     <a href="itemdetaliBD"><div class="column3"><div class="columnimg"><img src="img/fromimg.png" alt="" class="fromimg"></div></a>
                                         <center><a href="itemdetaliBD"><div class="textimg">เรื่อง</div></a></center>
                                         <center><a href="itemdetaliBD"><div class="textimg2">ประเภท</div></a></center>
-                                    </div>
+                                    </div> -->
                                 
                                 </div>
                             </div>
 
                             <div class="carousel-item">
                                 <div class="table-responsive">
-                                    
+                                
                                     <a href="itemdetaliBD"><div class="column" ><div class="columnimg"><img src="img/fromimg.png" alt="" class="fromimg"></div></a>
                                         <center><a href="itemdetaliBD"><div class="textimg">เรื่อง</div></a></center>
                                         <center><a href="itemdetaliBD"><div class="textimg2">ประเภท</div></a></center>
@@ -68,6 +68,7 @@
                                     
                                 </div>
                             </div>
+                            
 
                             <div class="carousel-item">
                                 <div class="table-responsive">
@@ -98,10 +99,10 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a> 
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" id="prev" role="button" data-slide="prev">
+                        <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators" id="prev" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">prev</span>
-                        </a>   
+                        </a>    -->
                     </div>
                 </div>
             </div>

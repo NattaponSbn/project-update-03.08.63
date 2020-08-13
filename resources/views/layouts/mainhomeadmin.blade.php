@@ -25,30 +25,34 @@
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
+        
 
         <!-- Main CSS-->
         <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet">
         <!-- Font-icon css-->
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         
-        <title>ICTSTORE</title>
+        <title>ICTSTOREADMIN</title>
 
         <style>
-            .layoutaccout-admin {
-                padding: -10px;
-                
-            }
 
             .user-size {
+                margin-top: -3px;
+           }
+
+           .user-sizes {
                 width: 100px;
                 margin-top:-6px;
+                margin-left: 20px;
+           }
 
-            }
-
-            .content{
+           .content{
                 margin-top: 8px;
            }
 
@@ -73,14 +77,32 @@
                 -ms-flex-item-align: center;
                     align-self: center;
                 margin-top: -30px;
-                margin-left: 63px;
+                margin-left: 70px;
+                font-family: 'Athiti', sans-serif;
+                
+           }
+
+           .img-top {
+               background-image: url("img/background-body-addproject-5.jpg");
+               height: 100%; 
+               background-position: center;
+               background-repeat: no-repeat;
+               background-size: cover;
+           }
+
+           .img-down {
+               background-image: url("img/background-body-addproject-2.jpg");
+               height: 100%; 
+               background-position: center 550px;
+               background-repeat: no-repeat;
+               background-size: cover;
            }
 
            .span-i-user {
                 font-size: 33px; 
                 color: none; 
                 margin-left: -85px;
-                margin-top:100px;
+                margin-top:-1.5px;
                 margin-right: -7px;
            }
            
@@ -91,7 +113,73 @@
                margin-top:-35px;
            }
 
-           .img-user-size {
+           .btn-outline-primaryy {
+                color: #D9A327;
+                border-color: #D9A327;
+            }
+
+            .btn-outline-primaryy:hover {
+                color: #fff;
+                background-color: #D9A327;
+                border-color: #D9A327;
+            }
+
+            .btn-outline-primaryy:focus,
+            .btn-outline-primaryy.focus {
+                box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.5);
+            }
+
+            .btn-outline-primaryy.disabled,
+            .btn-outline-primaryy:disabled {
+                color: #fff;
+                background-color: transparent;
+            }
+
+            .btn-outline-primaryy:not(:disabled):not(.disabled):active,
+            .btn-outline-primaryy:not(:disabled):not(.disabled).active,
+            .show > .btn-outline-primaryy.dropdown-toggle {
+                color: #fff;
+                background-color: #D9A327;
+                border-color: #fff;
+            }
+
+            .btn-outline-primaryy:not(:disabled):not(.disabled):active:focus,
+            .btn-outline-primaryy:not(:disabled):not(.disabled).active:focus,
+            .show > .btn-outline-primaryy.dropdown-toggle:focus {
+                box-shadow: 0 0 0 0.1rem #fff;
+            }
+
+            .btn-primaryyy {
+                font-size: 18px;
+                color: #fff;
+                background-color: rgb(76, 175, 80);
+                border-color: #707070;
+            }
+
+            .btn-primaryyy:hover {
+                color: #fff;
+                background-color: rgb(87, 212, 87);
+                border-color: #707070;
+            }
+
+            .user-size-size {
+                width: 100px;
+            }
+
+            .layoutname-top-BD {
+                margin-left: 50px;
+                
+            }
+
+            .layoutprovince-size-p {
+                width: 42%;
+            }
+
+            .img-profile{
+                width: 39px;
+            }
+
+            .img-user-size {
                width: 100%;
            }
 
@@ -101,30 +189,40 @@
 
          <!-- login pupup -->
         @if(isset($_SESSION['successloginadmin'])){
-                <script>
-                    swal({
-                        title: "ยินดีต้อนรับเข้าสู่ระบบ",
-                        icon: "success",
-                        button: "ตกลง",
-                    });
-                </script>
-                <?php unset($_SESSION['successloginadmin']); ?> 
+            <script>
+                swal({
+                    title: "ยินดีต้อนรับเข้าสู่ระบบ",
+                    icon: "success",
+                    button: "ตกลง",
+                });
+            </script>
+            <?php unset($_SESSION['successloginadmin']); ?> 
             }
+        @endif
+
+        @if ($message = Session::get('successupdate'))
+            <script>
+            swal({
+                title: "อัพเดทข้อมูลเรียบร้อย",
+                icon: "success",
+                button: "ตกลง",
+            });
+            </script>
         @endif
 
         <div class="app sidebar-mini " >
         <header class="app-header">
             <!-- font Athiti -->
-            <a href="homeBD" class="app-header__logo" >ICTSTORE</a> 
+            <a href="homeBD" class="app-header__logo" >ICTSTORE(ADMIN)</a> 
             <!-- main.css-->
             <ul class="app-nav">
                 <li class="app-search search-left">
-                    <input class="app-search__input" type="search" placeholder="ค้นหาวิจัย โครงงาน วิทยานิพน">
+                    <input class="app-search__input" type="search" placeholder="ค้นหา...">
                     <button class="app-search__button"><i class="fa fa-search"></i></button>
                 </li>
                 <div class="app-navbar__overlay" data-toggle="sidebar" aria-label="Hide Sidebar"></div>
                 <nav class="app-navmenu" >    
-                    <li class="active1 menulink fontlink" ><a href="homeBD">หน้าเเรก</a></li>
+                    <li class="active1 menulink fontlink" ><a href="homeadmin">หน้าเเรก</a></li>
                     <li class="active2 menulink fontlink"><a href="SearchAdvance" >ค้นหาเเบบละเอียด</a></li>
                     <li class="active3 menulink fontlink"><a href="#">เกี่ยวกับ</a></li>
                     <li class="active4 menulink fontlink"><a href="#">ติดต่อ</a></li>
@@ -132,7 +230,7 @@
                 <div class="navbar-dark layoutaccout ">
                     <ul class="navbar-nav ml-auto ml-md-0">
             
-                <?php if(!isset($_SESSION['adminauser'])) { ?>
+                <?php if(!isset($_SESSION['statusA'])=='admin') { ?>
                         <div class="front nav-item" style="margin-top: px;font-family: 'Athiti', sans-serif;font-size: 16px;">
                                 <a class="text-item"  id="userDropdown" href="login" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><button class="btn-login btn btn-outline-primaryy"><i class="fas fa-user-circle span-i-user"></i><div class="text-mage">เข้าสู่ระบบ</div></button></a>
                                     <div class="dropdown-menu dropdown-menu-right" style="margin-top: 13px;" aria-labelledby="userDropdown">
@@ -208,12 +306,12 @@
                                 </div>
                              <?php }
                             
-                            else if(isset($_SESSION['adminauser'])){
+                            else if(isset($_SESSION['statusA'])=='admin'){
                             ?>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link " id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         @foreach($imgaccount as $img)
-                                        <img class=" col-sm-5  rounded-circle user-size" src="img_admin/<?php echo $img->pathimg; ?>" alt="User Avatar">
+                                        <img class="rounded-circle user-sizes img-profile" src="img_admin/<?php echo $img->pathimg; ?>" alt="User Avatar">
                                         @endforeach
                                         <div class="name-scle dropdown-toggle"><?php echo $_SESSION['adminname'];?></div> 
                                     </a>
@@ -266,17 +364,19 @@
                                             <div class="layoutlogre">
                                                 <a href="homeBD"><button type="button" class="btn-control btn-default btn-outline-primaryy "  style="font-size:18px;font-family: 'Athiti', sans-serif;">ปริญญาตรี</button></a> 
                                                 <a href="homeMDD"><button type="button" class="btn-control btn-default btn-outline-primaryy " style="font-size:18px;font-family: 'Athiti', sans-serif;">ปริญญาเอก โท </button></a>
-                                                <div class="links front font-Athiti">
-                                                <?php if(isset($_SESSION['adminauser'])) { ?>
-                                                    <a href="{{ url('dataview') }}" class="view ">ข้อมูลรายละเอียดผู้ใช้</a><br>
-                                                    <a href="{{ url('viewadmin') }}" class="view">ข้อมูลรายละเอียดผู้ดูเเลระบบ</a><br>
-                                                    <a href="{{ url('viewproject') }}" class="view">ข้อมูลรายละเอียดผลงาน</a><br>
-                                                    <a href="{{ url('dataview') }}" class="view">คำขอสร้างผลงาน</a><br>
-                                                    <a href="addproject1" class="view">สร้างผลงาน</a><br>
-                                                
+                                                <div class="links font-Athiti front-admin">
+                                                    <div class="padding-admin">
+                                                        <?php if(!isset($_SESSION['statusA'])=='admin') { ?> <?php }
+                                                            else if(isset($_SESSION['statusA'])=='admin') { ?>
+                                                                <a href="{{ url('dataview') }}" class="view ">ข้อมูลรายละเอียดผู้ใช้</a><br>
+                                                                <a href="{{ url('viewadmin') }}" class="view">ข้อมูลรายละเอียดผู้ดูเเลระบบ</a><br>
+                                                                <a href="{{ url('viewproject') }}" class="view">ข้อมูลรายละเอียดผลงานปริญญาตรี</a><br>
+                                                                <a href="{{ url('viewprojectmdd') }}" class="view">ข้อมูลรายละเอียดผลงานปริญญาเอก&โท</a><br>
+                                                                <a href="{{ url('dataview') }}" class="view">คำขอสร้างผลงาน</a><br>
+                                                                <a href="addproject1" class="view">สร้างผลงาน</a><br>
+                                                        <?php } ?>   
+                                                    </div>
                                                 </div>
-                                                <?php } ?>
-                                                
                                             </div>
                                         </div>
                                     </div>

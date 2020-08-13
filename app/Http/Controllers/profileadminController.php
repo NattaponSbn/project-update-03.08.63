@@ -85,7 +85,7 @@ class profileadminController extends Controller
         // $imgaccount = DB::select("SELECT * FROM imgaccount,users WHERE  AND id='$chkidproject'");
         $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_company_id ='$chkidproject'");
         $user = DB::select("SELECT * FROM admin_company WHERE admin_company.admin_company_id and admin_company_id='$chkidproject'");
-        return view('profileadmin',compact('user','imgaccount'));
+        return view('admin.profileadmin',compact('user','imgaccount'));
     }
 
     /**
@@ -125,6 +125,6 @@ class profileadminController extends Controller
         session_start();
         $chkid = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
         $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_company_id='$chkid'");
-        return view('homeadmin',compact('imgaccount'));
+        return view('admin.homeadmin',compact('imgaccount'));
     }
 }

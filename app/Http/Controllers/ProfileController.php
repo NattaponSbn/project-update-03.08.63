@@ -72,7 +72,7 @@ class ProfileController extends Controller
             $email = $request->input('email');
             $username = $request->input('username');
             DB::update("UPDATE users SET name = '$name', gender ='$gender', province ='$province', email ='$email',
-            username ='$username', pathimg='$img' WHERE id='$chkuser'");
+            username ='$username', pathimg='$img', updated_at = CURRENT_TIMESTAMP() WHERE id='$chkuser'");
             return redirect('profile')->with('successupdate', 'อัพเดทข้อมูลเรียบร้อย');
         }
         else {
@@ -98,8 +98,7 @@ class ProfileController extends Controller
         return view('profileuser',compact('user','imgaccount'));
     }
 
-
-
+ 
     /**
      * Show the form for editing the specified resource.
      *
@@ -130,30 +129,6 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         //
-        $users = User::find(Auth::user()->id);
-
-        if ($users) {
-            $validate = $request->validate([
-                'name' => 'required|min:2',
-                'gender' => 'required|min:2',
-                'province' => 'required|min:2',
-                'username' => 'required|min:2',
-                'email' => 'required|email|unique:users'
-                
-            ]);
-            $users->name = $request['name'];
-            $users->gender = $request['gender'];
-            $users->province = $request['province'];
-            $users->username = $request['username'];
-            $users->email = $request['email'];
-
-            $users->save();
-            return redirect()->back();
-            return redirect('profile')->with('successupdate', 'อัพเดทข้อมูลเรียบร้อย');
-        }else{
-            return redirect()->back();
-        }
-        
     }
 
     /**
@@ -165,5 +140,24 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function detailitem(){
+        session_start();
+        // $chkid = $_SESSION['usersid'];
+        $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
+        $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
+        $_SESSION['statusA'];
+        // $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id and project_id='6'");
+        $imgaccount = DB::select("SELECT * FROM users WHERE id='$chkid'");
+        $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_company_id='$chkidadmin'");
+
+        $data = DB::select("SELECT * FROM type_project,genre_project,category_project,users,projects,img_project 
+        WHERE users.id=projects.user_id AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
+        AND projects.category_id=category_project.category_id AND projects.user_id=img_project.p_id ");
+        echo $item;
+        // $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");
+        // print_r($item);
+        // return view('project.itemdetaliBD',compact('imgaccount','adminaccount','data','item'));
     }
 }

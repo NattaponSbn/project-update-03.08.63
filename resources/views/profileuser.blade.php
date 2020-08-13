@@ -86,6 +86,7 @@
             }
         </script>
     	<div class="col-sm-9 layout-content">
+        
           <div class="tab-content">
             <div class="tab-pane active" id="home">
                 <center style="margin-left:-650px;margin-top:40px;"><div class="col-sm-10"><h1>โปรไฟล์</h1></div></center>

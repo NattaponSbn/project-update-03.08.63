@@ -18,7 +18,7 @@
         $_SESSION['adminname'] = $dataadmin['admin_company_name'];
         $_SESSION['adminemail'] = $dataadmin['admin_email'];
         $_SESSION['pathimg'] = $dataadmin['pathimg'];
-        $_SESSION['status'] = $dataadmin['status'];
+        $_SESSION['statusA'] = $dataadmin['status'];
         $_SESSION['successloginadmin'] = "successloginadmin";
         
         header('Location: /homeadmin');

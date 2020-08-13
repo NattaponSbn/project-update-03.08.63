@@ -207,6 +207,10 @@
 <body class="body1">
 
         <div class="border2">
+        <ul class="app-breadcrumb breadcrumb magne-right">
+            <li class="breadcrumb-item magne-right-text"><a href="{{action('ProjectController@itemproject')}}">หน้าหลัก</a></li>
+            <li class="breadcrumb-item magne-right-text"><a href="#">สร้างผลงาน</a></li>
+        </ul><br>
             <div class="tile">
                 <div class="tile-body">
                     <div class="containeradd ">

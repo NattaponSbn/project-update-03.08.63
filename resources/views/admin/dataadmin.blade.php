@@ -22,52 +22,55 @@
                     </div> 
                 @endif 
 
+        <h2>ผู้ดูเเลระบบ</h2>
             <div class="row">
                 <div class="col-md-12">
-                <div class="tile">
-                    <div class="tile-body">
-                    <div class="table-responsive">
-                    
-                        <table class="table table-hover table-bordered" id="sampleTable">
-                        <thead>
-                            <tr>
-                                <th>ลำดับที่</th>
-                                <th>ชื่อนามสุกล</th>
-                                <th>อีเมล</th>
-                                <th>ชื่อผู้ใช้</th>
-                                <th>สถานะ</th>
-                                <!-- <th>รหัสผ่าน</th> -->
-                                <th>วันเดือนปี</th>
-                                
-                                <th>จัดการ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($dataadmin as $datauser)
-                            <tr>
-                                <td>{{$datauser->admin_company_id}}</td>
-                                <td>{{$datauser->admin_company_name}}</td>
-                                <td>1</td>
-                                <td>{{$datauser->admin_company_user}}</td>
-                                <td>1</td>
-                                <!-- <td>{{$datauser->admin_company_pass}}</td> -->
-                                <td>1</td>
-                                
-                                <td>
-                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="edituseradmin/{ {{$datauser->admin_company_id}} }"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
-                                    
-                                    <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href="delete/{ {{$datauser->admin_company_id}} }"><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
+                    <div class="tile">
+                        <div class="tile-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered" id="sampleTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ลำดับที่</th>
+                                            <th>ชื่อนามสุกล</th>
+                                            <th>เพศ</th>
+                                            <th>จังหวัด</th>
+                                            <th>อีเมล</th>
+                                            <th>ชื่อผู้ใช้</th>
+                                            <th>สถานะ</th>
+                                            
+                                            <!-- <th>วันเดือนปี</th> -->
+                                            <th>โปรไฟล์</th>
+                                            <th>จัดการ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($dataadmin as $dataadmin)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$dataadmin->admin_company_name}}</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>{{$dataadmin->admin_email}}</td>
+                                                <td>{{$dataadmin->admin_company_user}}</td>
+                                                <td>{{$dataadmin->status}}</td>
+                                                <td><img src="img_admin/{{$dataadmin->pathimg}}" alt="" width="100" height="100"></td>
+                                                
+                                                <td>
+                                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="edituseradmin/{{$dataadmin->admin_company_id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
+                                                    
+                                                    <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href=""><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
 
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        </table>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
     
 </main>
 
