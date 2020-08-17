@@ -48,7 +48,7 @@
                                             <th>บทคัดย่อ</th>
                                             <th>ประเภทเอกสาร</th>
                                             <th>เจ้าของ</th>
-                                            <th>สถานะ</th>
+                                            <th>ผู้สร้าง</th>
                                             <th>โลโก้</th>
                                             <th>วันเดือนปี</th>
                                             <th>จัดการ</th>
@@ -125,7 +125,7 @@
                                                 
                                                 
                                                 <td>
-                                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="projectviewbd/{{$data->admin_company_id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
+                                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="projectviewbd_A/{{$data->project_id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
                                                     <br>
                                                     <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href=""><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
 

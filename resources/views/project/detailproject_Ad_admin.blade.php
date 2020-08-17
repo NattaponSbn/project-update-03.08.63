@@ -349,14 +349,14 @@
                 </script>
 
                 <center><h1><div class="containeradd textadd" >เเก้ไขรายละเอียดผลงาน</div></h1></center>
-                    <form id="addprojectfrom" action="{{url('editprojectbd')}}" method="POST" enctype="multipart/form-data">
+                    <form id="addprojectfrom" action="{{url('editprojectbd_ad')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">    
                             <center>
                             <div class="container my-4">
                                 <label for="text" class="">โลโก้ผลงาน</label><br>
                                 <div class="col-md-4">
-                                    @foreach($dataimg as $imglogo)
+                                    @foreach($dataimgA as $imglogo)
                                         <img id="showlogo" style="background:#9d9d9d;width:170px;height:180px;" src="\project\img_logo\<?php echo $imglogo->logo; ?>">
                                     @endforeach
                                 </div>
@@ -367,14 +367,14 @@
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
                                                 <div class="table-responsive">
-                                                    @foreach($dataimg as $imglogo)
+                                                    @foreach($dataimgA as $imglogo)
                                                         <img id="showimage" style="background:#9d9d9d;width:400px;height:250px;margin-left:-80px;" src="\project\img_backgrund\<?php echo $imglogo->img_p_1; ?>">
                                                     @endforeach
                                                 </div>
                                             </div>
                                             <div class="carousel-item">
                                                 <div class="table-responsive">
-                                                    @foreach($dataimg as $imglogo)
+                                                    @foreach($dataimgA as $imglogo)
                                                         <img id="showimage" style="background:#9d9d9d;width:400px;height:250px;margin-left:-80px;" src="\project\img_backgrund\<?php echo $imglogo->img_p_2; ?>">
                                                     @endforeach
                                                 </div>
@@ -412,7 +412,7 @@
                             </center>
 
                             <center><label for="text" class="">เกี่ยวกับผลงาน</label><br></center>
-                                @foreach($data as $datas)
+                                @foreach($dataA as $datas)
                                 <input type="text" class="disappear" name="project_id" value="<?php echo $datas->project_id; ?>">
                                 <input type="text" class="disappear" name="user_id" value="<?php echo $datas->user_id; ?>">
                                 <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่อง: <input type="text" class="" name="project_name" id="project_name" value="<?php echo $datas->project_name; ?>"><br></center>
@@ -447,12 +447,14 @@
                                             @endforeach
                                         </select><br></center>
                                         <center><label for="text" class="">ข้อมูลติดต่อ</label><br></center>
-                                    @foreach($data as $datas)
-                                        <center style="margin-top:10px;margin-left:-63px;">Facebook: <input type="text" class="input-tbb" name="facebook" id="facebook" value="<?php echo $datas->facebook; ?>"><br></center>
-                                        <center style="margin-top:10px;margin-left:-35px;">Email: <input type="email" class="input-tbbb" name="email" id="email" value="<?php echo $datas->email; ?>"><br></center>
-                                        <center style="margin-top:10px;margin-left:-55px;">เบอร์โทร: <input type="phone" class="input-tbbbb" name="phone" id="phone" value="<?php echo $datas->phone; ?>"><br></center>
+                                    @foreach($dataA as $datas)
+                                        <center style="margin-top:10px;margin-left:-63px;">Facebook: <input type="text" class="input-tbb" name="facebook" id="facebook" value="<?php echo $datas->facebook_p; ?>"><br></center>
+                                        <center style="margin-top:10px;margin-left:-35px;">Email: <input type="email" class="input-tbbb" name="email" id="email" value="<?php echo $datas->email_p; ?>"><br></center>
+                                        <center style="margin-top:10px;margin-left:-55px;">เบอร์โทร: <input type="phone" class="input-tbbbb" name="phone" id="phone" value="<?php echo $datas->phone_p; ?>"><br></center>
                                     @endforeach
                                 @endforeach
+                          
+                           
                         <div style="overflow:10px;">
                             <div style="float:center;">
                                 <a href="{{action('ProjectController@showdata')}}"><button type="button" class="btnp btnnn">ย้อนกลับ</button></a>
@@ -471,7 +473,7 @@
                     var type_project=$(this).val();
                     var _token=$('input[name="_token"]').val();
                     $.ajax({
-                        url:"{{route('editprojectbd')}}",
+                        url:"{{route('editprojectbd_ad')}}",
                         method:'POST',
                         data:{type_project:type_project,_token:_token}
                     })
@@ -483,7 +485,7 @@
                     var genre_project=$(this).val();
                     var _token=$('input[name="_token"]').val();
                     $.ajax({
-                        url:"{{route('editprojectbd')}}",
+                        url:"{{route('editprojectbd_ad')}}",
                         method:'POST',
                         data:{genre_project:genre_project,_token:_token}
                     })
@@ -495,7 +497,7 @@
                     var category_project=$(this).val();
                     var _token=$('input[name="_token"]').val();
                     $.ajax({
-                        url:"{{route('editprojectbd')}}",
+                        url:"{{route('editprojectbd_ad')}}",
                         method:'POST',
                         data:{category_project:category_project,_token:_token}
                     })

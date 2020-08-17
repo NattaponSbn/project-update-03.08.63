@@ -64,8 +64,8 @@ class profileadminController extends Controller
             $name = $request->input('name');
             $email = $request->input('email');
             $username = $request->input('username');
-            DB::update("UPDATE admin_company SET admin_company_name = '$name', admin_email ='$email',
-            admin_company_user ='$username', pathimg='$img' WHERE admin_company_id='$chkuser'");
+            DB::update("UPDATE admin_company SET admin_name = '$name', admin_email ='$email',
+            admin_user ='$username', pathimg='$img' WHERE admin_id='$chkuser'");
             return redirect('profileadmin')->with('successupdate', 'อัพเดทข้อมูลเรียบร้อย');
         }
     }
@@ -83,8 +83,8 @@ class profileadminController extends Controller
         $chkidproject = $_SESSION['adminid'];
         
         // $imgaccount = DB::select("SELECT * FROM imgaccount,users WHERE  AND id='$chkidproject'");
-        $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_company_id ='$chkidproject'");
-        $user = DB::select("SELECT * FROM admin_company WHERE admin_company.admin_company_id and admin_company_id='$chkidproject'");
+        $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_id ='$chkidproject'");
+        $user = DB::select("SELECT * FROM admin_company WHERE admin_company.admin_id and admin_id='$chkidproject'");
         return view('admin.profileadmin',compact('user','imgaccount'));
     }
 
@@ -124,7 +124,7 @@ class profileadminController extends Controller
     public function pageadmin() {
         session_start();
         $chkid = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
-        $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_company_id='$chkid'");
+        $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkid'");
         return view('admin.homeadmin',compact('imgaccount'));
     }
 }

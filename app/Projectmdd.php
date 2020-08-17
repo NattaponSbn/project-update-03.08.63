@@ -8,6 +8,6 @@ class Projectmdd extends Model
 {
     //
     protected $table = 'projectmdd';
-    protected $primaryKey = 'project_id';
+    protected $primaryKey = 'project_m_id';
    
 }

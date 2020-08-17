@@ -10,12 +10,12 @@
 
     if($user_log == 'Adminmaster'){
         // echo 'ok';
-        $chackadmin = "SELECT * FROM admin_company WHERE admin_company_user = '$user_log' and admin_company_pass = '$pass_log'";
+        $chackadmin = "SELECT * FROM admin_company WHERE admin_user = '$user_log' and admin_pass = '$pass_log'";
         $condb = mysqli_query($conn,$chackadmin);
         $dataadmin = mysqli_fetch_assoc($condb);
-        $_SESSION['adminid'] = $dataadmin['admin_company_id'];
-        $_SESSION['adminauser'] = $dataadmin['admin_company_user'];
-        $_SESSION['adminname'] = $dataadmin['admin_company_name'];
+        $_SESSION['adminid'] = $dataadmin['admin_id'];
+        $_SESSION['adminauser'] = $dataadmin['admin_user'];
+        $_SESSION['adminname'] = $dataadmin['admin_name'];
         $_SESSION['adminemail'] = $dataadmin['admin_email'];
         $_SESSION['pathimg'] = $dataadmin['pathimg'];
         $_SESSION['statusA'] = $dataadmin['status'];
@@ -30,7 +30,7 @@
         // echo $chackuser;
         $condb = mysqli_query($conn,$chackuser);
         $datauser = mysqli_fetch_assoc($condb);
-        $_SESSION['usersid'] = $datauser['id'];
+        $_SESSION['usersid'] = $datauser['U_id'];
         $_SESSION['usernameguest'] = $datauser['username'];
         $_SESSION['nameuser'] = $datauser['name'];
         $_SESSION['emailuser'] = $datauser['email'];

@@ -86,10 +86,18 @@ class Project_MDDController extends Controller
 
     //เพิ่มข้อมูล project
     public function insertproject(Request $request) {
+
+        $codeu = 'PM';
+        $cont = count(DB::select("SELECT No_PM FROM projectmdd"));
+        $nextint = $cont+1;
+        $string_id = substr("000".$nextint,-4);
+        $nextid = $codeu.$string_id;
+
         $project = new Projectmdd;
         session_start();
         $userid = $_SESSION['usersid'];
         $project->user_id=$userid;
+        $project->project_m_id=$nextid;
         $project->project_m_name=$request->project_name;
         $project->keyword_m_project=$request->keyword_project;
         $project->des_m_project=$request->des_project;
@@ -124,9 +132,8 @@ class Project_MDDController extends Controller
         $chkidproject = $_SESSION['usersid'];
         
         $data = DB::select("SELECT * FROM type_project,genre_project,category_project,users,projectmdd 
-        WHERE users.id=projectmdd.user_id and id='$chkidproject' AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
+        WHERE users.U_id=projectmdd.user_id and U_id='$chkidproject' AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
         AND projectmdd.category_id=category_project.category_id ");
-        
 
         $chk_type = DB::select("SELECT * FROM type_project");
         $chk_genre = DB::select("SELECT * FROM genre_project");
@@ -147,7 +154,7 @@ class Project_MDDController extends Controller
         $category_project = $request->input('category_project');
 
         DB::update("UPDATE users,projectmdd SET project_m_name = '$project_name', keyword_m_project ='$keyword_project', des_m_project ='$des_project', type_id ='$type_project',
-         genre_id ='$genre_project', category_id ='$category_project', projectmdd.updated_at = CURRENT_TIMESTAMP() WHERE users.id=projectmdd.user_id AND id='$chkidproject'");
+         genre_id ='$genre_project', category_id ='$category_project', projectmdd.updated_at = CURRENT_TIMESTAMP() WHERE users.id=projectmdd.user_id AND U_id='$chkidproject'");
         
         return redirect('project.detailprojectMDD')->with('success', 'อัพเดทข้อมูลเรียบร้อย');
     }
@@ -157,10 +164,10 @@ class Project_MDDController extends Controller
         // $chkid = $_SESSION['usersid'];
         $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
-        $item = DB::select("SELECT * FROM projectmdd,type_project,users WHERE projectmdd.type_id=type_project.type_id and projectmdd.user_id=users.id and project_m_id='1'");
-        $userimg = DB::select("SELECT * FROM users WHERE id='$chkid'");
-        $imgaccount = DB::select("SELECT * FROM users WHERE id='$chkid'");
-        $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_company_id='$chkidadmin'");
+        $item = DB::select("SELECT * FROM projectmdd,type_project,users WHERE projectmdd.type_id=type_project.type_id and projectmdd.user_id=users.U_id and project_m_id='PM0001'");
+        $userimg = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
+        $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
+        $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
 
         return view('homeMDD',compact('item','adminaccount','userimg','imgaccount'));
     }
@@ -186,14 +193,17 @@ class Project_MDDController extends Controller
 
         $data = DB::select("SELECT * FROM type_project,genre_project,category_project,users,projectmdd 
         WHERE project_m_id='$project_m_id' AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
-        AND projectmdd.category_id=category_project.category_id AND users.id=projectmdd.user_id ");
+        AND projectmdd.category_id=category_project.category_id AND users.U_id=projectmdd.user_id ");
         
+        $dataA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,projectmdd 
+        WHERE project_m_id='$project_m_id' AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
+        AND projectmdd.category_id=category_project.category_id AND admin_company.admin_id=projectmdd.user_id ");
 
         $chk_type = DB::select("SELECT * FROM type_project");
         $chk_genre = DB::select("SELECT * FROM genre_project");
         $chk_category = DB::select("SELECT * FROM category_project");
         $chk_branch = DB::select("SELECT * FROM branch_project");
-        return view('project.detailprojectMDD_Ad',compact('data','chk_type','chk_genre','chk_category','chk_branch','project_m_id'));
+        return view('project.detailprojectMDD_Ad',compact('data','chk_type','chk_genre','chk_category','chk_branch','project_m_id','dataA'));
     }
 
     

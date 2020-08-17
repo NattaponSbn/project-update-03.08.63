@@ -72,7 +72,7 @@ class ProfileController extends Controller
             $email = $request->input('email');
             $username = $request->input('username');
             DB::update("UPDATE users SET name = '$name', gender ='$gender', province ='$province', email ='$email',
-            username ='$username', pathimg='$img', updated_at = CURRENT_TIMESTAMP() WHERE id='$chkuser'");
+            username ='$username', pathimg='$img', updated_at = CURRENT_TIMESTAMP() WHERE U_id='$chkuser'");
             return redirect('profile')->with('successupdate', 'อัพเดทข้อมูลเรียบร้อย');
         }
         else {
@@ -93,8 +93,8 @@ class ProfileController extends Controller
         $chkidproject = $_SESSION['usersid'];
         
         // $imgaccount = DB::select("SELECT * FROM imgaccount,users WHERE  AND id='$chkidproject'");
-        $imgaccount = DB::select("SELECT * FROM users WHERE id='$chkidproject'");
-        $user = DB::select("SELECT * FROM users WHERE users.id and id='$chkidproject'");
+        $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkidproject'");
+        $user = DB::select("SELECT * FROM users WHERE users.U_id and U_id='$chkidproject'");
         return view('profileuser',compact('user','imgaccount'));
     }
 
@@ -107,13 +107,12 @@ class ProfileController extends Controller
      */
     public function edit()
     {
- 
         $name = $request->input('name');
         $gender = $request->input('gender');
         $province = $request->input('province');
         $username = $request->input('username');
         $email = $request->input('email');
-        DB::update('UPDATE users SET name=?, gender=?, province=?, username=?, email=? WHERE id = ?',[$name,$gender,$province,$username,$email,$id]);
+        DB::update('UPDATE users SET name=?, gender=?, province=?, username=?, email=? WHERE U_id = ?',[$name,$gender,$province,$username,$email,$id]);
         return redirect('profileuser')->with('successupdate', 'อัพเดทข้อมูลเรียบร้อย');
 
         
@@ -142,22 +141,4 @@ class ProfileController extends Controller
         //
     }
 
-    public function detailitem(){
-        session_start();
-        // $chkid = $_SESSION['usersid'];
-        $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
-        $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
-        $_SESSION['statusA'];
-        // $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id and project_id='6'");
-        $imgaccount = DB::select("SELECT * FROM users WHERE id='$chkid'");
-        $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_company_id='$chkidadmin'");
-
-        $data = DB::select("SELECT * FROM type_project,genre_project,category_project,users,projects,img_project 
-        WHERE users.id=projects.user_id AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
-        AND projects.category_id=category_project.category_id AND projects.user_id=img_project.p_id ");
-        echo $item;
-        // $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");
-        // print_r($item);
-        // return view('project.itemdetaliBD',compact('imgaccount','adminaccount','data','item'));
-    }
 }

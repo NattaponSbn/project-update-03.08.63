@@ -181,8 +181,10 @@ Route::post('adddata', 'ListdataController@adduser');
     Route::post('profileupdateadmin', 'profileadminController@store')->name('update');
 
     // อัพเดทโปรเจคป.ตรี
-    Route::post('editprojectbd', 'ProjectController@editprojectbd');
+    Route::post('editprojectbd', 'ProjectController@editprojectbd')->name('editprojectbd');
+    Route::post('editprojectbd_ad', 'ProjectController@editprojectbd_ad')->name('editprojectbd_ad');
     Route::get('projectviewbd/{project_id}', 'ProjectController@projectbd');
+    Route::get('projectviewbd_A/{project_id}', 'ProjectController@projectbd_A');
 
     // อัพเดทโปรเจคป.โท/ป.เอก
     Route::post('editprojectmdd', 'Project_MDDController@editprojectadmin');

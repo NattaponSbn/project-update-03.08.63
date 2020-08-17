@@ -34,7 +34,7 @@
             </ul>
             </div>
         @endif
-            <form action="<?php echo $users[0]->id; ?>" method="POST">
+            <form action="<?php echo $users[0]->U_id; ?>" method="POST">
                 {{csrf_field()}}
                 <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                 <div class="form-group">

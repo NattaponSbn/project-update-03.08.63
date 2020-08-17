@@ -113,7 +113,7 @@
                           <div class="col-xs-6" style="margin-top:10px;">
                               <label for="name"><h5>ชื่อ-สุกล</h5></label>
                               <input type="text" class="form-control front layoutprovince-size" name="name" id="name" placeholder="ชื่อ-สุกล" 
-                              value="{{ $users->admin_company_name }}">
+                              value="{{ $users->admin_name }}">
                           </div>
                       </div>
                       <div class="form-group">
@@ -129,7 +129,7 @@
                           <div class="col-xs-6">
                               <label for="username"><h5>ชื่อผู้ใช้</h5></label>
                               <input type="text" class="form-control layoutprovince-size front" name="username" id="username" placeholder="you@email.com" title="enter your email."
-                              value="<?php echo $users->admin_company_user; ?>">
+                              value="<?php echo $users->admin_user; ?>">
                           </div>
                       </div>
                       @endforeach

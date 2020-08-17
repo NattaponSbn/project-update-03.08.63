@@ -48,16 +48,16 @@
                                         @foreach($dataadmin as $dataadmin)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{$dataadmin->admin_company_name}}</td>
+                                                <td>{{$dataadmin->admin_name}}</td>
                                                 <td>1</td>
                                                 <td>1</td>
                                                 <td>{{$dataadmin->admin_email}}</td>
-                                                <td>{{$dataadmin->admin_company_user}}</td>
+                                                <td>{{$dataadmin->admin_user}}</td>
                                                 <td>{{$dataadmin->status}}</td>
                                                 <td><img src="img_admin/{{$dataadmin->pathimg}}" alt="" width="100" height="100"></td>
                                                 
                                                 <td>
-                                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="edituseradmin/{{$dataadmin->admin_company_id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
+                                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="edituseradmin/{{$dataadmin->admin_id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
                                                     
                                                     <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href=""><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
 

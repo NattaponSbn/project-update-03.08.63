@@ -19,7 +19,7 @@ class ListdataController extends Controller
         session_start();
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
 
-        $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_company_id='$chkidadmin'");
+        $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
         $data = DB::select("SELECT * FROM users");
         $dataadmin = DB::select("SELECT * FROM admin_company");
         return view('admin.datauser', compact('data','dataadmin','imgaccount'));
@@ -29,7 +29,7 @@ class ListdataController extends Controller
         session_start();
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
 
-        $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_company_id='$chkidadmin'");
+        $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
       
         $dataadmin = DB::select("SELECT * FROM admin_company");
         return view('admin.dataadmin', compact('dataadmin','imgaccount'));
@@ -66,12 +66,12 @@ class ListdataController extends Controller
     }
 
     public function destroy($id) {
-        DB::delete('DELETE FROM users WHERE id=?',[$id]);
+        DB::delete('DELETE FROM users WHERE U_id=?',[$id]);
         return redirect('dataview')->with('success', 'ลบข้อมูลเรียบร้อย'); 
     }
 
     public function deleteadmin($id) {
-        DB::delete('DELETE FROM admin_company WHERE admin_company_id=?',[$id]);
+        DB::delete('DELETE FROM admin_company WHERE admin_id=?',[$id]);
         return redirect('viewadmin')->with('success', 'ลบข้อมูลเรียบร้อย'); 
         
     }

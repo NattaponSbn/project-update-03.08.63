@@ -8,7 +8,7 @@ class Dataproject extends Model
 {
     //
     protected $table = 'users';
-    protected $filtable = 'id';
+    protected $filtable = 'U_id';
     public function Dataproject() {
         return $this->hasMany(Dataproject::class);
     }

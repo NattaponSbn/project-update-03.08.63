@@ -59,9 +59,9 @@
                                             <td><img src="imgaccount/{{$datauser->pathimg}}" alt="" width="100" height="100"></td>
                                             
                                             <td>
-                                                <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="edit/{{$datauser->id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
+                                                <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="edit/{{$datauser->U_id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
                                                 
-                                                <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href="delete/{{ $datauser->id }}"><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
+                                                <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href="delete/{{ $datauser->U_id }}"><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
 
                                             </td>
                                         </tr>

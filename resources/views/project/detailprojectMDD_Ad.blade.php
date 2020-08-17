@@ -231,6 +231,45 @@
                             <center style="margin-top:10px;margin-left:-35px;">Email: <input type="email" class="input-tbbb" name="email" id="email" value="<?php echo $datas->email; ?>"><br></center>
                             <center style="margin-top:10px;margin-left:-55px;">เบอร์โทร: <input type="phone" class="input-tbbbb" name="phone" id="phone" value="<?php echo $datas->phone; ?>"><br></center>
                             @endforeach
+
+                            @foreach($dataA as $datas)
+                            <input type="text" class="disappear" name="project_m_id" value="<?php echo $datas->project_m_id; ?>">
+                            <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่อง: <input type="text" class="" name="project_name" id="project_name" value="<?php echo $datas->project_m_name; ?>"><br></center>
+                            <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่องภาษาอังกฤษ: <input type="text" class="" name="project_name_en" id="project_name_en" value="<?php echo $datas->project_m_name_en; ?>"><br></center>
+                            <center style="margin-top:10px;margin-left:-40px;">คำสำคัญ: <input type="text" class="" name="keyword_project" id="keyword_project" value="<?php echo $datas->keyword_m_project; ?>"><br></center>
+                            <center style="margin-top:10px;margin-left:-71px;">คำอธิบายย่อ: <input type="text" class="input-tb" name="des_project" id="des_project" value="<?php echo $datas->des_m_project; ?>"><br></center>
+                            
+                            <center style="margin-top:10px;margin-left:-63px;">ชนิดเอกสาร: <select name="type_project" class="select-tbb" id="type_project" oninput="this.className = ''">
+                                        <option value="" disabled selected>เลือกชนิดเอกสาร</option>
+                                        @foreach($chk_type as $type)
+                                            <option value="{{$type->type_id}}" <?php if($datas->type_id==$type->type_id){ echo 'selected' ; } ?>>{{$type->type_name}}</option>
+                                        @endforeach
+                                        
+                                    </select><br></center>
+                            
+                            <center style="margin-top:10px;margin-left:-40px;">ประเภท: <select name="genre_project" class="select-tbbb" id="genre_project" oninput="this.className = ''">
+                                        <option value="" disabled selected>เลือกประเภท</option>
+                                        @foreach($chk_genre as $genre)
+                                            <option value="{{$genre->genre_id}}" <?php if($datas->genre_id==$genre->genre_id){ echo 'selected' ; } ?>>{{$genre->genre_name}}</option>
+                                        @endforeach
+                                    </select><br></center>
+                            <center style="margin-top:10px;margin-left:-50px;">หมวดหมู่: <select name="category_project" class="select-tbbbb" id="category_project" oninput="this.className = ''">
+                                        <option value="" disabled selected>เลือกหมวดหมู่</option>
+                                        @foreach($chk_category as $category)
+                                            <option value="{{$category->category_id}}" <?php if($datas->category_id==$category->category_id){ echo 'selected' ; } ?>>{{$category->category_name}}</option>
+                                        @endforeach
+                                    </select><br></center>
+                            <center style="margin-top:10px;margin-left:-30px;">สาขา: <select name="branch_project" class="select-tbbbbb" id="branch_project" oninput="this.className = ''">
+                                        <option value="" disabled selected>เลือกสาขา</option>
+                                        @foreach($chk_branch as $branch)
+                                            <option value="{{$branch->branch_id}}">{{$branch->branch_name}}</option>
+                                        @endforeach
+                                    </select><br></center>
+                                    <center><label for="text" class="">ข้อมูลติดต่อ</label><br></center>
+                            <center style="margin-top:10px;margin-left:-63px;">Facebook: <input type="text" class="input-tbb" name="facebook" id="facebook" value="<?php echo $datas->facebook_m; ?>""><br></center>
+                            <center style="margin-top:10px;margin-left:-35px;">Email: <input type="email" class="input-tbbb" name="email" id="email" value="<?php echo $datas->email_m; ?>"><br></center>
+                            <center style="margin-top:10px;margin-left:-55px;">เบอร์โทร: <input type="phone" class="input-tbbbb" name="phone" id="phone" value="<?php echo $datas->phone_m; ?>"><br></center>
+                            @endforeach
                            
                         <div style="overflow:10px;">
                             <div style="float:center;">
@@ -260,7 +299,7 @@
 
             $('#genre_project').change(function(){
                 if($(this).val()!=""){
-                    var type_project=$(this).val();
+                    var genre_project=$(this).val();
                     var _token=$('input[name="_token"]').val();
                     $.ajax({
                         url:"{{route('insertproject')}}",
@@ -272,7 +311,7 @@
 
             $('#category_project').change(function(){
                 if($(this).val()!=""){
-                    var type_project=$(this).val();
+                    var category_project=$(this).val();
                     var _token=$('input[name="_token"]').val();
                     $.ajax({
                         url:"{{route('insertproject')}}",

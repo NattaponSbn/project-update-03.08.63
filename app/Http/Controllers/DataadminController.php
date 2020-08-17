@@ -49,7 +49,7 @@ class DataadminController extends Controller
     public function show($admin_company_id)
     {
         //
-        $admin = DB::select('SELECT * FROM admin_company WHERE admin_company_id = ?',[$admin_company_id]);
+        $admin = DB::select('SELECT * FROM admin_company WHERE admin_id = ?',[$admin_company_id]);
         return view('admin.editdatauseradmin', compact('admin'));
         
     }
@@ -78,7 +78,7 @@ class DataadminController extends Controller
         //
         $adminname = $request->input('admin_company_name');
         $adminuser = $request->input('admin_company_user');
-        DB::update('UPDATE admin_company SET admin_company_name = ?, admin_company_user=? WHERE admin_company_id = ?', [$adminname,$adminuser,$admin_company_id]);
+        DB::update('UPDATE admin_company SET admin_name = ?, admin_user=? WHERE admin_id = ?', [$adminname,$adminuser,$admin_company_id]);
      
         return redirect('viewadmin')->with('success', 'อัพเดทข้อมูลเรียบร้อย');
     }
@@ -91,7 +91,7 @@ class DataadminController extends Controller
      */
     public function destroy($admin_company_id)
     {
-        DB::delete('DELETE FROM admin_company WHERE id=?',[$admin_company_id]);
+        DB::delete('DELETE FROM admin_company WHERE admin_id=?',[$admin_company_id]);
         return redirect('dataview')->with('success', 'ลบข้อมูลเรียบร้อย'); 
     }
 }

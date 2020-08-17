@@ -116,7 +116,7 @@
                                                 
                                                 
                                                 <td>
-                                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="projectviewmdd/{{$data->admin_company_id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
+                                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="projectviewmdd/{{$data->project_m_id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
                                                     <br>
                                                     <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href=""><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
 

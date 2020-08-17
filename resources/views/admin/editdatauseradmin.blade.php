@@ -34,13 +34,13 @@
             </ul>
             </div>
         @endif
-        <form action="<?php echo $admin[0]->admin_company_id; ?>" method="POST">
+        <form action="<?php echo $admin[0]->admin_id; ?>" method="POST">
                 {{csrf_field()}}
                 <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                 <div class="form-group">
                     <label>ชื่อ-นามสุกล</label>
                     <input type="text" name="name" id="" class="form-control"  aria-describedby="emailHelp"
-                       value="<?php echo $admin[0]->admin_company_name; ?>" placeholder="กรอกชื่อนามสุกล">
+                       value="<?php echo $admin[0]->admin_name; ?>" placeholder="กรอกชื่อนามสุกล">
                 </div>
 
                 <div class="form-group">

@@ -72,7 +72,7 @@ class ProfileMDDController extends Controller
             $email = $request->input('email');
             $username = $request->input('username');
             DB::update("UPDATE users SET name = '$name', gender ='$gender', province ='$province', email ='$email',
-            username ='$username', pathimg='$img' updated_at = CURRENT_TIMESTAMP() WHERE id='$chkuser'");
+            username ='$username', pathimg='$img' updated_at = CURRENT_TIMESTAMP() WHERE U_id='$chkuser'");
             return redirect('profile')->with('successupdate', 'อัพเดทข้อมูลเรียบร้อย');
         }
         else {
@@ -94,7 +94,7 @@ class ProfileMDDController extends Controller
         
         // $imgaccount = DB::select("SELECT * FROM imgaccount,users WHERE  AND id='$chkidproject'");
        
-        $user = DB::select("SELECT * FROM users WHERE users.id and id='$chkidproject'");
+        $user = DB::select("SELECT * FROM users WHERE users.U_id and U_id='$chkidproject'");
         return view('profileuser',compact('user'));
     }
 
@@ -114,7 +114,7 @@ class ProfileMDDController extends Controller
         $province = $request->input('province');
         $username = $request->input('username');
         $email = $request->input('email');
-        DB::update('UPDATE users SET name=?, gender=?, province=?, username=?, email=? WHERE id = ?',[$name,$gender,$province,$username,$email,$id]);
+        DB::update('UPDATE users SET name=?, gender=?, province=?, username=?, email=? WHERE U_id = ?',[$name,$gender,$province,$username,$email,$id]);
         return redirect('profileuser')->with('successupdate', 'อัพเดทข้อมูลเรียบร้อย');
 
         
