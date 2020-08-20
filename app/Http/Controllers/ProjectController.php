@@ -54,10 +54,7 @@ class ProjectController extends Controller
         return redirect('homeBD')->with('successappproject', 'สร้างผลงานเรียบร้อย');
     }
 
-    public function showproject() {
-        $project = Project::with('user')->orderby('project_id')->paginate(5);
-        return view('admin.project',compact('project'));
-    }
+   
 
     // dropdown show
     public function viewadd() {
@@ -175,32 +172,54 @@ class ProjectController extends Controller
         // $chkid = $_SESSION['usersid'];
         $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
-        
-        
-      
         // $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id and project_id='6'");
-        $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC,4");//SELECT * FROM projects ORDER BY created_at ASC
+        $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");//SELECT * FROM projects ORDER BY created_at ASC
+        
+        $itemgenre = DB::select("SELECT * FROM projects,genre_project,type_project WHERE genre_project.genre_name in ('ไอโอที(IoT)') AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id");
+        
         
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
         
-        return view('homeBD',compact('item','imgaccount','adminaccount'));
+        return view('homeBD',compact('item','imgaccount','adminaccount','itemgenre'));
     }
 
     public function detailitem($project_id){
         session_start();
+        $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
+        $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
         $item  = DB::select("SELECT * FROM type_project,genre_project,category_project,users,projects,img_project 
         WHERE users.U_id=projects.user_id AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
         AND projects.category_id=category_project.category_id AND projects.user_id=img_project.p_id AND projects.project_id = '$project_id'"  );
         
 
-        $itemadmin  = DB::select("SELECT * FROM admin_company,projects,type_project,genre_project,category_project
-        WHERE admin_company.admin_id=projects.user_id AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
+        $itemadmin  = DB::select("SELECT * FROM admin_company,owner_project,projects,type_project,genre_project,category_project
+        WHERE owner_project.owner_id=projects.user_id AND admin_company.admin_id=projects.ad_id AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
         AND projects.category_id=category_project.category_id AND projects.project_id = '$project_id'"  );
 
         $imgback = DB::select("SELECT * FROM projects,img_project WHERE projects.user_id=img_project.p_id AND projects.project_id = '$project_id'");
+        $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
+        $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
+        return view('project.itemdetaliBD',compact('item','project_id','imgback','itemadmin','imgaccount','adminaccount'));
+    }
 
-        return view('project.itemdetaliBD',compact('item','project_id','imgback','itemadmin'));
+    public function detailitemmdd($project_m_id){
+        session_start();
+        $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
+        $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
+        $item  = DB::select("SELECT * FROM type_project,genre_project,category_project,users,projectmdd
+        WHERE users.U_id=projectmdd.user_id AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
+        AND projectmdd.category_id=category_project.category_id AND projectmdd.project_m_id = '$project_m_id'"  );
+        
+
+        $itemadmin  = DB::select("SELECT * FROM admin_company,owner_projectmdd,projectmdd,type_project,genre_project,category_project
+        WHERE owner_projectmdd.owner_m_id=projectmdd.user_id AND admin_company.admin_id=projectmdd.adm_id AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
+        AND projectmdd.category_id=category_project.category_id AND projectmdd.project_m_id = '$project_m_id'"  );
+
+        $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
+        $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
+
+        return view('project.itemdetalimdd',compact('item','project_m_id','itemadmin','imgaccount','adminaccount'));
     }
 
     public function index() {
@@ -217,6 +236,23 @@ class ProjectController extends Controller
         return view('project.itemdetaliBD',compact('imgaccount','adminaccount','item'));
     }
 
+    public function indexMDD() {
+        session_start();
+        // $chkid = $_SESSION['usersid'];
+        $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
+        $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
+        $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
+        $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
+
+        $item  = DB::select("SELECT projectmdd.project_m_id, projectmdd.project_m_name, projectmdd.keyword_m_project, 
+        projects.owner_m_name,type_project.type_name,category_project.category_name
+        FROM type_project,genre_project,category_project,admin_company,projectmdd,img_project 
+        WHERE admin_company.admin_id=projectmdd.user_id AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
+        AND projectmdd.category_id=category_project.category_id AND projectmdd.user_id=img_project.p_id" );
+
+        return view('project.itemdetaliMDD',compact('imgaccount','adminaccount','item'));
+    }
+
 
     // admin show
     public function showdata() {
@@ -229,8 +265,8 @@ class ProjectController extends Controller
         WHERE users.U_id=projects.user_id AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
         AND projects.category_id=category_project.category_id AND projects.user_id=img_project.p_id ");
 
-        $projectA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,projects,img_project 
-        WHERE admin_company.admin_id=projects.user_id AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
+        $projectA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,owner_project,projects,img_project 
+        WHERE owner_project.owner_id=projects.user_id and admin_company.admin_id=projects.ad_id AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
         AND projects.category_id=category_project.category_id AND projects.user_id=img_project.p_id ");
 
         return view('admin.project',compact('project','imgaccount','projectA'));
@@ -246,9 +282,9 @@ class ProjectController extends Controller
         WHERE users.U_id=projectmdd.user_id AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
         AND projectmdd.category_id=category_project.category_id ");
 
-        $projectmddA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,projectmdd
-        WHERE admin_company.admin_id=projectmdd.user_id AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
-        AND projectmdd.category_id=category_project.category_id ");
+        $projectmddA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,owner_projectmdd,projectmdd 
+        WHERE owner_projectmdd.owner_m_id=projectmdd.user_id and admin_company.admin_id=projectmdd.adm_id AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
+        AND projectmdd.category_id=category_project.category_id");
 
         return view('admin.projectmdd',compact('projectmdd','imgaccount','projectmddA'));
     }
@@ -341,6 +377,8 @@ class ProjectController extends Controller
         $name_en = $request->input('project_name_en');
         $keyword_project = $request->input('keyword_project');
         $des_project = $request->input('des_project');
+        $owner_p = $request->input('owner_p');
+        $advisor_p = $request->input('advisor_p');
         $type_project = $request->input('type_project');
         $genre_project = $request->input('genre_project');
         $category_project = $request->input('category_project');
@@ -348,10 +386,9 @@ class ProjectController extends Controller
         $email = $request->input('email');
         $phone = $request->input('phone');
         
-        DB::update("UPDATE admin_company,projects SET project_name = '$project_name', name_en = '$name_en' , keyword_project ='$keyword_project', des_project ='$des_project', type_id ='$type_project',
-        genre_id ='$genre_project', category_id ='$category_project', projects.facebook_p = '$facebook', projects.email_p = '$email', projects.phone_p = '$phone' 
-        , projects.updated_at = CURRENT_TIMESTAMP() WHERE admin_company.admin_id=projects.user_id AND project_id='$project_id'");
-        
+        DB::update("UPDATE admin_company,owner_project,projects SET project_name = '$project_name', name_en = '$name_en' , keyword_project ='$keyword_project', des_project ='$des_project', type_id ='$type_project',
+        genre_id ='$genre_project', category_id ='$category_project', owner_project.owner_p='$owner_p', owner_project.advisor_p='$advisor_p', owner_project.facebook_p = '$facebook', owner_project.email_p = '$email', owner_project.phone_p = '$phone' 
+        , projects.updated_at = CURRENT_TIMESTAMP() WHERE owner_project.owner_id=projects.user_id and admin_company.admin_id=projects.ad_id AND project_id='$project_id'");
 
         // upload logo project
         if(isset($_FILES['fileimg']['name']) || isset($_FILES['filelogo']['name'])); {
@@ -417,8 +454,8 @@ class ProjectController extends Controller
         WHERE users.U_id=projects.user_id and project_id='$project_id' AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
         AND projects.category_id=category_project.category_id AND projects.user_id=img_project.p_id");
 
-        $dataA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,projects,img_project 
-        WHERE admin_company.admin_id=projects.user_id and project_id='$project_id' AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
+        $dataA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,owner_project,projects,img_project 
+        WHERE owner_project.owner_id=projects.user_id and admin_company.admin_id=projects.ad_id and project_id='$project_id' AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
         AND projects.category_id=category_project.category_id AND projects.user_id=img_project.p_id");
 
         $img = DB::select("SELECT users.U_id FROM users,projects WHERE users.U_id=projects.user_id and project_id='$project_id'");
@@ -441,14 +478,14 @@ class ProjectController extends Controller
         session_start();
         $_SESSION['dataA']='dataA';
 
-        $dataA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,projects,img_project 
-        WHERE admin_company.admin_id=projects.user_id and project_id='$project_id' AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
+        $dataA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,owner_project,projects,img_project 
+        WHERE owner_project.owner_id=projects.user_id and admin_company.admin_id=projects.ad_id and project_id='$project_id' AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
         AND projects.category_id=category_project.category_id AND projects.user_id=img_project.p_id");
 
-        $img = DB::select("SELECT admin_company.admin_id FROM admin_company,projects WHERE admin_company.admin_id=projects.user_id and project_id='$project_id'");
+        $img = DB::select("SELECT owner_project.owner_id FROM owner_project,projects WHERE owner_project.owner_id=projects.user_id and project_id='$project_id'");
         compact('img');
         foreach($img as $imgs) {
-            $photo=$imgs->admin_id;
+            $photo=$imgs->owner_id;
         }
         $dataimgA = DB::select("SELECT * FROM img_project,projects WHERE projects.user_id=img_project.p_id and projects.user_id='$photo'");
         

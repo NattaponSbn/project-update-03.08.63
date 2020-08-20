@@ -238,7 +238,9 @@
                             <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่องภาษาอังกฤษ: <input type="text" class="" name="project_name_en" id="project_name_en" value="<?php echo $datas->project_m_name_en; ?>"><br></center>
                             <center style="margin-top:10px;margin-left:-40px;">คำสำคัญ: <input type="text" class="" name="keyword_project" id="keyword_project" value="<?php echo $datas->keyword_m_project; ?>"><br></center>
                             <center style="margin-top:10px;margin-left:-71px;">คำอธิบายย่อ: <input type="text" class="input-tb" name="des_project" id="des_project" value="<?php echo $datas->des_m_project; ?>"><br></center>
-                            
+                            <center style="margin-top:10px;margin-left:-63px;">เจ้าของ: <input type="text" class="input-tbb" name="owner_m" id="owner_m" value="<?php echo $datas->owner_m_name; ?>" ><br></center>
+                            <center style="margin-top:10px;margin-left:-63px;">อาจารย์ที่ปรึกษา: <input type="text" class="input-tbb" name="advisor_m" id="advisor" value="<?php echo $datas->advisor_m; ?>"><br></center>
+
                             <center style="margin-top:10px;margin-left:-63px;">ชนิดเอกสาร: <select name="type_project" class="select-tbb" id="type_project" oninput="this.className = ''">
                                         <option value="" disabled selected>เลือกชนิดเอกสาร</option>
                                         @foreach($chk_type as $type)

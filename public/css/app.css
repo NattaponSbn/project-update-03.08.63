@@ -62,6 +62,10 @@ body {
     height: 100vh;
 }
 
+.full-text-font-Athiti {
+    font-family: 'Athiti', sans-serif;
+}
+
 .flex-center {
     align-items: center;
     display: flex;
@@ -1028,6 +1032,14 @@ pre code {
     flex-wrap: wrap;
     margin-right: 5px;
     margin-left: 5px;
+    padding-top: 5%;
+}
+
+.rowcolumn2 {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 20px;
+    margin-left: 20px;
     padding-top: 5%;
 }
 

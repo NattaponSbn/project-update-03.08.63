@@ -67,17 +67,14 @@ Route::get('SearchAdvance', function () {
     return view('searchAV');
 });
 
-// Route::get('itemdetaliBD', function () {
-//     return view('project.itemdetaliBD');
-// });
+// page homemain
 
-
-Route::get('itemdetaliBD','ProjectController@index');
-Route::get('itemdetaliBD/{project_id}','ProjectController@detailitem');
-
-// Route::get('itemdetaliMDD', function () {
-//     return view('project.itemdetaliMDD');
-// });
+    //itemclcikBD
+    Route::get('itemdetaliBD','ProjectController@index');
+    Route::get('itemdetaliBD/{project_id}','ProjectController@detailitem');
+    //itemclcikMDD
+    Route::get('itemdetaliMDD','ProjectController@indexmdd');
+    Route::get('itemdetaliMDD/{project_m_id}','ProjectController@detailitemmdd');
 
 
 Route::get('Detailproject', function () {
@@ -208,3 +205,9 @@ Route::post('adddata', 'ListdataController@adduser');
     //เพิ่มข้อมูลprojectMDD
     Route::get('addMDD','AdminController@viewaddmdd');
     Route::post('insertMDD','AdminController@insertprojectMDD_Ad')->name('insertMDD');
+
+    //ลบข้อมูล โปรเจคป.ตรี
+    Route::get('delete_p_bd/{project_id}','AdminController@delete_project');
+
+    //ลบข้อมูล โปรเจคป.โท
+    Route::get('delete_p_mdd/{project_m_id}','AdminController@delete_projectmdd');

@@ -70,8 +70,12 @@
                 
            }
 
+           html {
+            background-image: url("/img/background-BD-item.jpg");
+           }
+           
            .img-top {
-               background-image: url("img/background-body-addproject-5.jpg");
+               background-image: url("/img/background-BD-item.jpg");
                height: 100%; 
                background-position: center;
                background-repeat: no-repeat;
@@ -79,7 +83,7 @@
            }
 
            .img-down {
-               background-image: url("img/background-body-addproject-2.jpg");
+               background-image: url("/img/background-body-addproject-2.jpg");
                height: 100%; 
                background-position: center 550px;
                background-repeat: no-repeat;
@@ -455,9 +459,8 @@
                 </nav>
                 <div class="navbar-dark layoutaccout ">
                     <ul class="navbar-nav ml-auto ml-md-0">
-
-                        
-                        <?php if(!isset($_SESSION['status'])=='user' & !isset($_SESSION['status'])=='admin') { ?>
+                    <?php 
+                            if(!isset($_SESSION['status'])=='user' & !isset($_SESSION['statusA'])=='admin') { ?>
                                 <div class="front nav-item" style="margin-top: px;font-family: 'Athiti', sans-serif;font-size: 16px;">
                                         <a class="text-item"  id="userDropdown" href="login" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><button class="btn-login btn btn-outline-primaryy"><i class="fas fa-user-circle span-i-user"></i><div class="text-mage">เข้าสู่ระบบ</div></button></a>
                                             <div class="dropdown-menu dropdown-menu-right" style="margin-top: 13px;" aria-labelledby="userDropdown">
@@ -533,7 +536,7 @@
                                 </div>
                              <?php }
                             
-                            else if(isset($_SESSION['status'])=='user'){
+                            else if (isset($_SESSION['status'])=='user'){
                             ?>
                             
                                 <li class="nav-item dropdown">
@@ -543,7 +546,9 @@
                                         <img class="rounded-circle user-sizes img-profile" src="/imgaccount/<?php echo $img->pathimg; ?>" alt="USer Atver" >
                                         
                                     @endforeach
-                                        <div class="name-scle dropdown-toggle "><?php echo $_SESSION['nameuser'];?></div> 
+                                    @foreach($imgaccount as $user)
+                                        <div class="name-scle dropdown-toggle "><?php echo $user->name;?></div> 
+                                    @endforeach
                                     </a>
                                   
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -560,9 +565,12 @@
                                                     </div></center>
                                                     <div class="content">
                                                         <h5 class="name">
-                                                            <span class="caret"><?php echo $_SESSION['nameuser'];?></span>
+                                                        @foreach($imgaccount as $user)
+                                                            <span class="caret"><?php echo $user->name;?></span>
+                                                        
                                                         </h5>
-                                                        <span class="email"><?php echo $_SESSION['emailuser'];?></span>
+                                                        <span class="email"><?php echo $user->email;?></span>
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             
@@ -580,56 +588,63 @@
                                     </div> 
                                 </li>
                             <?php }
+
                             // admin
-                            else session_start(); if(isset($_SESSION['status'])=='admin'){
-                            ?>
-                                <li class="nav-item dropdown">
+                            
+                            else  if (isset($_SESSION['statusA'])=='admin'){
+                                ?>
+                                    <li class="nav-item dropdown">
                                 
-                                    <a class="nav-link " id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    @foreach($adminaccount as $img)
-                                        <img class="rounded-circle user-sizes img-profile" src="/imgaccount/<?php echo $img->pathimg; ?>" alt="USer Atver" >
-                                        
-                                    @endforeach
-                                        <div class="name-scle dropdown-toggle "><?php echo $_SESSION['adminname'];?></div> 
-                                    </a>
-                                  
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                        <ul class="navbar-nav ml-auto">
-                                            <div class="account-dropdown js-dropdown">
+                                <a class="nav-link " id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @foreach($adminaccount as $img)
+                                    <img class="rounded-circle user-sizes img-profile" src="/img_admin/<?php echo $img->pathimg; ?>" alt="USer Atver" >
+                                    
+                                @endforeach
+                                @foreach($adminaccount as $user)
+                                    <div class="name-scle dropdown-toggle "><?php echo $user->admin_name;?></div> 
+                                @endforeach
+                                </a>
+                              
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                    <ul class="navbar-nav ml-auto">
+                                        <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
                                                 <center><div class="image">
                                                     <a href="profile">
                                                     @foreach($adminaccount as $img)
-                                                        <img src="\imgaccount\<?php echo $img->pathimg; ?>" alt="" class="img-user-size user-avatar rounded-circle"/>
+                                                        <img src="\img_admin\<?php echo $img->pathimg; ?>" alt="" class="img-user-size user-avatar rounded-circle"/>
                                                     @endforeach
                                                     </a>
 
                                                 </div></center>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <span class="caret"><?php echo $_SESSION['adminname'];?></span>
+                                                    @foreach($adminaccount as $user)
+                                                        <span class="caret"><?php echo $user->admin_name;?></span>
+                                                    
                                                     </h5>
-                                                    <span class="email"><?php echo $_SESSION['adminemail'];?></span>
+                                                    <span class="email"><?php echo $user->admin_email;?></span>
+                                                    @endforeach
                                                 </div>
                                             </div>
-                                            
-                                            <a href="profile" class="top dropdown-item"><i class="zmdi zmdi-account"></i>โปรไฟล์</a>
-                                            <a class="dropdown-item" href="logout"
-                                            onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
-                                                {{ __('ออกจากระบบ') }}
-                                            </a>
-                                            <form id="logout-form" action="logout" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>   
-                                        </ul>
-                                    </div>
-                                </li>
-                            <?php } ?>              
+                                        
+                                            <a href="profileadmin" class="top dropdown-item"><i class="zmdi zmdi-account"></i>โปรไฟล์</a>
+                                                <a class="dropdown-item" href="logout"
+                                                onclick="event.preventDefault();
+                                                                document.getElementById('logout-form').submit();">
+                                                    {{ __('ออกจากระบบ') }}
+                                                </a>
+                                                <form id="logout-form" action="logout" method="POST" style="display: none;">
+                                                    @csrf
+                                                </form>
+                                        </div>    
+                                    </ul>
+                                </div> 
+                            </li>
+                        <?php }?>
                     </ul>
                 </div>
-                <a class="app-navbar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> 
-                <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> 
+               
             </header>
         </aside>
             <div class="rowcolumn1">
@@ -688,7 +703,7 @@
                                         <label for="text">หมวดหมู่ : <?php echo $itemadmins->genre_name; ?></label>
                                     </div>
                                     <div class="text-auth-N-d">
-                                        <label for="text">ผู้จัดทำ : <?php echo $itemadmins->owner_p; ?></label>
+                                        <label for="text">ผู้จัดทำ : <?php echo $itemadmins->owner_name; ?></label>
                                         
                                     </div>
                                     @endforeach

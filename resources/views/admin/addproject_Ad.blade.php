@@ -31,6 +31,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"/>
     <title>project</title>
     <style>
 
@@ -301,26 +306,27 @@
     </style>
 </head> 
     <body class="body1">
-        @if ($message = Session::get('successupdate'))
-            <script>
-            swal({
-                title: "อัพเดทข้อมูลเรียบร้อย",
-                icon: "success",
-                button: "ตกลง",
-            });
-            </script>
-        @endif
+    @if ($message = Session::get('yetdata'))
+        <script>
+        swal({
+            title: "เกิดข้อมผิดพลาด",
+            text: "ชื่อผู้ใช้มีผลงานอยู่เเล้ว",
+            icon: "warning",
+            button: "ตกลง",
+        });
+        </script>
+    @endif
 
-        @if ($message = Session::get('successappproject'))
-            <script>
-            swal({
-                title: "เรียบร้อย",
-                text: "ข้อมูลได้บันทึกเรียบร้อยเเล้ว",
-                icon: "success",
-                button: "ตกลง",
-            });
-            </script>
-        @endif
+    @if ($message = Session::get('errordata'))
+        <script>
+        swal({
+            title: "กรุณากรอกอีกครั้ง",
+            text: "เนื่องจากท่านกรอกไม่ครบ",
+            icon: "warning",
+            button: "ตกลง",
+        });
+        </script>
+    @endif
         <div class="border2">
         <ul class="app-breadcrumb breadcrumb magne-right">
             <li class="breadcrumb-item magne-right-text"><a href="{{action('ProjectController@itemproject')}}">หน้าหลัก</a></li>
@@ -424,7 +430,10 @@
                             <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่องภาษาอังกฤษ: <input type="text" class="" name="project_name_en" id="project_name_en" ><br></center>
                             <center style="margin-top:10px;margin-left:-40px;">คำสำคัญ: <input type="text" class="" name="keyword_project" id="keyword_project" ><br></center>
                             <center style="margin-top:10px;margin-left:-71px;">คำอธิบายย่อ: <input type="text" class="input-tb" name="des_project" id="des_project" ><br></center>
-                            <center style="margin-top:10px;margin-left:-63px;">เจ้าของ: <input type="text" class="input-tbb" name="owner_p" id="owner" ><br></center>
+                            <center style="margin-top:10px;margin-left:-63px;">เจ้าของ: <select name="owner_p" id="owner_p" class="input-tbb">
+                                                                                            <option value="" disabled selected>เลือก</option>
+                                                                @foreach($chk_user as $user)<option value="{{$user->owner_id}}">{{$user->owner_name}}</option>@endforeach
+                                                                                        </select><br></center>
                             <center style="margin-top:10px;margin-left:-63px;">อาจารย์ที่ปรึกษา: <input type="text" class="input-tbb" name="advisor_p" id="advisor" ><br></center>
 
                             <center style="margin-top:10px;margin-left:-63px;">ชนิดเอกสาร: <select name="type_project" class="select-tbb" id="type_project" oninput="this.className = ''">
@@ -453,14 +462,7 @@
                                             <option value="{{$branch->branch_id}}">{{$branch->branch_name}}</option>
                                         @endforeach
                                     </select><br></center>
-                                    <center><label for="text" class="">ข้อมูลติดต่อ</label><br></center>
-                                
-                                    <center style="margin-top:10px;margin-left:-63px;">Facebook: <input type="text" class="input-tbb" name="facebook_p" id="facebook" ><br></center>
-                                    <center style="margin-top:10px;margin-left:-35px;">Email: <input type="email" class="input-tbbb" name="email_p" id="email" ><br></center>
-                                    <center style="margin-top:10px;margin-left:-55px;">เบอร์โทร: <input type="phone" class="input-tbbbb" name="phone_p" id="phone" ><br></center>
-                               
-                           
-                           
+ 
                         <div style="overflow:10px;">
                             <div style="float:center;">
                                 <a href="{{action('ProjectController@showdata')}}"><button type="button" class="btnp btnnn">ย้อนกลับ</button></a>
@@ -472,8 +474,23 @@
                     </form>
             </div>
         </div>
-                           
+
         <script class="text/javascript">
+            $("#owner_p").chosen();
+        </script>
+
+        <script class="text/javascript">
+            $('#owner_p').change(function(){
+                if($(this).val()!=""){
+                    var owner_p=$(this).val();
+                    var _token=$('input[name="_token"]').val();
+                    $.ajax({
+                        url:"{{route('insertBD')}}",
+                        method:'POST',
+                        data:{owner_p:owner_p,_token:_token}
+                    })
+                }
+            });
             $('#type_project').change(function(){
                 if($(this).val()!=""){
                     var type_project=$(this).val();
@@ -523,6 +540,7 @@
             });
         </script>
 
+       
         <script src="js/formimg.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

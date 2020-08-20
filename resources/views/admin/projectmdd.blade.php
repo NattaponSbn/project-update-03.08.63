@@ -31,7 +31,16 @@
             });
             </script>
         @endif
-        
+
+        @if ($message = Session::get('delete_project'))
+            <script>
+            swal({
+                title: "ลบข้อมูลเรียบร้อย",
+                icon: "success",
+                button: "ตกลง",
+            });
+            </script>
+        @endif
         
         <h2>ผลงงานปริญญาเอก/โท</h2>
             <div class="row">
@@ -69,7 +78,7 @@
                                                 <td>
                                                     <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="projectviewmdd/{{$data->project_m_id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
                                                     <br>
-                                                    <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href=""><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
+                                                    <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href="delete_p_mdd/{{$data->project_m_id}}"><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
 
                                                 </td>
                                             </tr>
@@ -113,12 +122,11 @@
                                                 <td>{{$data->owner_m_name}}</td>
                                                 <td>{{$data->status}}</td>
                                                 <td>1</td>
-                                                
-                                                
+
                                                 <td>
                                                     <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="projectviewmdd/{{$data->project_m_id}}"><button type="submit"><img src="img/edit.png" alt="" class="imgdata"></button></a>
                                                     <br>
-                                                    <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href=""><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
+                                                    <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href="delete_p_mdd/{{$data->project_m_id}}"><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
 
                                                 </td>
                                             </tr>

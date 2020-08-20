@@ -419,15 +419,15 @@
                                 <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่องภาษาอังกฤษ: <input type="text" class="" name="project_name_en" id="project_name_en" value="<?php echo $datas->name_en; ?>"><br></center>
                                 <center style="margin-top:10px;margin-left:-40px;">คำสำคัญ: <input type="text" class="" name="keyword_project" id="keyword_project" value="<?php echo $datas->keyword_project; ?>"><br></center>
                                 <center style="margin-top:10px;margin-left:-71px;">คำอธิบายย่อ: <input type="text" class="input-tb" name="des_project" id="des_project" value="<?php echo $datas->des_project; ?>"><br></center>
+                                <center style="margin-top:10px;margin-left:-63px;">เจ้าของ: <input type="text" class="input-tbb" name="owner_p" id="owner_p" value="<?php echo $datas->owner_name; ?>"><br></center>
+                                <center style="margin-top:10px;margin-left:-63px;">อาจารย์ที่ปรึกษา: <input type="text" class="input-tbb" name="advisor_p" id="advisor" value="<?php echo $datas->advisor_p; ?>"><br></center>
                                 
                                 <center style="margin-top:10px;margin-left:-63px;">ชนิดเอกสาร: <select name="type_project" class="select-tbb" id="type_project" oninput="this.className = ''">
                                             <option value="" disabled selected>เลือกชนิดเอกสาร</option>
                                             @foreach($chk_type as $type)
                                                 <option value="{{$type->type_id}}" <?php if($datas->type_id==$type->type_id){ echo 'selected' ; } ?>>{{$type->type_name}}</option>
                                             @endforeach
-                                            
-                                        </select><br></center>
-                                
+                                            </select><br></center>
                                 <center style="margin-top:10px;margin-left:-40px;">ประเภท: <select name="genre_project" class="select-tbbb" id="genre_project" oninput="this.className = ''">
                                             <option value="" disabled selected>เลือกประเภท</option>
                                             @foreach($chk_genre as $genre)
@@ -443,7 +443,7 @@
                                 <center style="margin-top:10px;margin-left:-30px;">สาขา: <select name="branch_project" class="select-tbbbbb" id="branch_project" oninput="this.className = ''">
                                             <option value="" disabled selected>เลือกสาขา</option>
                                             @foreach($chk_branch as $branch)
-                                                <option value="{{$branch->branch_id}}">{{$branch->branch_name}}</option>
+                                                <option value="{{$branch->branch_id}}" <?php if($datas->branch_id==$branch->branch_id){ echo 'selected' ; } ?>>{{$branch->branch_name}}</option>
                                             @endforeach
                                         </select><br></center>
                                         <center><label for="text" class="">ข้อมูลติดต่อ</label><br></center>

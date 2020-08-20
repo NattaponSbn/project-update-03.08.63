@@ -164,12 +164,17 @@ class Project_MDDController extends Controller
         // $chkid = $_SESSION['usersid'];
         $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
-        $item = DB::select("SELECT * FROM projectmdd,type_project,users WHERE projectmdd.type_id=type_project.type_id and projectmdd.user_id=users.U_id and project_m_id='PM0001'");
+        $item = DB::select("SELECT * FROM projectmdd,type_project,category_project,users WHERE projectmdd.type_id=type_project.type_id and projectmdd.user_id=users.U_id
+        and projectmdd.category_id=category_project.category_id ORDER BY projectmdd.category_id=1");
+
+        $item2 = DB::select("SELECT * FROM projectmdd,type_project,category_project,admin_company,owner_projectmdd WHERE projectmdd.type_id=type_project.type_id 
+        and projectmdd.user_id=owner_projectmdd.owner_m_id and projectmdd.adm_id=admin_company.admin_id 
+        and projectmdd.category_id=category_project.category_id ORDER BY projectmdd.category_id=1");
         $userimg = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
 
-        return view('homeMDD',compact('item','adminaccount','userimg','imgaccount'));
+        return view('homeMDD',compact('item','adminaccount','userimg','imgaccount','item2'));
     }
     
     public function editprojectadmin(Request $request) {
@@ -178,6 +183,8 @@ class Project_MDDController extends Controller
         $project_name = $request->input('project_name');
         $keyword_project = $request->input('keyword_project');
         $des_project = $request->input('des_project');
+        $owner_p = $request->input('owner_m');
+        $advisor_p = $request->input('advisor_m');
         $type_project = $request->input('type_project');
         $genre_project = $request->input('genre_project');
         $category_project = $request->input('category_project');
@@ -195,9 +202,9 @@ class Project_MDDController extends Controller
         WHERE project_m_id='$project_m_id' AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
         AND projectmdd.category_id=category_project.category_id AND users.U_id=projectmdd.user_id ");
         
-        $dataA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,projectmdd 
+        $dataA = DB::select("SELECT * FROM type_project,genre_project,category_project,admin_company,owner_projectmdd,projectmdd 
         WHERE project_m_id='$project_m_id' AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
-        AND projectmdd.category_id=category_project.category_id AND admin_company.admin_id=projectmdd.user_id ");
+        AND projectmdd.category_id=category_project.category_id AND owner_projectmdd.owner_m_id=projectmdd.user_id AND admin_company.admin_id=projectmdd.adm_id ");
 
         $chk_type = DB::select("SELECT * FROM type_project");
         $chk_genre = DB::select("SELECT * FROM genre_project");

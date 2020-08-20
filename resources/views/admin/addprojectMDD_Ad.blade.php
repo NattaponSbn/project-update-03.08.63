@@ -28,6 +28,14 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- ค้นหา dropdown -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"/>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>project</title>
     
     <style type="text/css">
@@ -180,7 +188,29 @@
 
     </style>
 </head> 
+
 <body class="body1">
+    @if ($message = Session::get('yetdata'))
+        <script>
+        swal({
+            title: "เกิดข้อมผิดพลาด",
+            text: "ชื่อผู้ใช้มีผลงานอยู่เเล้ว",
+            icon: "warning",
+            button: "ตกลง",
+        });
+        </script>
+    @endif
+
+    @if ($message = Session::get('errordata'))
+        <script>
+        swal({
+            title: "กรุณากรอกอีกครั้ง",
+            text: "เนื่องจากท่านกรอกไม่ครบ",
+            icon: "warning",
+            button: "ตกลง",
+        });
+        </script>
+    @endif
         <div class="border2">
         <ul class="app-breadcrumb breadcrumb magne-right">
             <li class="breadcrumb-item magne-right-text"><a href="{{action('ProjectController@itemproject')}}">หน้าหลัก</a></li>
@@ -193,13 +223,14 @@
                     @csrf
                         <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">    
                             <center><label for="text" class="">เกี่ยวกับผลงาน</label><br></center>
-                            
-                            <input type="text" class="disappear" name="project_m_id" >
                             <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่อง: <input type="text" class="" name="project_name" id="project_name" ><br></center>
                             <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่องภาษาอังกฤษ: <input type="text" class="" name="project_name_en" id="project_name_en" ><br></center>
                             <center style="margin-top:10px;margin-left:-40px;">คำสำคัญ: <input type="text" class="" name="keyword_project" id="keyword_project" ><br></center>
                             <center style="margin-top:10px;margin-left:-71px;">คำอธิบายย่อ: <input type="text" class="input-tb" name="des_project" id="des_project" ><br></center>
-                            <center style="margin-top:10px;margin-left:-63px;">เจ้าของ: <input type="text" class="input-tbb" name="owner_m" id="owner_m" ><br></center>
+                            <center style="margin-top:10px;margin-left:-63px;">เจ้าของ: <select name="owner_m" id="owner_m">
+                                                                                            <option value="" disabled selected>เลือก</option>
+                                                                @foreach($chk_user as $user)<option value="{{$user->owner_m_id}}">{{$user->owner_m_name}}</option>@endforeach
+                                                                                        </select><br></center>
                             <center style="margin-top:10px;margin-left:-63px;">อาจารย์ที่ปรึกษา: <input type="text" class="input-tbb" name="advisor_m" id="advisor_m" ><br></center>
 
                             <center style="margin-top:10px;margin-left:-63px;">ชนิดเอกสาร: <select name="type_project" class="select-tbb" id="type_project" oninput="this.className = ''">
@@ -229,11 +260,6 @@
                                         @endforeach
                                     </select><br></center>
                                     <center><label for="text" class="">ข้อมูลติดต่อ</label><br></center>
-    
-                            <center style="margin-top:10px;margin-left:-63px;">Facebook: <input type="text" class="input-tbb" name="facebook_m" id="facebook" ><br></center>
-                            <center style="margin-top:10px;margin-left:-35px;">Email: <input type="email" class="input-tbbb" name="email_m" id="email" ><br></center>
-                            <center style="margin-top:10px;margin-left:-55px;">เบอร์โทร: <input type="phone" class="input-tbbbb" name="phone_m" id="phone" ><br></center>
-                          
                            
                         <div style="overflow:10px;">
                             <div style="float:center;">
@@ -247,8 +273,25 @@
                
             </div>
         </div>
+        
+        <script class="text/javascript">
+            $("#owner_m").chosen();
+            $('#owner_m').chosen(function(){
+                if($(this).val()!=""){
+                    var owner_m=$(this).val();
+                    var _token=$('input[name="_token"]').val();
+                    $.ajax({
+                        url:"{{route('insertMDD')}}",
+                        method:'POST',
+                        data:{owner_m:owner_m,_token:_token}
+                    })
+                }
+            });
+        </script>
+       
                            
         <script class="text/javascript">
+           
             $('#type_project').change(function(){
                 if($(this).val()!=""){
                     var type_project=$(this).val();

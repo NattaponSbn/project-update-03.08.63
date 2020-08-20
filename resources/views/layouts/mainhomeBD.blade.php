@@ -180,7 +180,7 @@
 
             
            <!-- error addproject -->
-             @if(count($errors) > 0)
+            @if(count($errors) > 0)
                 <script>
                     swal({
                         title: "เกิดข้อผิดพลาด",
@@ -228,9 +228,7 @@
                 </script>
                 <?php unset($_GET['logout']); ?>
             }
-            @endif
-            
-            
+            @endif  
 
             @if ($message = Session::get('successupdate'))
                 <script>
@@ -459,7 +457,6 @@
 
                         
                         <?php 
-                        
                             if(!isset($_SESSION['status'])=='user' & !isset($_SESSION['statusA'])=='admin') { ?>
                                 <div class="front nav-item" style="margin-top: px;font-family: 'Athiti', sans-serif;font-size: 16px;">
                                         <a class="text-item"  id="userDropdown" href="login" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><button class="btn-login btn btn-outline-primaryy"><i class="fas fa-user-circle span-i-user"></i><div class="text-mage">เข้าสู่ระบบ</div></button></a>
@@ -601,7 +598,7 @@
                                     
                                 @endforeach
                                 @foreach($adminaccount as $user)
-                                    <div class="name-scle dropdown-toggle "><?php echo $user->admin_company_name;?></div> 
+                                    <div class="name-scle dropdown-toggle "><?php echo $user->admin_name;?></div> 
                                 @endforeach
                                 </a>
                               
@@ -620,7 +617,7 @@
                                                 <div class="content">
                                                     <h5 class="name">
                                                     @foreach($adminaccount as $user)
-                                                        <span class="caret"><?php echo $user->admin_company_name;?></span>
+                                                        <span class="caret"><?php echo $user->admin_name;?></span>
                                                     
                                                     </h5>
                                                     <span class="email"><?php echo $user->admin_email;?></span>
