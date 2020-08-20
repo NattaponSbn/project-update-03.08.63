@@ -172,15 +172,14 @@ class ProjectController extends Controller
         // $chkid = $_SESSION['usersid'];
         $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
-        // $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id and project_id='6'");
-        // $item = count(DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC"));//SELECT * FROM projects ORDER BY created_at ASC
-        // for($i=0; $i<$item<=4; $i++){
+        
+        //ดึง id มา เพื่อทำการเเยก id ที่มาจากการ by order วันที่สร้าง (ในเเท็กมาใหม่)
         $itemloop = DB::select("SELECT project_id FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");
-        $item0 = $itemloop[0];
-        compact('item0');
-        foreach($item0 as $ite0){
+        $item0 = $itemloop[0]; //เลือกตำเเหน่งของข้อมูล
+        compact('item0'); // ส่งค่า item0 จากการเลือกตำเเหน่ง
+        foreach($item0 as $ite0){ // ทำการวง loop foreach เพื่อ เอาค่า id ออกจาก array
             // echo $ite0;
-            $ite0;
+            $ite0; // id ของ ตำเเหน่งที่ 0 ที่ได้มาจากการ loop 
         }
         $item1 = $itemloop[1];
         compact('item1');
@@ -200,6 +199,7 @@ class ProjectController extends Controller
             // echo $ite3;
             $ite3;
         }
+        // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
         $itemlp0 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
         AND projects.project_id='$ite0'");
         $itemlp1 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
