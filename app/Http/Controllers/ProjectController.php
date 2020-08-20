@@ -173,15 +173,47 @@ class ProjectController extends Controller
         $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
         // $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id and project_id='6'");
-        $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");//SELECT * FROM projects ORDER BY created_at ASC
-        
+        // $item = count(DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC"));//SELECT * FROM projects ORDER BY created_at ASC
+        // for($i=0; $i<$item<=4; $i++){
+        $itemloop = DB::select("SELECT project_id FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");
+        $item0 = $itemloop[0];
+        compact('item0');
+        foreach($item0 as $ite0){
+            // echo $ite0;
+            $ite0;
+        }
+        $item1 = $itemloop[1];
+        compact('item1');
+        foreach($item1 as $ite1){
+            // echo $ite1;
+            $ite1;
+        }
+        $item2 = $itemloop[2];
+        compact('item2');
+        foreach($item2 as $ite2){
+            // echo $ite2;
+            $ite2;
+        }
+        $item3 = $itemloop[3];
+        compact('item3');
+        foreach($item3 as $ite3){
+            // echo $ite3;
+            $ite3;
+        }
+        $itemlp0 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+        AND projects.project_id='$ite0'");
+        $itemlp1 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+        AND projects.project_id='$ite1'");
+        $itemlp2 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+        AND projects.project_id='$ite2'");
+        $itemlp3 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+        AND projects.project_id='$ite3'");
+
         $itemgenre = DB::select("SELECT * FROM projects,genre_project,type_project WHERE genre_project.genre_name in ('ไอโอที(IoT)') AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id");
-        
-        
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
         
-        return view('homeBD',compact('item','imgaccount','adminaccount','itemgenre'));
+        return view('homeBD',compact('itemlp0','itemlp1','itemlp2','itemlp3','imgaccount','adminaccount','itemgenre'));
     }
 
     public function detailitem($project_id){

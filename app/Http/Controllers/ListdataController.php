@@ -47,8 +47,15 @@ class ListdataController extends Controller
     }
 
     public function Newarrivaldata() {
-        $datas = Datalist::all();
-        return view('pagewedsum.Newarrival', ['datas'=>$datas]);
+        session_start();
+        $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
+        $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
+        // $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id and project_id='6'");
+        $datas = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");//SELECT * FROM projects ORDER BY created_at ASC
+
+        $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
+        $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
+        return view('pagewedsum.Newarrival',compact('datas','imgaccount','adminaccount'));
     }
 
     function adduser(Request $request) {
@@ -63,23 +70,6 @@ class ListdataController extends Controller
         return redirect('dataview')->with('success', 'เพิ่มข้อมูลเรียบร้อย');
 
         // print_r($request->input());
-    }
-
-    public function destroy($id) {
-        DB::delete('DELETE FROM users WHERE U_id=?',[$id]);
-        return redirect('dataview')->with('success', 'ลบข้อมูลเรียบร้อย'); 
-    }
-
-    public function deleteadmin($id) {
-        DB::delete('DELETE FROM admin_company WHERE admin_id=?',[$id]);
-        return redirect('viewadmin')->with('success', 'ลบข้อมูลเรียบร้อย'); 
-        
-    }
-
-    public function deleteproject($id) {
-        DB::delete('DELETE FROM addproject WHERE project_id=?',[$id]);
-        return redirect('viewproject')->with('success', 'ลบข้อมูลเรียบร้อย'); 
-        
     }
 
     public function addfileproject(Request $request)
