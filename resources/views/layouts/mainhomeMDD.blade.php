@@ -687,6 +687,7 @@
                                                     <a href="homeBD"><button type="button" class="btn-control btn-default btn-outline-primary "  style="font-size:18px;">ปริญญาตรี</button></a> 
                                                     <a href="homeMDD"><button type="button" class="btn-control btn-default btn-outline-primary " style="font-size:18px;">ปริญญาเอก โท </button></a>
                                                 </div><br>
+                                                
                                                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
                                                         >  เว็บ
                                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>

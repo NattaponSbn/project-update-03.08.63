@@ -164,17 +164,22 @@ class Project_MDDController extends Controller
         // $chkid = $_SESSION['usersid'];
         $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
-        $item = DB::select("SELECT * FROM projectmdd,type_project,category_project,users WHERE projectmdd.type_id=type_project.type_id and projectmdd.user_id=users.U_id
-        and projectmdd.category_id=category_project.category_id ORDER BY projectmdd.category_id=1");
-
-        $item2 = DB::select("SELECT * FROM projectmdd,type_project,category_project,admin_company,owner_projectmdd WHERE projectmdd.type_id=type_project.type_id 
-        and projectmdd.user_id=owner_projectmdd.owner_m_id and projectmdd.adm_id=admin_company.admin_id 
-        and projectmdd.category_id=category_project.category_id ORDER BY projectmdd.category_id=1");
         $userimg = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
+        // $item = DB::select("SELECT * FROM projectmdd,type_project,category_project,users WHERE projectmdd.type_id=type_project.type_id and projectmdd.user_id=users.U_id
+        // and projectmdd.category_id=category_project.category_id ORDER BY projectmdd.category_id=1");
+        $item = DB::select("SELECT * FROM users,projectmdd,genre_project,type_project,category_project WHERE category_project.category_name in ('ติดตาม') AND projectmdd.type_id=type_project.type_id 
+        AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projectmdd.user_id=users.U_id ORDER BY RAND()");
 
-        return view('homeMDD',compact('item','adminaccount','userimg','imgaccount','item2'));
+        $itemA = DB::select("SELECT * FROM owner_projectmdd,projectmdd,genre_project,type_project,category_project WHERE category_project.category_name in ('ติดตาม') AND projectmdd.type_id=type_project.type_id 
+        AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projectmdd.user_id=owner_projectmdd.owner_m_id  ORDER BY RAND()");
+        // $item2 = DB::select("SELECT * FROM projectmdd,type_project,category_project,admin_company,owner_projectmdd WHERE projectmdd.type_id=type_project.type_id 
+        // and projectmdd.user_id=owner_projectmdd.owner_m_id and projectmdd.adm_id=admin_company.admin_id 
+        // and projectmdd.category_id=category_project.category_id ORDER BY projectmdd.category_id=1");
+       
+
+        return view('homeMDD',compact('item','adminaccount','userimg','imgaccount','itemA'));
     }
     
     public function editprojectadmin(Request $request) {

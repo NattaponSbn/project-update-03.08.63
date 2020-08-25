@@ -42,6 +42,7 @@ Route::get('projectviewmdd', 'Project_MDDController@project');
 // Route::get('db', 'ListdataController@addproject');
 
 Route::get('Newarrival', 'ListdataController@Newarrivaldata');
+Route::get('pageIot', 'ListdataController@dataIot');
 
 Route::get('Popular', function () {
     return view('pagewedsum.pagePopular');
@@ -100,7 +101,8 @@ Route::get('project', function () {
 });
 
 // Route::get('admin', 'ProjectController@itemproject');
-Route::get('homeadmin', 'profileadminController@pageadmin');
+// Route::get('homeadmin', 'profileadminController@pageadmin');
+Route::get('homeadmin', 'AdminController@datadetil');
 
 
 Route::get('teststap', function () {

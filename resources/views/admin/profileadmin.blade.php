@@ -92,14 +92,14 @@
                 <center style="margin-left:-650px;margin-top:40px;"><div class="col-sm-10"><h1>โปรไฟล์</h1></div></center>
                   <form class="form" action="profileupdateadmin" method="POST" id="registrationForm" enctype="multipart/form-data">
                     {{csrf_field()}}
-                    @foreach($user as $users)
+                    
                     <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-3 layout-imgup"><!--left col-->
                                 <div class="text-center">
                                 @foreach($imgaccount as $img)
-                                    <img src="img_admin\<?php echo $img->pathimg; ?>" id="showimg" name="showimg" class="avatar img-circle img-thumbnail" alt="imgupload">
+                                    <img src="\img_admin\<?php echo $img->pathimg; ?>" id="showimg" name="showimg" class="avatar img-circle img-thumbnail" alt="imgupload">
                                 @endforeach
                                     <h6>อัพโหลดรูปภาพของคุณ...</h6>
                                     <input type="file" class="text-center center-block file-upload image" name="img" OnChange="showPreview(this)">
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     
-                    
+                    @foreach($user as $users)
                     <div class="form-group">
                           <div class="col-xs-6" style="margin-top:10px;">
                               <label for="name"><h5>ชื่อ-สุกล</h5></label>
@@ -159,32 +159,7 @@
     </div><!--/row-->
     
 </body>
-        <!-- <script class="text/javascript">
-            $('#gender').change(function(){
-                if($(this).val()!=""){
-                    var gender=$(this).val();
-                    var _token=$('input[name="_token"]').val();
-                    $.ajax({
-                        url:"{{route('insertproject')}}",
-                        method:'POST',
-                        data:{gender:gender,_token:_token}
-                    })
-                }
-            });
-
-            $('#province').change(function(){
-                if($(this).val()!=""){
-                    var province=$(this).val();
-                    var _token=$('input[name="_token"]').val();
-                    $.ajax({
-                        url:"{{route('insertproject')}}",
-                        method:'POST',
-                        data:{province:province,_token:_token}
-                    })
-                }
-            });
-
-        </script> -->
+       
         
 </html>
 

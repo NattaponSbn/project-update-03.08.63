@@ -172,48 +172,124 @@ class ProjectController extends Controller
         // $chkid = $_SESSION['usersid'];
         $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
-        
-        //ดึง id มา เพื่อทำการเเยก id ที่มาจากการ by order วันที่สร้าง (ในเเท็กมาใหม่)
-        $itemloop = DB::select("SELECT project_id FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");
-        $item0 = $itemloop[0]; //เลือกตำเเหน่งของข้อมูล
-        compact('item0'); // ส่งค่า item0 จากการเลือกตำเเหน่ง
-        foreach($item0 as $ite0){ // ทำการวง loop foreach เพื่อ เอาค่า id ออกจาก array
-            // echo $ite0;
-            $ite0; // id ของ ตำเเหน่งที่ 0 ที่ได้มาจากการ loop 
-        }
-        $item1 = $itemloop[1];
-        compact('item1');
-        foreach($item1 as $ite1){
-            // echo $ite1;
-            $ite1;
-        }
-        $item2 = $itemloop[2];
-        compact('item2');
-        foreach($item2 as $ite2){
-            // echo $ite2;
-            $ite2;
-        }
-        $item3 = $itemloop[3];
-        compact('item3');
-        foreach($item3 as $ite3){
-            // echo $ite3;
-            $ite3;
-        }
-        // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
-        $itemlp0 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
-        AND projects.project_id='$ite0'");
-        $itemlp1 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
-        AND projects.project_id='$ite1'");
-        $itemlp2 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
-        AND projects.project_id='$ite2'");
-        $itemlp3 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
-        AND projects.project_id='$ite3'");
-
-        $itemgenre = DB::select("SELECT * FROM projects,genre_project,type_project WHERE genre_project.genre_name in ('ไอโอที(IoT)') AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id");
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
         
-        return view('homeBD',compact('itemlp0','itemlp1','itemlp2','itemlp3','imgaccount','adminaccount','itemgenre'));
+        //ดึง id มา เพื่อทำการเเยก id ที่มาจากการ by order วันที่สร้าง (ในเเท็กมาใหม่)
+        $itemloop = DB::select("SELECT project_id FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");
+        if(isset($itemloop[0])? $itemloop[0]:'') {
+            $item0 = $itemloop[0]; //เลือกตำเเหน่งของข้อมูล
+            compact('item0'); // ส่งค่า item0 จากการเลือกตำเเหน่ง
+            foreach($item0 as $ite0){ // ทำการวง loop foreach เพื่อ เอาค่า id ออกจาก array
+                // echo $ite0;
+                $ite0; // id ของ ตำเเหน่งที่ 0 ที่ได้มาจากการ loop 
+                // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
+                $itemlp0 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+                AND projects.project_id='$ite0'");
+            }
+        }else {
+            $itemlp0='';
+        }
+
+        if(isset($itemloop[1])? $itemloop[1]:'') {
+            $item1 = $itemloop[1];
+            compact('item1');
+            foreach($item1 as $ite1){
+                // echo $ite1;
+                $ite1;
+                $itemlp1 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+                AND projects.project_id='$ite1'");
+            }
+        }else {
+            $itemlp1='';
+        }
+        
+        if(isset($itemloop[2])? $itemloop[2]:'') {
+            $item2 = $itemloop[2];
+            compact('item2');
+            foreach($item2 as $ite2){
+                // echo $ite2;
+                $ite2;
+                $itemlp2 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+                AND projects.project_id='$ite2'");
+            }
+        }else {
+            $itemlp2='';
+        }
+
+        if(isset($itemloop[3])? $itemloop[3]:'') {
+            $item3 = $itemloop[3];
+            compact('item3');
+            foreach($item3 as $ite3){
+                // echo $ite3;
+                $ite3;
+                $itemlp3 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+                AND projects.project_id='$ite3'");
+            }
+        }else {
+            $itemlp3='';
+        }
+
+        //genre(ไอโอที(IoT)) item 
+        $itemgenre = DB::select("SELECT project_id FROM projects,genre_project,type_project WHERE genre_project.genre_name in ('ไอโอที(IoT)') AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id ORDER BY RAND()");
+        if(isset($itemgenre[0])? $itemgenre[0]:'') {
+            $item0 = $itemgenre[0]; //เลือกตำเเหน่งของข้อมูล
+            compact('item0'); // ส่งค่า item0 จากการเลือกตำเเหน่ง
+            foreach($item0 as $ite0){ // ทำการวง loop foreach เพื่อ เอาค่า id ออกจาก array
+                // echo $ite0;
+                $ite0; // id ของ ตำเเหน่งที่ 0 ที่ได้มาจากการ loop
+                // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
+                $itemlg0 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+                AND projects.project_id='$ite0'"); 
+            }
+            
+        }else {
+            $itemlg0='';
+        }
+
+        if(isset($itemgenre[1])?$itemgenre[1]:''){
+            $item1 = $itemgenre[1];
+            compact('item1');
+            foreach($item1 as $ite1){
+                // echo $ite1;
+
+                $ite1;
+                $itemlg1 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+                AND projects.project_id='$ite1'");
+            }
+            
+        }else {
+            $itemlg1='';
+        }
+       
+        if(isset($itemgenre[2])?$itemgenre[2]:''){
+            $item2 = $itemgenre[2];
+            compact('item2');
+            foreach($item2 as $ite2){
+                // echo $ite2;
+                $ite2;
+                $itemlg2 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+                AND projects.project_id='$ite2'");
+            }
+        }else {
+            $itemlg2='';
+        }
+        
+        if(isset($itemgenre[3])?$itemgenre[3]:''){
+            $item3 = $itemgenre[3];
+            compact('item3');
+            foreach($item3 as $ite3){
+                // echo $ite3;
+                $ite3;
+                $itemlg3 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+                AND projects.project_id='$ite3'");
+            }
+        }else {
+            $itemlg3='';
+        }
+        
+
+        return view('homeBD',compact('itemlp0','itemlp1','itemlp2','itemlp3','itemlg0','itemlg1','itemlg2','itemlg3','imgaccount','adminaccount','itemgenre'));
     }
 
     public function detailitem($project_id){

@@ -149,4 +149,24 @@ class AdminController extends Controller
         DB::delete("DELETE FROM projectmdd WHERE projectmdd.project_m_id='$project_m_id'");
         return redirect('viewproject')->with('delete_project', 'ลบข้อมูลเรียบร้อย');
     }
+
+    public function datadetil(){
+        session_start();
+        $chkid = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
+        $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkid'");
+        
+        //data รวม user
+        $chk_user = count(DB::select("SELECT NO_User FROM users"));
+        $chk_owner = count(DB::select("SELECT no_id FROM owner_project"));
+        $chk_owner_m = count(DB::select("SELECT no_o_m FROM owner_projectmdd"));
+        $sum_user = $chk_user+$chk_owner+$chk_owner_m;
+        
+        //data รวม project
+        $chk_project = count(DB::select("SELECT No_PB FROM projects"));
+        $chk_projectmdd = count(DB::select("SELECT NO_PM FROM projectmdd"));
+        $sum_project = $chk_project+$chk_projectmdd;
+
+        return view('admin.homeadmin',compact('imgaccount','sum_user','sum_project'));
+        
+    }
 }

@@ -16427,7 +16427,7 @@ be a descendant of the grid when it is being dragged.
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-.widget-small .icon {
+.widget-small {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -16438,7 +16438,7 @@ be a descendant of the grid when it is being dragged.
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    padding: 20px;
+    padding: 35px;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 4px 0 0 4px;
     font-size: 2.5rem;

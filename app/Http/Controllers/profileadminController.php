@@ -81,10 +81,11 @@ class profileadminController extends Controller
         //
         session_start();
         $chkidproject = $_SESSION['adminid'];
-        
+        // echo $chkidproject;
         // $imgaccount = DB::select("SELECT * FROM imgaccount,users WHERE  AND id='$chkidproject'");
         $imgaccount = DB::select("SELECT * FROM admin_company WHERE admin_id ='$chkidproject'");
-        $user = DB::select("SELECT * FROM admin_company WHERE admin_company.admin_id and admin_id='$chkidproject'");
+        $user = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidproject'");
+       
         return view('admin.profileadmin',compact('user','imgaccount'));
     }
 
