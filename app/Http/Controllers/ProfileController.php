@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Imgaccount;
 use Illuminate\Support\Facades\Auth;
@@ -105,14 +105,14 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Request $request,$user_id)
     {
         $name = $request->input('name');
         $gender = $request->input('gender');
         $province = $request->input('province');
         $username = $request->input('username');
         $email = $request->input('email');
-        DB::update('UPDATE users SET name=?, gender=?, province=?, username=?, email=? WHERE U_id = ?',[$name,$gender,$province,$username,$email,$id]);
+        DB::update('UPDATE users SET name=?, gender=?, province=?, username=?, email=? WHERE U_id = ?',[$name,$gender,$province,$username,$email,$user_id]);
         return redirect('profileuser')->with('successupdate', 'อัพเดทข้อมูลเรียบร้อย');
 
         

@@ -1137,8 +1137,8 @@ pre code {
 }
 
 .imgdata {
-    width: 15px;
-    height: 15px;
+    width: 25px;
+    height: 25px;
 }
 
 @media (max-width: 600px) {
@@ -10894,4 +10894,9 @@ a.text-dark:focus {
     padding: initial;
     padding: 20px 0px 10px 20px;
     font-size: 18px;
+}
+
+label.fontdetail {
+    font-family: 'Athiti', sans-serif;
+    font-size: 17px;
 }

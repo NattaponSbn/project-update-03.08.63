@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Datauser;
 use App\Dataproject;
@@ -51,19 +51,21 @@ class ListdataController extends Controller
         $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
         // $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id and project_id='6'");
-        $datas = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");//SELECT * FROM projects ORDER BY created_at ASC
-
+        $datas = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id AND projects.status_p in ('0') ORDER BY projects.created_at DESC");//SELECT * FROM projects ORDER BY created_at ASC
+        $datas = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id AND projects.status_p in ('1') ORDER BY projects.created_at DESC");//SELECT * FROM projects ORDER BY created_at ASC
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
         return view('pagewedsum.Newarrival',compact('datas','imgaccount','adminaccount'));
     }
+
 
     public function dataIot() {
         session_start();
         $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
         // $item = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id and project_id='6'");
-        $datas = DB::select("SELECT * FROM projects,genre_project,type_project WHERE genre_project.genre_name in ('ไอโอที(IoT)') AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id ");
+        $datas = DB::select("SELECT * FROM projects,genre_project,type_project WHERE genre_project.genre_name in ('ไอโอที(IoT)') AND projects.status_p in ('0') AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id ");
+        $datas = DB::select("SELECT * FROM projects,genre_project,type_project WHERE genre_project.genre_name in ('ไอโอที(IoT)') AND projects.status_p in ('1') AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id ");
 
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");

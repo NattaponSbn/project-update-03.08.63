@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Datauser;
 use App\Imgaccount;
 use Illuminate\Http\Request;
@@ -33,6 +33,21 @@ class RegisterController extends Controller
         $user->status=$status;
         $user->save();
 
+        session_start();
+        $user_log = $_POST['username'];
+        // echo $username;
+        $pass_log = $_POST['password'];
+        $chackuser = DB::select("SELECT * FROM users WHERE username = '$user_log' and password = '$pass_log'");
+        // print_r($chackuser);
+        foreach($chackuser as $chackuser) {
+            $_SESSION['usersid'] = $chackuser->U_id;
+            $_SESSION['usernameguest'] = $chackuser->username;
+            $_SESSION['nameuser'] = $chackuser->name;
+            $_SESSION['emailuser'] = $chackuser->email;
+            $_SESSION['pathimg'] = $chackuser->pathimg;
+            $_SESSION['status'] = $chackuser->status;
+        }
+        
         return redirect('homeBD')->with('successregister', 'สมัครสมาชิกเรียบร้อย');
         
         

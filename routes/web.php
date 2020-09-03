@@ -42,6 +42,7 @@ Route::get('projectviewmdd', 'Project_MDDController@project');
 // Route::get('db', 'ListdataController@addproject');
 
 Route::get('Newarrival', 'ListdataController@Newarrivaldata');
+Route::get('itemtypeBD/{type_id}', 'ProjectController@typeitem');
 Route::get('pageIot', 'ListdataController@dataIot');
 
 Route::get('Popular', function () {
@@ -73,9 +74,11 @@ Route::get('SearchAdvance', function () {
     //itemclcikBD
     Route::get('itemdetaliBD','ProjectController@index');
     Route::get('itemdetaliBD/{project_id}','ProjectController@detailitem');
+    Route::get('itemtypeBD/{type_id}','ProjectController@typeitem');
     //itemclcikMDD
     Route::get('itemdetaliMDD','ProjectController@indexmdd');
     Route::get('itemdetaliMDD/{project_m_id}','ProjectController@detailitemmdd');
+    Route::get('itemtypeMDD/{type_id}','ProjectController@detailitem');
 
 
 Route::get('Detailproject', function () {
@@ -184,6 +187,9 @@ Route::post('adddata', 'ListdataController@adduser');
     Route::post('editprojectbd_ad', 'ProjectController@editprojectbd_ad')->name('editprojectbd_ad');
     Route::get('projectviewbd/{project_id}', 'ProjectController@projectbd');
     Route::get('projectviewbd_A/{project_id}', 'ProjectController@projectbd_A');
+
+    //การตรวจสอบ admin ก่อนออกสู่ระบบ
+    Route::get('confirm_p/{project_id}', 'AdminController@confirmproject');
 
     // อัพเดทโปรเจคป.โท/ป.เอก
     Route::post('editprojectmdd', 'Project_MDDController@editprojectadmin');

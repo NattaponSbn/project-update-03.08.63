@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Projectmdd;
 
 class Project_MDDController extends Controller
@@ -167,6 +167,13 @@ class Project_MDDController extends Controller
         $userimg = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
+
+        $chk_follow = count(DB::select("SELECT NO_PM FROM projectmdd,category_project WHERE projectmdd.status_m in ('1') AND projectmdd.category_id=category_project.category_id AND category_project.category_name in ('ติดตาม')"));
+        $sum_follow = $chk_follow;
+        // if($chk_follow){
+        //     $sum_follow = $chk_follow;
+        // }else{$sum_follow = $chk_follow-$chk_follow;
+
         // $item = DB::select("SELECT * FROM projectmdd,type_project,category_project,users WHERE projectmdd.type_id=type_project.type_id and projectmdd.user_id=users.U_id
         // and projectmdd.category_id=category_project.category_id ORDER BY projectmdd.category_id=1");
         $item = DB::select("SELECT * FROM users,projectmdd,genre_project,type_project,category_project WHERE category_project.category_name in ('ติดตาม') AND projectmdd.type_id=type_project.type_id 
@@ -179,7 +186,7 @@ class Project_MDDController extends Controller
         // and projectmdd.category_id=category_project.category_id ORDER BY projectmdd.category_id=1");
        
 
-        return view('homeMDD',compact('item','adminaccount','userimg','imgaccount','itemA'));
+        return view('homeMDD',compact('item','adminaccount','userimg','imgaccount','itemA','sum_follow'));
     }
     
     public function editprojectadmin(Request $request) {

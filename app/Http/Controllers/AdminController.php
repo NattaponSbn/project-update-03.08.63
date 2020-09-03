@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Project;
 use App\Projectmdd;
 use App\Owner;
@@ -34,15 +34,15 @@ class AdminController extends Controller
     public function insertprojectBD_Ad(Request $request) {
         
         $codeu = 'PB';
-        $codea = 'A';
         $cont = count(DB::select("SELECT No_PB FROM projects"));
         $nextint = $cont+1;
         $string_id = substr("000".$nextint,-4);
-        $nextid = $codeu.$string_id.$codea;
+        $nextid = $codeu.$string_id;
         session_start();
         $_SESSION['dataprject'] = 'project';
         $userid = $_SESSION['adminid'];
         $logo = 'defaultlogo.png';
+        $status_p = '0';
 
         $user_id=$request->owner_p;
         $chk_yet=DB::select("SELECT projects.user_id FROM projects WHERE projects.user_id='$user_id'");
@@ -62,6 +62,7 @@ class AdminController extends Controller
                 $project->user_id=$request->owner_p;
                 $project->ad_id=$userid;
                 $project->project_id=$nextid;
+                $project->status_p=$status_p;
                 $project->project_name=$request->project_name;
                 $project->name_en=$request->project_name_en;
                 $project->keyword_project=$request->keyword_project;
@@ -88,11 +89,10 @@ class AdminController extends Controller
     public function insertprojectMDD_Ad(Request $request) {
         
         $codeu = 'PM';
-        $codea = 'A';
         $cont = count(DB::select("SELECT No_PM FROM projectmdd"));
         $nextint = $cont+1;
         $string_id = substr("000".$nextint,-4);
-        $nextid = $codeu.$string_id.$codea;
+        $nextid = $codeu.$string_id;
 
         session_start();
         $_SESSION['dataprject'] = 'project';
@@ -100,6 +100,7 @@ class AdminController extends Controller
         $logo = 'defaultlogo.png';
 
         $user_id=$request->owner_m;
+        
         // echo $user_id;
         $chk_yet=DB::select("SELECT projectmdd.user_id FROM projectmdd WHERE projectmdd.user_id='$user_id'");
         if(isset($chk_yet)?$chk_yet:''){
@@ -161,12 +162,46 @@ class AdminController extends Controller
         $chk_owner_m = count(DB::select("SELECT no_o_m FROM owner_projectmdd"));
         $sum_user = $chk_user+$chk_owner+$chk_owner_m;
         
-        //data รวม project
-        $chk_project = count(DB::select("SELECT No_PB FROM projects"));
-        $chk_projectmdd = count(DB::select("SELECT NO_PM FROM projectmdd"));
+        //data รวม project(1)
+        $chk_project = count(DB::select("SELECT No_PB FROM projects WHERE projects.status_p in ('1')"));
+        $chk_projectmdd = count(DB::select("SELECT NO_PM FROM projectmdd WHERE projectmdd.status_m in ('1')"));
         $sum_project = $chk_project+$chk_projectmdd;
 
-        return view('admin.homeadmin',compact('imgaccount','sum_user','sum_project'));
+        //data รวม project(0)
+        $cp_project = count(DB::select("SELECT No_PB FROM projects WHERE projects.status_p in ('0')"));
+        $cm_project = count(DB::select("SELECT NO_PM FROM projectmdd WHERE projectmdd.status_m in ('0')"));
+        $sum_upload = $cp_project+$cm_project;
+        $_SESSION['project0']='peoject0';
+
+        $chk_project0 = DB::select("SELECT * FROM projects WHERE projects.status_p in ('0')");
+        if(isset($chk_project0) ? $chk_project0:'') {
+            foreach($chk_project0 as $chk_project0){
+                $chk_id = $chk_project0->user_id;
+                // echo $chk_id;
+            }
+            if(DB::select("SELECT * FROM projects,users WHERE projects.user_id=users.U_id AND projects.user_id='$chk_id'")){
+                $project0 = DB::select("SELECT * FROM projects,users WHERE projects.user_id=users.U_id AND projects.user_id='$chk_id'");
+            }
+            elseif(DB::select("SELECT * FROM projects,owner_project WHERE owner_project.owner_id=projects.user_id AND projects.user_id='$chk_id'")){
+                $project0 = DB::select("SELECT * FROM projects,owner_project WHERE owner_project.owner_id=projects.user_id AND projects.user_id='$chk_id'");
+                $_SESSION['status_p'] = 'owner';
+            }
+            else {
+                echo 'ไม่มีข้อมูลเเสดง';
+            }
+
+            
+        }else {
+            $project0='';
+        }
+
+        return view('admin.homeadmin',compact('imgaccount','sum_user','sum_project','project0','sum_upload'));
         
+    }
+
+    public function confirmproject($project_id){
+        $confirm = '1';
+        DB::update("UPDATE projects SET projects.status_p='$confirm' WHERE projects.project_id ='$project_id'");
+        return back()->with('successconfirm', 'ยืนยันเรียบร้อย');
     }
 }

@@ -11,10 +11,17 @@
                         <div class="carousel-item active">
                             <div class="table-responsive">
                             @foreach($datas as $data_p)
-                                <a href="itemdetaliBD/{{$data_p->project_id}}"><div class="column" ><div class="columnimg"><img src="project\img_logo\<?php echo $data_p->logo;?>" alt="" class="fromimg"></div></a>
-                                    <center><a href="itemdetaliBD/{{$data_p->project_id}}"><div class="textimg"><?php echo $data_p->project_name;?></div></a></center>
-                                    <center><a href="itemdetaliBD"><div class="textimg2"><?php echo $data_p->type_name;?></div></a></center>
-                                </div>
+                                @if(isset($data_p->status_p)=='0')
+                                    <a href="itemdetaliBD/{{$data_p->project_id}}"><div class="column" ><div class="columnimg"><img src="project\img_logo\<?php echo $data_p->logo;?>" alt="" class="fromimg"></div></a>
+                                        <center><a href="itemdetaliBD/{{$data_p->project_id}}"><div class="textimg"><?php echo $data_p->project_name;?></div></a></center>
+                                        <center><a href="itemdetaliBD"><div class="textimg2"><?php echo $data_p->type_name;?></div></a></center>
+                                    </div>
+                                    @elseif(isset($data_p->status_p)=='1')
+                                    <a href="itemdetaliBD/{{$data_p->project_id}}"><div class="column" ><div class="columnimg"><img src="project\img_logo\<?php echo $data_p->logo;?>" alt="" class="fromimg"></div></a>
+                                        <center><a href="itemdetaliBD/{{$data_p->project_id}}"><div class="textimg"><?php echo $data_p->project_name;?></div></a></center>
+                                        <center><a href="itemdetaliBD"><div class="textimg2"><?php echo $data_p->type_name;?></div></a></center>
+                                    </div>
+                                @endif
                             @endforeach
                             </div>
                         </div>

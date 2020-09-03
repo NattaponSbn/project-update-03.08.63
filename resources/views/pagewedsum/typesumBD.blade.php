@@ -4,109 +4,32 @@
         <meta charset="utf-8">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
         <!-- Twitter meta-->
         <!-- Open Graph Meta-->
         <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
         <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
-        <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv=”refresh” content="0;/homeBD">
         <!-- Main CSS-->
         <link rel="stylesheet" type="text/css" href="css/main.css">
-        <!-- Font-icon css-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="css/app.css">       
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+             
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="css/styles.css" rel="stylesheet" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet">
         <!-- import icon -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- font Athiti -->
         <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500;600&display=swap" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
-        <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         
         <title>ICTSTORE</title>
 
         <style>
-           .user-size {
-                width: 100px;
-                margin-top: -5px;
-                margin-right: 30px;
-                margin-left: 30px;
-                padding-bottom: -10%;
-           }
-
-           .img-user-size {
-               width: 100%;
-           }
-
-           .content{
-                margin-top: 8px;
-           }
-
-           .search-left{
-                margin-left: 50px;
-           }
-
-           .top {
-                margin-top: 5px;
-           }
-
-           .btn-login {
-                height: 43px;
-                margin-left: -20px;
-                background-color: white;
-                border-radius: 5px;
-           }
-
-           .name-scle{
-                font-size: 16px;
-                color: #FFFFFF;
-                -ms-flex-item-align: center;
-                    align-self: center;
-                margin-top: -30px;
-                margin-left: 90px;
-           }
-
-           .span-i-user {
-                font-size: 33px; 
-                color: none; 
-                margin-left: -85px;
-                margin-top:-1.5px;
-                margin-right: -7px;
-           }
-           
-           .text-mage {
-               font-size:17px;
-               margin-left: 40px;
-               padding:3px;
-               margin-top:-35px;
-           }
-
-           
-           body {
-               background-image: url("img/background-MDD.jpg");
-               height: 100%; 
-               background-position: center;
-               background-repeat: no-repeat;
-               background-size: cover;
-           }
-
-           html {
-               background-image: url("img/background-body-left.jpg");
-               height: 100%; 
-               background-position: center 550px;
-               background-repeat: no-repeat;
-               background-size: cover;
-           }
-
            .user-size {
                 margin-top: -3px;
            }
@@ -147,8 +70,12 @@
                 
            }
 
+           html {
+            background-image: url("/img/background-BD-item.jpg");
+           }
+           
            .img-top {
-               background-image: url("img/background-body-addproject-5.jpg");
+               background-image: url("/img/background-BD-item.jpg");
                height: 100%; 
                background-position: center;
                background-repeat: no-repeat;
@@ -156,7 +83,7 @@
            }
 
            .img-down {
-               background-image: url("img/background-body-addproject-2.jpg");
+               background-image: url("/img/background-body-addproject-2.jpg");
                height: 100%; 
                background-position: center 550px;
                background-repeat: no-repeat;
@@ -247,44 +174,89 @@
             .img-user-size {
                width: 100%;
            }
+
+           
+                            
         </style>
     </head>
     <body class="img-top">
 
-    @if(isset($_SESSION['message'])){
-        <script>
-            swal({
-                title: "ยินดีต้อนรับเข้าสู่ระบบ",
-                icon: "success",
-                button: "ตกลง",
-            });
-        </script>
-        <?php unset($_SESSION['message']); ?> 
-    }
-    @endif
+            
+           <!-- error addproject -->
+             @if(count($errors) > 0)
+                <script>
+                    swal({
+                        title: "เกิดข้อผิดพลาด",
+                        text: "กรุณากรอกข้อมูลให้ครบ",
+                        icon: "warning",
+                        html: foreach ($errors->all() as $error)
+                                    <li>{{ $errors }}</li>
+                                endforeach,
+                        button: "ตกลง",
+                    });
+                </script>    
+            @endif
+            <!-- successappproject -->
+            @if ($message = Session::get('successappproject'))
+                <script>
+                swal({
+                    title: "เรียบร้อย",
+                    text: "ข้อมูลได้บันทึกเรียบร้อยเเล้ว",
+                    icon: "success",
+                    button: "ตกลง",
+                });
+                </script>
+            @endif
+            <!-- login pupup -->
+            @if(isset($_SESSION['message'])){
+                <script>
+                    swal({
+                        title: "ยินดีต้อนรับเข้าสู่ระบบ",
+                        icon: "success",
+                        button: "ตกลง",
+                    });
+                </script>
+                <?php unset($_SESSION['message']); ?> 
+            }
+            @endif
+            <!-- logout popup -->
 
-    @if ($message = Session::get('successupdate'))
-        <script>
-        swal({
-            title: "สร้างผลงานเรียบร้อย",
-            icon: "success",
-            button: "ตกลง",
-        });
-        </script>
-    @endif
+            @if (!empty($_GET['logout'])) {
+                <script>
+                    swal({
+                        title: "ออกจากระบบเรียบร้อย",
+                        icon: "success",
+                        button: "ตกลง",
+                    });
+                </script>
+                <?php unset($_GET['logout']); ?>
+            }
+            @endif
+            
+            
 
-    @if ($message = Session::get('successupdate'))
-        <script>
-        swal({
-            title: "อัพเดทข้อมูลเรียบร้อย",
-            icon: "success",
-            button: "ตกลง",
-        });
-        </script>
-    @endif
+            @if ($message = Session::get('successupdate'))
+                <script>
+                swal({
+                    title: "อัพเดทข้อมูลเรียบร้อย",
+                    icon: "success",
+                    button: "ตกลง",
+                });
+                </script>
+            @endif
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            @if ($message = Session::get('successregister'))
+                <script>
+                swal({
+                    title: "สมัครสมาชิกเรียบร้อย",
+                    icon: "success",
+                    button: "ตกลง",
+                });
+                </script>
+            @endif
+            
+        <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <button type="button" class="close" style="margin-left:450px;margin-top:5px;" data-dismiss="modal" aria-label="Close">
@@ -293,12 +265,12 @@
                     <div class="modal-body" style="margin-top:-5px;">
                         <h3><div class="card-header">{{ __('สมัครสมาชิก') }}</div></h3>
                             <div class="card-body">
-                            <form method="POST" action="registers">
+                                <form method="POST" action="registers">
                                     @csrf
-                                    <div class="form-group row  " style="margin-left:5px;">
+                                    <div class="form-group row layoutname layoutname-BD">
                                         
-                                        <div class="col-md-6 layoutinput" >
-                                            <input id="name" type="text" style="width:105%;" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="กรอกชื่อนามสกุลของคุณ">
+                                        <div class="col-md-6 layoutinput">
+                                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="กรอกชื่อนามสกุลของคุณ">
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -307,10 +279,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row "style="margin-left:5px;">
+                                    <div class="form-group row layoutname">
                                         
                                         <div class="col-md-6 layoutinput">
-                                            <select name="gender"  style="width:100%;" class=" form-control @error('gender') is-invalid @enderror">
+                                            <select name="gender" id="" class="layoutgender-size form-control @error('gender') is-invalid @enderror">
                                                 <option value="">เลือกเพศ</option>
                                                 <option value="ชาย">ชาย</option>
                                                 <option value="หญิง">หญิง</option>
@@ -413,10 +385,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row " style="margin-left:5px;">
+                                    <div class="form-group row layoutname">
                                         
                                         <div class="col-md-6 layoutinput">
-                                            <input id="email" type="email" style="width:105%;" class="layoutnom-size form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="name@mail.com">
+                                            <input id="email" type="email" class="layoutnom-size form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="name@mail.com">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -428,7 +400,7 @@
                                     <div class="form-group row layoutname " style="margin-left:219px;margin-top: -56px;">
                                         
                                         <div class="col-md-6 layoutinput" >
-                                            <input id="username_m" type="text" style="width: 260%;" class="layoutnom-size form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="ตั้งชื่อผู้ใช้">
+                                            <input id="username" type="text" style="width: 260%;" class="layoutnom-size form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="ตั้งชื่อผู้ใช้">
                                             @error('username')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -437,10 +409,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row " style="margin-left:5px;">
+                                    <div class="form-group row layoutname ">
                                         
                                         <div class="col-md-6 layoutinput">
-                                            <input id="password_m" type="password" style="width:105%;" class="layoutnom-size form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="ตั้งรหัสผ่านอย่างน้อย 8 ตัว">
+                                            <input id="password" type="password" class="layoutnom-size form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="ตั้งรหัสผ่านอย่างน้อย 8 ตัว">
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -467,25 +439,26 @@
                     </div>
                 </div>
             </div>
+            
     <div class="app sidebar-mini " >
         <header class="app-header">
             <!-- font Athiti -->
-            <a href="homeMDD" class="app-header__logo font-Athiti" >ICTSTORE</a> 
+            <a href="{{action('ProjectController@itemproject')}}" class="app-header__logo font-Athiti" >ICTSTORE</a> 
             <!-- main.css-->
             <ul class="app-nav">
                 <li class="app-search search-left">
                     <input class="app-search__input" type="search" placeholder="ค้นหา...">
                     <button class="app-search__button"><i class="fa fa-search"></i></button>
                 </li>
-                <nav class="app-navmenu" >    
-                    <li class="active1 menulink fontlink" ><a href="homeBD">หน้าเเรก</a></li>
-                    <li class="active2 menulink fontlink"><a href="SearchAdvance">ค้นหาเเบบละเอียด</a></li>
+                <!-- <div class="app-navbar__overlay" data-toggle="sidebar" aria-label="Hide Sidebar"></div> -->
+                <nav class="app-navmenu " >    
+                    <li class="active1 menulink fontlink" ><a href="{{action('ProjectController@itemproject')}}">หน้าเเรก</a></li>
+                    <li class="active2 menulink fontlink"><a href="SearchAdvance" >ค้นหาเเบบละเอียด</a></li>
                     <li class="active3 menulink fontlink"><a href="#">เกี่ยวกับ</a></li>
                     <li class="active4 menulink fontlink"><a href="#">ติดต่อ</a></li>
                 </nav>
                 <div class="navbar-dark layoutaccout ">
                     <ul class="navbar-nav ml-auto ml-md-0">
-                        
                     <?php 
                             if(!isset($_SESSION['status'])=='user' & !isset($_SESSION['statusA'])=='admin') { ?>
                                 <div class="front nav-item" style="margin-top: px;font-family: 'Athiti', sans-serif;font-size: 16px;">
@@ -570,7 +543,7 @@
                                 
                                     <a class="nav-link " id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @foreach($imgaccount as $img)
-                                        <img class="rounded-circle user-sizes img-profile" src="imgaccount/<?php echo $img->pathimg; ?>" alt="USer Atver" >
+                                        <img class="rounded-circle user-sizes img-profile" src="/imgaccount/<?php echo $img->pathimg; ?>" alt="USer Atver" >
                                         
                                     @endforeach
                                     @foreach($imgaccount as $user)
@@ -585,7 +558,7 @@
                                                     <center><div class="image">
                                                         <a href="profile">
                                                         @foreach($imgaccount as $img)
-                                                            <img src="imgaccount\<?php echo $img->pathimg; ?>" alt="" class="img-user-size user-avatar rounded-circle"/>
+                                                            <img src="\imgaccount\<?php echo $img->pathimg; ?>" alt="" class="img-user-size user-avatar rounded-circle"/>
                                                         @endforeach
                                                         </a>
 
@@ -624,7 +597,7 @@
                                 
                                 <a class="nav-link " id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @foreach($adminaccount as $img)
-                                    <img class="rounded-circle user-sizes img-profile" src="img_admin/<?php echo $img->pathimg; ?>" alt="USer Atver" >
+                                    <img class="rounded-circle user-sizes img-profile" src="/img_admin/<?php echo $img->pathimg; ?>" alt="USer Atver" >
                                     
                                 @endforeach
                                 @foreach($adminaccount as $user)
@@ -639,7 +612,7 @@
                                                 <center><div class="image">
                                                     <a href="profile">
                                                     @foreach($adminaccount as $img)
-                                                        <img src="img_admin\<?php echo $img->pathimg; ?>" alt="" class="img-user-size user-avatar rounded-circle"/>
+                                                        <img src="\img_admin\<?php echo $img->pathimg; ?>" alt="" class="img-user-size user-avatar rounded-circle"/>
                                                     @endforeach
                                                     </a>
 
@@ -671,6 +644,8 @@
                         <?php }?>
                     </ul>
                 </div>
+               
+            <a class="app-navbar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> 
                 <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> 
         </header>
             <div class="app-sidebar__overlay" data-toggle="sidebar" aria-label="Hide Sidebar"></div>
@@ -684,10 +659,9 @@
                                         <div class="sb-sidenav-menu">
                                             <div class="nav">
                                                 <div class="font-Athiti">
-                                                    <a href="homeBD"><button type="button" class="btn-control btn-default btn-outline-primary "  style="font-size:18px;">ปริญญาตรี</button></a> 
-                                                    <a href="homeMDD"><button type="button" class="btn-control btn-default btn-outline-primary " style="font-size:18px;">ปริญญาเอก โท </button></a>
+                                                    <a href="{{action('ProjectController@itemproject')}}"><button type="button" class="btn-control btn-default btn-outline-primaryy "  style="font-size:18px;">ปริญญาตรี</button></a> 
+                                                    <a href="{{action('Project_MDDController@itemproject')}}"><button type="button" class="btn-control btn-default btn-outline-primaryy " style="font-size:18px;">ปริญญาเอก โท </button></a>
                                                 </div><br>
-                                                
                                                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
                                                         >  เว็บ
                                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -696,7 +670,7 @@
                                                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                                                 <a class="nav-link" href="wed">ทั้งหมด</a>
                                                                 <a class="nav-link" href="#">ติดตาม</a>
-                                                                <a class="nav-link" href="#">ดูเเละสุขภาพ</a>
+                                                                <a class="nav-link" href="#">ดูเเลสุขภาพ</a>
                                                                 <a class="nav-link" href="#">ไร่สวน</a>
                                                             </nav>
                                                     </div>
@@ -759,7 +733,7 @@
                     <p><hr></p>
                     
                     <div class="layoutlogre">
-                    <?php 
+                        <?php 
                         if(!isset($_SESSION['status'])=='user' & !isset($_SESSION['statusA'])=='admin') {
 
                         }
@@ -778,19 +752,40 @@
                             </div>
                        <?php } 
                        ?>
+                            
                     </div>
                     </li>
                 </ul>
                     
                 </aside>
-                <div>@yield('content')</div>
-
-        
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- app.css -->
+        <div class="rowcolumn">
+            <div class="col-md-12">
+                <div class="tile1">
+                    <div class="tile-body">
+                    <div class="texthe1">มาใหม่</div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="table-responsive">
+                            @foreach($datas as $data_p)
+                                <a href="itemdetaliBD/{{$data_p->project_id}}"><div class="column" ><div class="columnimg"><img src="\project\img_logo\<?php echo $data_p->logo;?>" alt="" class="fromimg"></div></a>
+                                    <center><a href="itemdetaliBD/{{$data_p->project_id}}"><div class="textimg"><?php echo $data_p->project_name;?></div></a></center>
+                                    <center><a href="itemdetaliBD"><div class="textimg2"><?php echo $data_p->type_name;?></div></a></center>
+                                </div>
+                            @endforeach
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div
+    ></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -798,14 +793,19 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/datatables-demo.js"></script>
+        
         <!-- The javascript plugin to display page loading on top-->
         <script src="js/plugins/pace.min.js"></script>
         <!-- Page specific javascripts-->
+        <!-- <script>
+            $(window).scroll(function(){
+                var scroll = $(window).scrollTop();
+                $(".img-down .img-top").css({
+                    width: (100 + scroll/5) + "%"
+                })
+            })
+        </script> -->
     </div>
-    
+        <!-- Modal -->
     </body>
 </html>
-

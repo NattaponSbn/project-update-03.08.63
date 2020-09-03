@@ -15860,6 +15860,12 @@ be a descendant of the grid when it is being dragged.
     font-family: 'Athiti', sans-serif;
 }
 
+.magne-right-long {
+    text-align: right;
+    margin-left: 75%;
+    font-family: 'Athiti', sans-serif;
+}
+
 .app-breadcrumb {
     margin-bottom: 0;
     text-align: right;

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Project;
 use App\User;
 use App\Imgproject;
-use DB;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -21,6 +21,8 @@ class ProjectController extends Controller
         $string_id = substr("000".$nextint,-4);
         $nextid = $codeu.$string_id;
 
+        $status_p = '0';
+
         $project = new Project;
         session_start();
         $_SESSION['dataprject'] = 'project';
@@ -29,6 +31,7 @@ class ProjectController extends Controller
 
         $project->project_id=$nextid;
         $project->user_id=$userid;
+        $project->status_p=$status_p;
         $project->project_name=$request->project_name;
         $project->keyword_project=$request->keyword_project;
         $project->des_project=$request->des_project;
@@ -91,7 +94,6 @@ class ProjectController extends Controller
         $chkidproject = $_SESSION['usersid'];
         $_SESSION['project'] = "successproject";
 
-        
         $project_name = $request->input('project_name');
         $name_en = $request->input('project_name_en');
         $keyword_project = $request->input('keyword_project');
@@ -174,6 +176,11 @@ class ProjectController extends Controller
         $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
+
+        $chk_project = count(DB::select("SELECT No_PB FROM projects WHERE projects.status_p in ('1')"));
+        if($chk_project>4){
+            $sum_project = $chk_project;
+        }else{$sum_project = $chk_project-$chk_project;}
         
         //ดึง id มา เพื่อทำการเเยก id ที่มาจากการ by order วันที่สร้าง (ในเเท็กมาใหม่)
         $itemloop = DB::select("SELECT project_id FROM projects,type_project WHERE projects.type_id=type_project.type_id ORDER BY projects.created_at DESC");
@@ -185,20 +192,24 @@ class ProjectController extends Controller
                 $ite0; // id ของ ตำเเหน่งที่ 0 ที่ได้มาจากการ loop 
                 // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
                 $itemlp0 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
-                AND projects.project_id='$ite0'");
+                AND projects.project_id='$ite0'");  
+               
             }
         }else {
             $itemlp0='';
         }
 
+        
         if(isset($itemloop[1])? $itemloop[1]:'') {
             $item1 = $itemloop[1];
             compact('item1');
             foreach($item1 as $ite1){
-                // echo $ite1;
+                // echo $ite1; echo '<br>';
                 $ite1;
                 $itemlp1 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
                 AND projects.project_id='$ite1'");
+                
+               
             }
         }else {
             $itemlp1='';
@@ -212,6 +223,7 @@ class ProjectController extends Controller
                 $ite2;
                 $itemlp2 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
                 AND projects.project_id='$ite2'");
+                
             }
         }else {
             $itemlp2='';
@@ -225,13 +237,84 @@ class ProjectController extends Controller
                 $ite3;
                 $itemlp3 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
                 AND projects.project_id='$ite3'");
+                
             }
         }else {
             $itemlp3='';
         }
 
+        if(isset($itemloop[4])? $itemloop[4]:'') {
+            $item4 = $itemloop[4];
+            compact('item4');
+            foreach($item4 as $ite4){
+                // echo $ite3;
+                $ite4;
+                $itemlp4 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+                AND projects.project_id='$ite4'");
+            }
+        }else {
+            $itemlp4='';
+        }
+        
+        if(isset($itemloop[5])? $itemloop[5]:'') {
+            $item5 = $itemloop[5];
+            compact('item5');
+            foreach($item5 as $ite5){
+                // echo $ite3;
+                $ite5;
+                $itemlp5 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+                AND projects.project_id='$ite5'");
+            }
+        }else {
+            $itemlp5='';
+        }
+        
+        if(isset($itemloop[6])? $itemloop[6]:'') {
+            $item6 = $itemloop[6];
+            compact('item6');
+            foreach($item6 as $ite6){
+                // echo $ite3;
+                $ite6;
+                $itemlp6 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+                AND projects.project_id='$ite6'");
+            }
+        }else {
+            $itemlp6='';
+        }
+        
+        if(isset($itemloop[7])? $itemloop[7]:'') {
+            $item7 = $itemloop[7];
+            compact('item7');
+            foreach($item7 as $ite7){
+                // echo $ite3;
+                $ite7;
+                $itemlp7 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+                AND projects.project_id='$ite7'");
+            }
+        }else {
+            $itemlp7='';
+        }
+        
+        if(isset($itemloop[8])? $itemloop[8]:'') {
+            $item8 = $itemloop[8];
+            compact('item8');
+            foreach($item8 as $ite8){
+                // echo $ite3;
+                $ite8;
+                $itemlp8 = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id 
+                AND projects.project_id='$ite8'");
+            }
+        }else {
+            $itemlp8='';
+        }
+
         //genre(ไอโอที(IoT)) item 
-        $itemgenre = DB::select("SELECT project_id FROM projects,genre_project,type_project WHERE genre_project.genre_name in ('ไอโอที(IoT)') AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id ORDER BY RAND()");
+        $chk_project_type = count(DB::select("SELECT No_PB FROM projects,genre_project WHERE projects.status_p in ('1') AND projects.genre_id=genre_project.genre_id AND genre_project.genre_name in ('ไอโอที(IoT)')"));
+        if($chk_project_type>4){
+            $sum_type_p = $chk_project_type;
+        }else{$sum_type_p = $chk_project_type-$chk_project_type;}
+
+        $itemgenre = DB::select("SELECT project_id FROM projects,genre_project,type_project WHERE genre_project.genre_name in ('ไอโอที(IoT)') AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id ORDER BY projects.created_at ASC");
         if(isset($itemgenre[0])? $itemgenre[0]:'') {
             $item0 = $itemgenre[0]; //เลือกตำเเหน่งของข้อมูล
             compact('item0'); // ส่งค่า item0 จากการเลือกตำเเหน่ง
@@ -239,7 +322,7 @@ class ProjectController extends Controller
                 // echo $ite0;
                 $ite0; // id ของ ตำเเหน่งที่ 0 ที่ได้มาจากการ loop
                 // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
-                $itemlg0 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+                $itemlg0 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
                 AND projects.project_id='$ite0'"); 
             }
             
@@ -287,9 +370,62 @@ class ProjectController extends Controller
         }else {
             $itemlg3='';
         }
+
+        if(isset($itemgenre[4])?$itemgenre[4]:''){
+            $item4 = $itemgenre[4];
+            compact('item4');
+            foreach($item4 as $ite4){
+                // echo $ite3;
+                $ite4;
+                $itemlg4 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+                AND projects.project_id='$ite4'");
+            }
+        }else {
+            $itemlg4='';
+        }
+
+        if(isset($itemgenre[5])?$itemgenre[5]:''){
+            $item5 = $itemgenre[5];
+            compact('item5');
+            foreach($item5 as $ite5){
+                // echo $ite3;
+                $ite5;
+                $itemlg5 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+                AND projects.project_id='$ite5'");
+            }
+        }else {
+            $itemlg5='';
+        }
+
+        if(isset($itemgenre[6])?$itemgenre[6]:''){
+            $item6 = $itemgenre[6];
+            compact('item6');
+            foreach($item6 as $ite6){
+                // echo $ite3;
+                $ite6;
+                $itemlg6 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+                AND projects.project_id='$ite6'");
+            }
+        }else {
+            $itemlg6='';
+        }
+
+        if(isset($itemgenre[7])?$itemgenre[7]:''){
+            $item7 = $itemgenre[7];
+            compact('item7');
+            foreach($item7 as $ite7){
+                // echo $ite3;
+                $ite7;
+                $itemlg7 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+                AND projects.project_id='$ite7'");
+            }
+        }else {
+            $itemlg7='';
+        }
         
 
-        return view('homeBD',compact('itemlp0','itemlp1','itemlp2','itemlp3','itemlg0','itemlg1','itemlg2','itemlg3','imgaccount','adminaccount','itemgenre'));
+        return view('homeBD',compact('itemlp0','itemlp1','itemlp2','itemlp3','itemlp4','itemlp5','itemlp6','itemlp7','itemlp8',
+        'itemlg0','itemlg1','itemlg2','itemlg3','itemlg4','itemlg5','itemlg6','itemlg7','imgaccount','adminaccount','itemgenre','sum_type_p','sum_project'));
     }
 
     public function detailitem($project_id){
@@ -299,7 +435,6 @@ class ProjectController extends Controller
         $item  = DB::select("SELECT * FROM type_project,genre_project,category_project,users,projects,img_project 
         WHERE users.U_id=projects.user_id AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
         AND projects.category_id=category_project.category_id AND projects.user_id=img_project.p_id AND projects.project_id = '$project_id'"  );
-        
 
         $itemadmin  = DB::select("SELECT * FROM admin_company,owner_project,projects,type_project,genre_project,category_project
         WHERE owner_project.owner_id=projects.user_id AND admin_company.admin_id=projects.ad_id AND projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
@@ -323,6 +458,38 @@ class ProjectController extends Controller
         $itemadmin  = DB::select("SELECT * FROM admin_company,owner_projectmdd,projectmdd,type_project,genre_project,category_project
         WHERE owner_projectmdd.owner_m_id=projectmdd.user_id AND admin_company.admin_id=projectmdd.adm_id AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
         AND projectmdd.category_id=category_project.category_id AND projectmdd.project_m_id = '$project_m_id'"  );
+
+        $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
+        $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
+
+        return view('project.itemdetalimdd',compact('item','project_m_id','itemadmin','imgaccount','adminaccount'));
+    }
+
+    public function typeitem($type_id){
+        session_start();
+        $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
+        $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
+        $datas = DB::select("SELECT * FROM projects,type_project WHERE projects.type_id=type_project.type_id AND projects.type_id='$type_id'");
+
+        $imgback = DB::select("SELECT * FROM projects,img_project WHERE projects.user_id=img_project.p_id AND projects.project_id = '$type_id'");
+        $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
+        $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
+        return view('pagewedsum.typesumBD',compact('datas','type_id','imgback','imgaccount','adminaccount'));
+    }
+
+
+    public function typeitemmdd($type_id){
+        session_start();
+        $chkid = (isset($_SESSION['usersid'])) ? $_SESSION['usersid'] : '';
+        $chkidadmin = (isset($_SESSION['adminid'])) ? $_SESSION['adminid'] : '';
+        $item  = DB::select("SELECT * FROM type_project,genre_project,category_project,users,projectmdd
+        WHERE users.U_id=projectmdd.user_id AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
+        AND projectmdd.category_id=category_project.category_id AND projectmdd.type_id = '$type_id'"  );
+        
+
+        $itemadmin  = DB::select("SELECT * FROM admin_company,owner_projectmdd,projectmdd,type_project,genre_project,category_project
+        WHERE owner_projectmdd.owner_m_id=projectmdd.user_id AND admin_company.admin_id=projectmdd.adm_id AND projectmdd.type_id=type_project.type_id AND projectmdd.genre_id=genre_project.genre_id 
+        AND projectmdd.category_id=category_project.category_id AND projectmdd.type_id = '$type_id'"  );
 
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkid'");
         $adminaccount = DB::select("SELECT * FROM admin_company WHERE admin_id='$chkidadmin'");
@@ -396,7 +563,6 @@ class ProjectController extends Controller
 
         return view('admin.projectmdd',compact('projectmdd','imgaccount','projectmddA'));
     }
-
     // editadmin
 
     public function editprojectbd(Request $request) {
@@ -573,7 +739,6 @@ class ProjectController extends Controller
         }
         $dataimg = DB::select("SELECT * FROM img_project,projects WHERE projects.user_id=img_project.p_id and projects.user_id='$photo'");
         
-
         $imglogoproject = DB::select("SELECT * FROM img_project,projects WHERE img_project.p_id=projects.project_id and project_id='$project_id'");
         $chk_type = DB::select("SELECT * FROM type_project");
         $chk_genre = DB::select("SELECT * FROM genre_project");

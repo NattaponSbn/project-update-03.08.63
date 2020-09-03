@@ -1,3 +1,13 @@
+<?php 
+    if(isset($_SESSION['status'])=='user'){
+        header( "refresh: 0; url=/homeBD" );
+        exit(0);
+    }
+    elseif(isset($_SESSION['status'])=='admin'){
+        header('Location: /homeadmin');
+        exit(0);
+    }
+?>
 
 <!DOCTYPE html>
 <html>
@@ -183,6 +193,18 @@
                width: 100%;
            }
 
+           .disappear {
+                display: none;
+            }
+
+            button.btn-imgdata {
+                width: 35px;
+                height: 35px;
+                background-image: url('img/check-square-solid.png');
+                background-size: cover;
+                border:none;
+            }
+
         </style>
     </head>
     <body class="app sidebar-mini">
@@ -200,7 +222,7 @@
             }
         @endif
 
-        @if ($message = Session::get('successupdate'))
+        @if($message = Session::get('successupdate'))
             <script>
             swal({
                 title: "อัพเดทข้อมูลเรียบร้อย",
@@ -210,10 +232,20 @@
             </script>
         @endif
 
+        @if($message = Session::get('successconfirm'))
+            <script>
+            swal({
+                title: "ยืนยันเรียบร้อยเรียบร้อย",
+                icon: "success",
+                button: "ตกลง",
+            });
+            </script>
+        @endif
+
         <div class="app sidebar-mini " >
         <header class="app-header">
             <!-- font Athiti -->
-            <a href="homeBD" class="app-header__logo" >ICTSTORE(ADMIN)</a> 
+            <a href="homeadmin" class="app-header__logo" >ICTSTORE(ADMIN)</a> 
             <!-- main.css-->
             <ul class="app-nav">
                 <li class="app-search search-left">
@@ -407,18 +439,16 @@
                 
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
+
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="assets/demo/datatables-demo.js"></script>

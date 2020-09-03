@@ -174,27 +174,13 @@
             .img-user-size {
                width: 100%;
            }
-
-           
-                            
+              
         </style>
     </head>
     <body class="img-top">
 
            <!-- error addproject -->
-             @if(count($errors) > 0)
-                <script>
-                    swal({
-                        title: "เกิดข้อผิดพลาด",
-                        text: "กรุณากรอกข้อมูลให้ครบ",
-                        icon: "warning",
-                        html: foreach ($errors->all() as $error)
-                                    <li>{{ $errors }}</li>
-                                endforeach,
-                        button: "ตกลง",
-                    });
-                </script>    
-            @endif
+             
             <!-- successappproject -->
             @if ($message = Session::get('successappproject'))
                 <script>
@@ -651,11 +637,37 @@
                     <!-- img item project -->
                 <div class="rowcolumn2">
                     <div class="col-md-12">
-                        <ul class="app-breadcrumb breadcrumb magne-right">
-                            <li class="breadcrumb-item magne-right-text" ><a href="{{action('Project_MDDController@itemproject')}}">หน้าหลัก</a></li>
+                        <ul class="app-breadcrumb breadcrumb magne-right-long">
+                            <li class="breadcrumb-item "><a href="{{action('Project_MDDController@itemproject')}}">หน้าหลัก</a></li>
                             
                             @foreach($item as $datas)
-                            <li class="breadcrumb-item magne-right-text"><a href="#"><?php echo $datas->project_m_name; ?></a>
+                            <li class="breadcrumb-item magne-right-text"><a href="#">
+                                <?php 
+                                    $str = $datas->project_m_name;
+                                    $chk_count = count_chars($str);
+                                    $count = count($chk_count);
+                                    if($count>30) {
+                                        $strcount = substr($str,0,-10);
+                                        $strcount1 = substr($strcount,0,-10);
+                                        $strcount2 = substr($strcount1,0,-10);
+                                        $strcount3 = substr($strcount2,0,-10);
+                                        $strcount4 = substr($strcount3,0,-10);
+                                        $strcount5 = substr($strcount4,0,-10);
+                                        $strcount6 = substr($strcount5,0,-10);
+                                        $strcount7 = substr($strcount6,0,-10);
+                                        $strcount8 = substr($strcount7,0,-10);
+                                        $strcount9 = substr($strcount8,0,-10);
+                                        $strcount10 = substr($strcount9,0,-10);
+                                        $strcount11 = substr($strcount10,0,-10);
+                                        $strcount12 = substr($strcount11,0,-10);
+                                        $strcount13 = substr($strcount12,0,-10);
+                                        $strcut = $strcount13.'...';
+                                        echo $strcut;
+                                    }else {
+                                        echo $datas->project_m_name;
+                                    }
+                                    
+                                ?></a>
                             </li>
                             @endforeach
 
@@ -701,7 +713,7 @@
 
                                 @foreach($itemadmin as $items) 
                                 <div class="D-text D-layout">
-                                <table style="width:100%">
+                                <table style="width:50%" >
                                     <tr><td ><label for="text"><b>ชื่อเรื่อง :</b></label></td>
                                         <td colspan=1 ><?php echo $items->project_m_name; ?></td>
                                     <tr><td ><label for="text"><b>ชื่อเรื่องภาษาอังกฤษ :</b></label></td>

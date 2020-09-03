@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class DataadminController extends Controller
 {
@@ -15,8 +15,8 @@ class DataadminController extends Controller
     public function index()
     {
         //
-        $dataprojectuser = DB::select('SELECT * FROM addproject');
-        return view('editdatauseradmin',['datauseradmin'=>$datauseradmin]);
+        $dataproject_user = DB::select('SELECT * FROM addproject');
+        return view('editdatauseradmin',['datauseradmin']);
     }
 
     /**

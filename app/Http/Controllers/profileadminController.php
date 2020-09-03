@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class profileadminController extends Controller
