@@ -1,5 +1,8 @@
 {
-    "private": true,
+    "name": "@sweetalert/transformer",
+    "version": "0.1.0",
+    "description": "",
+    "main": "dist/transformer.js",
     "scripts": {
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -9,6 +12,8 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
+    "author": "Tristan Edwards <tristan.edwards@me.com> (https://tristanedwards.me)",
+    "license": "MIT",
     "devDependencies": {
         "axios": "^0.19",
         "cross-env": "^7.0",
@@ -18,9 +23,15 @@
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0"
     },
+    "peerDependencies": {
+        "sweetalert": "^2.1.x"
+    },
+    "private": true,
     "dependencies": {
+        "@sweetalert/with-react": "^0.1.1",
         "bootstrap-fileinput": "^5.1.2",
         "croppie": "^2.6.5",
-        "popper.js": "^1.14.3"
+        "popper.js": "^1.14.3",
+        "sweetalert": "^2.1.2"
     }
 }

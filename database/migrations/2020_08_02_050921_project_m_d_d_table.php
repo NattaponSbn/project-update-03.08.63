@@ -22,6 +22,7 @@ class ProjectMDDTable extends Migration
             $table->string('facebook');
             $table->string('email');
             $table->string('phone');
+            $table->string('status_m');
             $table->bigInteger('type_id');
             $table->bigInteger('genre_id');
             $table->bigInteger('category_id');

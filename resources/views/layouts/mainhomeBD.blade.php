@@ -27,6 +27,8 @@
     <!-- font Athiti -->
     <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
     <title>ICTThesis</title>
 
@@ -183,7 +185,7 @@
 
 
     <!-- error addproject -->
-    
+
     <!-- successappproject -->
     @if ($message = Session::get('successappproject'))
     <script>
@@ -207,8 +209,20 @@
     <?php unset($_SESSION['message']); ?>
     }
     @endif
-    <!-- logout popup -->
 
+    @if(isset($_SESSION['notpass'])){
+    <script>
+        swal({
+            title: "รหัสผ่านของคุณผิด",
+            icon: "error",
+            button: "ตกลง",
+        });
+    </script>
+    <?php unset($_SESSION['notpass']); ?>
+    }
+    @endif
+
+    <!-- logout popup -->
     @if (!empty($_GET['logout'])) {
     <script>
         swal({
@@ -726,8 +740,11 @@
                     if (!isset($_SESSION['status']) == 'user' & !isset($_SESSION['statusA']) == 'admin') {
                     } else if (isset($_SESSION['status']) == 'user') { ?>
                         <div class="links front">
+                            @if(!isset($_SESSION['project']))
                             <a href="addproject" class="view">สร้างผลงาน</a><br>
+                            @elseif(isset($_SESSION['project']))
                             <a href="projectview" class="view">ผลงานของฉัน</a><br>
+                            @endif
                         </div>
                     <?php } else  if (isset($_SESSION['statusA']) == 'admin') { ?>
                         <div class="links front">
@@ -761,6 +778,14 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+        <script>
+            $(function() {
+                $(".rateyo").rateYo()
+            });
+        </script>
 
         <!-- The javascript plugin to display page loading on top-->
         <script src="js/plugins/pace.min.js"></script>

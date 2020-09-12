@@ -26,7 +26,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- font Athiti -->
     <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500;600&display=swap" rel="stylesheet">
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
     <title>ICTSTORE</title>
 
@@ -181,7 +184,6 @@
             margin-top: 30px;
             margin-right: -300px;
         }
-
     </style>
 </head>
 
@@ -246,6 +248,41 @@
         });
     </script>
     @endif
+
+    @if ($message = Session::get('rateing'))
+
+    </script>
+    @endif
+
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">ความพึ่งพอใจ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{action('ProjectController@downloadfile')}}" method="POST">
+                        @csrf
+                        @foreach($item as $datas)
+                        <input type="text" name="project_id" id="project_id" value="<?php echo $datas->project_id; ?>">
+                        @endforeach
+                        <div class="rateyo" name="rating" id="rating" data-rateyo-rating="5" data-rateyo-num-stars="5" data-rateyo-score="3">
+                        </div>
+                        <input type="hidden" name="rating">
+                </div>
+           
+            <button type="submit" class="btn btn-primary">ดาวน์โหลดไฟล์ข้อมูล</button>
+            </form>
+            </div>
+        </div>
+        
+
+    </div>
+    </div>
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -433,6 +470,8 @@
             </div>
         </div>
     </div>
+
+
 
     <div class="app sidebar-mini ">
         <header class="app-header">
@@ -775,56 +814,72 @@
                                         <div class="col-md-6" style="width:100px">
                                             <div class="laout-text-d">
                                                 @foreach($item as $datas)
-                                                <div class="D-text D-layout" >
+                                                <div class="D-text D-layout">
                                                     <!-- <table style="width:100%" border=1> -->
                                                     <table style="width:100%">
-                                                    <tr><td ><label for="text"><b>ชื่อเรื่อง :</b></label></td>
-                                                        <td colspan=1 style="width:65%;"><?php echo $datas->project_name; ?></td>
-                                                    <tr><td ><label for="text"><b>ชื่อเรื่องภาษาอังกฤษ :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->name_en; ?></td>
-                                                    <tr><td ><label for="text"><b>เจ้าของโครงงาน :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->name; ?></td>
-                                                    <tr><td ><label for="text"><b>อาจารย์ที่ปรึกษา :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->advisor_p; ?></td>
-                                                    <tr><td ><label for="text"><b>คำสำคัญ :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->keyword_project; ?></td>
-                                                    <tr><td><label for="text" class=""><b>บทคัดย่อ :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->des_project; ?></td></tr>
+                                                        <tr>
+                                                            <td><label for="text"><b>ชื่อเรื่อง :</b></label></td>
+                                                            <td colspan=1 style="width:65%;"><?php echo $datas->project_name; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>ชื่อเรื่องภาษาอังกฤษ :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->name_en; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>เจ้าของโครงงาน :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->name; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>อาจารย์ที่ปรึกษา :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->advisor_p; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>คำสำคัญ :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->keyword_project; ?></td>
+                                                        <tr>
+                                                            <td><label for="text" class=""><b>บทคัดย่อ :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->des_project; ?></td>
+                                                        </tr>
                                                     </table>
-                                                    
+
                                                     <div class="a-top-layout">
-                                                        <p>ดาวน์โหลดไฟล์ข้อมูล<a href="" class="a-layout">คลิก</a></p>
+                                                        <p>ดาวน์โหลดไฟล์ข้อมูล<a href="#" class="a-layout" data-toggle="modal" data-target="#exampleModalLong">คลิก</a></p>
                                                     </div>
                                                 </div>
                                                 @endforeach
                                                 @foreach($itemadmin as $datas)
-                                                <div class="D-text D-layout" >
+                                                <div class="D-text D-layout">
                                                     <table style="width:100%">
-                                                    <tr><td ><label for="text"><b>ชื่อเรื่อง :</b></label></td>
-                                                        <td colspan=1 style="width:65%;"><?php echo $datas->project_name; ?></td>
-                                                    <tr><td ><label for="text"><b>ชื่อเรื่องภาษาอังกฤษ :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->name_en; ?></td>
-                                                    <tr><td ><label for="text"><b>เจ้าของโครงงาน :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->owner_name; ?></td>
-                                                    <tr><td ><label for="text"><b>อาจารย์ที่ปรึกษา :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->advisor_p; ?></td>
-                                                    <tr><td ><label for="text"><b>หมวดหมู่ :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->category_name; ?></td>
-                                                    <tr><td ><label for="text"><b>ประเภทเอกสาร :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->type_name; ?></td>
-                                                    <tr><td ><label for="text"><b>คำสำคัญ :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->keyword_project; ?></td>
-                                                    <tr><td><label for="text" class=""><b>บทคัดย่อ :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->des_project; ?></td></tr>
+                                                        <tr>
+                                                            <td><label for="text"><b>ชื่อเรื่อง :</b></label></td>
+                                                            <td colspan=1 style="width:65%;"><?php echo $datas->project_name; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>ชื่อเรื่องภาษาอังกฤษ :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->name_en; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>เจ้าของโครงงาน :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->owner_name; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>อาจารย์ที่ปรึกษา :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->advisor_p; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>หมวดหมู่ :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->category_name; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>ประเภทเอกสาร :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->type_name; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>คำสำคัญ :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->keyword_project; ?></td>
+                                                        <tr>
+                                                            <td><label for="text" class=""><b>บทคัดย่อ :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->des_project; ?></td>
+                                                        </tr>
                                                     </table>
-                                                    
+
                                                     <div class="a-top-layout">
                                                         <p>ดาวน์โหลดไฟล์ข้อมูล<a href="" class="a-layout">คลิก</a></p>
                                                     </div>
                                                 </div>
                                                 @endforeach
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -833,33 +888,39 @@
                                         <div class="col-md-6">
                                             <div class="laout-text-d">
                                                 @foreach($item as $datas)
-                                                <div class="D-text D-layout" >
+                                                <div class="D-text D-layout">
                                                     <table style="width:100%">
-                                                    <tr><td ><label for="text"><b>อีเมล :</b></label></td>
-                                                        <td colspan=1 style="width:80%;"><?php echo $datas->email; ?></td>
-                                                    <tr><td ><label for="text"><b>เฟชบุ๊ค :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->facebook; ?></td>
-                                                    <tr><td ><label for="text"><b>เบอร์โทรศัพท์ :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->phone; ?></td>
-                                                    
+                                                        <tr>
+                                                            <td><label for="text"><b>อีเมล :</b></label></td>
+                                                            <td colspan=1 style="width:80%;"><?php echo $datas->email; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>เฟชบุ๊ค :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->facebook; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>เบอร์โทรศัพท์ :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->phone; ?></td>
+
                                                     </table>
-                                                    
-                                                    
+
+
                                                 </div>
                                                 @endforeach
                                                 @foreach($itemadmin as $datas)
-                                                <div class="D-text D-layout" >
+                                                <div class="D-text D-layout">
                                                     <table style="width:100%">
-                                                    <tr><td ><label for="text"><b>อีเมล :</b></label></td>
-                                                        <td colspan=1 style="width:80%;"><?php echo $datas->email_p; ?></td>
-                                                    <tr><td ><label for="text"><b>เฟชบุ๊ค :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->facebook_p; ?></td>
-                                                    <tr><td ><label for="text"><b>เบอร์โทรศัพท์ :</b></label></td>
-                                                        <td colspan=1 ><?php echo $datas->phone_p; ?></td>
-                                                    
+                                                        <tr>
+                                                            <td><label for="text"><b>อีเมล :</b></label></td>
+                                                            <td colspan=1 style="width:80%;"><?php echo $datas->email_p; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>เฟชบุ๊ค :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->facebook_p; ?></td>
+                                                        <tr>
+                                                            <td><label for="text"><b>เบอร์โทรศัพท์ :</b></label></td>
+                                                            <td colspan=1><?php echo $datas->phone_p; ?></td>
+
                                                     </table>
-                                                    
-                                                    
+
+
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -881,24 +942,39 @@
             </div>
         </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+            <script src="{{ asset('js/app.js') }}" defer></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="{{ asset('js/app.js') }}" defer></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/main.js"></script>
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+            <script src="js/scripts.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 
-        <!-- The javascript plugin to display page loading on top-->
-        <script src="js/plugins/pace.min.js"></script>
-        <!-- Page specific javascripts-->
-        <!-- <script>
+            <script>
+                $(function() {
+                    $(".rateyo").rateYo().on("rateyo.change", function(e, data) {
+                        var rating = data.rating;
+                        $(this).parent().find('.score').text('score :' + $(this).attr('data-rateyo-score'));
+                        $(this).parent().find('.result').text('rating :' + rating);
+                        $(this).parent().find('input[name=rating]').val(rating); //add rating value to input field
+                    });
+                });
+            </script>
+            <!-- The javascript plugin to display page loading on top-->
+            <script src="js/plugins/pace.min.js"></script>
+            <!-- Page specific javascripts-->
+            <!-- <script>
             $(window).scroll(function(){
                 var scroll = $(window).scrollTop();
                 $(".img-down .img-top").css({
@@ -906,8 +982,8 @@
                 })
             })
         </script> -->
-    </div>
-    <!-- Modal -->
+        </div>
+        <!-- Modal -->
 </body>
 
 </html>

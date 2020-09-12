@@ -19,9 +19,15 @@ Route::get('homeBD', 'ProjectController@itemproject');
 
 Route::view('index', 'homeBD');
 
-Route::get('index', function () {
-    return view('homeBDuser');
+
+
+Route::get('intest', function () {
+    return view('test1');
 });
+
+Route::post('keyword_project', 'ProjectController@keyword')->name('keyword_project');
+
+Route::get('input_rate', 'ProjectController@test');
 
 
 Route::get('test', function () {
@@ -98,6 +104,8 @@ Route::get('projectview', 'ProjectController@project');
 // Route::post('adddataproject', 'ListdataController@addproject')->name('addproject');
 // Route::get('process', 'inputprojectController@addproject') ;
 // Route::post('dataproject', 'ListdataController@dataproject');
+
+Route::post('download', 'ProjectController@downloadfile');
 
 Route::get('project', function () {
     return view('detailproject');

@@ -90,9 +90,9 @@
                                 <td><a href="projectviewbd/{{$project0->project_id}}">{{$project0->project_name}}</a></td>
                                 <td>{{$project0->name}}</td> 
                                 <td>
-                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="confirm_p/{{$project0->project_id}}"><button class="btn-imgdata" type="submit"></a>
+                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="confirm_p/{{$project0->project_id}}"><button class="btn-imgdata" type="submit"></button></a>
                                     
-                                    <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href="delete/{{ $project0->U_id }}"><button type="submit"><img  src="img/trash.png" alt="" class="imgdata"></button></a>
+                                    <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href="delete/{{ $project0->U_id }}"><button type="submit"></button></a>
 
                                 </td>
                             </tr>

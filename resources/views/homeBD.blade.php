@@ -4,7 +4,7 @@
 @section('content')
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
         <!-- app.css -->
         <div class="rowcolumn">
             <div class="col-md-12">
@@ -486,6 +486,67 @@
                                                                                         }  
                                                                                     ?></div></a></center>
                                                                                     <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
+                                                                                   <center>
+                                                                                    @if(isset($svgrate0)?$svgrate0:'')
+                                                                                        @if($svgrate0 < 2 & $svgrate0 > 0)
+                                                                                       <div class="rating">
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i> @if(isset($svgrate0)?$svgrate0:'')<span class="">(<?php echo round($svgrate0,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @elseif($svgrate0 >= 2 & $svgrate0 < 3)
+                                                                                        <div class="rating">
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i> @if(isset($svgrate0)?$svgrate0:'')<span class="">(<?php echo round($svgrate0,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @elseif($svgrate0 >= 3 & $svgrate0 < 4)
+                                                                                        <div class="rating">
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i> @if(isset($svgrate0)?$svgrate0:'')<span class="">(<?php echo round($svgrate0,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @elseif($svgrate0 >= 4 & $svgrate0 < 5)
+                                                                                        <div class="rating">
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="far fa-star"></i> @if(isset($svgrate0)?$svgrate0:'')<span class="">(<?php echo round($svgrate0,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @elseif($svgrate0 >= 5)
+                                                                                        <div class="rating">
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i> @if(isset($svgrate0)?$svgrate0:'')<span class="">(<?php echo round($svgrate0,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @else
+                                                                                        <div class="rating">
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i> @if(isset($svgrate0)?$svgrate0:'')<span class="">(<?php echo round($svgrate0,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @endif
+                                                                                    @else
+                                                                                        <div class="rating">
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i> <span class="">(0)</span>
+                                                                                        </div>
+                                                                                    @endif
+                                                                                   </center>
                                                                                 </div>
                                                                             @endforeach
                                                                             @foreach($itemlp1 as $items)
@@ -511,6 +572,67 @@
                                                                                         }  
                                                                                     ?></div></a></center>
                                                                                     <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
+                                                                                    <center>
+                                                                                    @if(isset($svgrate1)?$svgrate1:'')
+                                                                                        @if($svgrate1 < 2 & $svgrate1 > 0)
+                                                                                       <div class="rating">
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i> @if(isset($svgrate1)?$svgrate1:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @elseif($svgrate1 >= 2 & $svgrate1 < 3)
+                                                                                        <div class="rating">
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i> @if(isset($svgrate1)?$svgrate1:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @elseif($svgrate1 >= 3 & $svgrate1 < 4)
+                                                                                        <div class="rating">
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i> @if(isset($svgrate1)?$svgrate0:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @elseif($svgrate1 >= 4 & $svgrate1 < 5)
+                                                                                        <div class="rating">
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="far fa-star"></i> @if(isset($svgrate0)?$svgrate1:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @elseif($svgrate1 >= 5)
+                                                                                        <div class="rating">
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i> @if(isset($svgrate1)?$svgrate1:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @else
+                                                                                        <div class="rating">
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i> @if(isset($svgrate0)?$svgrate1:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                        </div>
+                                                                                        @endif
+                                                                                    @else
+                                                                                        <div class="rating">
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i>
+                                                                                            <i class="far fa-star"></i> <span class="">(0)</span>
+                                                                                        </div>
+                                                                                    @endif
+                                                                                   </center>
                                                                                 </div>
                                                                             @endforeach
                                                                             @foreach($itemlp2 as $items)
@@ -1636,6 +1758,7 @@
                                                                                             }  
                                                                                         ?></div></a></center>
                                                                                         <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
+                                                                                        <div class="rateyo" id= "rating" data-rateyo-rating="4" data-rateyo-num-stars="5" data-rateyo-score="3"></div>
                                                                                     </div>
                                                                                 @endforeach
                                                                                 @else
@@ -1668,6 +1791,8 @@
                                                                                             }  
                                                                                         ?></div></a></center>
                                                                                         <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
+                                                                                        <center><div class="rateyo" id= "rating" data-rateyo-rating="4" data-rateyo-num-stars="5" data-rateyo-score="3"></div><input type="text"></center>
+                                                                                        
                                                                                     </div>
                                                                                 @endforeach
                                                                                 @else
@@ -2296,6 +2421,7 @@
             </div>
         </div>
     </div>
+
 
     <?php
         function utf8_strlen($str){ 

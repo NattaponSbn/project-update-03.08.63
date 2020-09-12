@@ -644,9 +644,8 @@
                             <li class="breadcrumb-item magne-right-text"><a href="#">
                                 <?php 
                                     $str = $datas->project_m_name;
-                                    $chk_count = count_chars($str);
-                                    $count = count($chk_count);
-                                    if($count>30) {
+                                    $count = utf8_strlen("$str");
+                                    if($count>50) {
                                         $strcount = substr($str,0,-10);
                                         $strcount1 = substr($strcount,0,-10);
                                         $strcount2 = substr($strcount1,0,-10);
@@ -663,7 +662,23 @@
                                         $strcount13 = substr($strcount12,0,-10);
                                         $strcut = $strcount13.'...';
                                         echo $strcut;
-                                    }else {
+
+                                        
+                                    }
+                                    elseif($count>30 & $count<50) {
+                                        $strcount = substr($str,0,-10);
+                                        $strcount1 = substr($strcount,0,-10);
+                                        $strcount2 = substr($strcount1,0,-10);
+                                        $strcount3 = substr($strcount2,0,-10);
+                                        $strcount4 = substr($strcount3,0,-10);
+                                        $strcount5 = substr($strcount4,0,-10);
+                                        $strcount6 = substr($strcount5,0,-10);
+                                        $strcount7 = substr($strcount6,0,-10);
+                                        $strcount8 = substr($strcount7,0,-10);
+                                        $strcut = $strcount18.'...';
+                                        echo $strcut;
+                                    }
+                                    else {
                                         echo $datas->project_m_name;
                                     }
                                     
@@ -741,7 +756,20 @@
                     </div>
                 </div>
 
-                
+    <?php
+        function utf8_strlen($str){ 
+            $c = strlen($str);
+            $l = 0;
+            for ($i = 0; $i < $c; ++$i)
+            {
+                if ((ord($str[$i]) & 0xC0) != 0x80)
+                {
+                    ++$l;
+                }
+            }
+            return $l;
+        } 
+    ?>
                 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>

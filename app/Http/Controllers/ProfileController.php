@@ -94,7 +94,9 @@ class ProfileController extends Controller
         
         // $imgaccount = DB::select("SELECT * FROM imgaccount,users WHERE  AND id='$chkidproject'");
         $imgaccount = DB::select("SELECT * FROM users WHERE U_id='$chkidproject'");
-        $user = DB::select("SELECT * FROM users WHERE users.U_id and U_id='$chkidproject'");
+       
+        $user = DB::select("SELECT * FROM users WHERE U_id='$chkidproject'");
+
         return view('profileuser',compact('user','imgaccount'));
     }
 

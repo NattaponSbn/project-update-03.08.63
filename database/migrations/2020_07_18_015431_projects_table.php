@@ -26,6 +26,7 @@ class ProjectsTable extends Migration
             $table->bigInteger('genre_id');
             $table->bigInteger('category_id');
             $table->bigInteger('branch_id');
+            $table->string('status_m');
             $table->string('logo');
             $table->timestamps();
             
