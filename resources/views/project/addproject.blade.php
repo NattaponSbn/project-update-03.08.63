@@ -237,13 +237,7 @@
                             <center><label for="text" class="">เกี่ยวกับผลงาน</label><br></center>
                             <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่อง(TH): <input type="text" class="" name="project_name" id="project_name" oninput="this.className = ''"><br></center>
                             <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่อง(EN): <input type="text" class="" name="project_name" id="project_name" oninput="this.className = ''"><br></center>
-                            <center style="margin-top:10px;margin-left:-40px;">คำสำคัญ: <input type="text" class="" name="keyword_project_1" id="keyword_project_1">
-                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
-                                    <div class="list-group" id="show-list">
 
-                                    </div>
-                                </div>
-                            </center>
                             <!-- <center style="margin-top:10px;margin-left:-40px;"> <input type="text" class="" name="keyword_project_2" id="keyword_project_2" oninput="this.className = ''" autocomplete="off" required>
                                 <div class="col-md-5" style="position: relative;margin-top: -1px;margin-left: 57px;">
                                     <div class="list-group" id="show-list2">
@@ -270,6 +264,34 @@
 
                             <center style="margin-top:10px;margin-left:-71px;">คำอธิบายย่อ: <textarea type="text" class="input-tb" name="des_project" id="des_project" oninput="this.className = ''"></textarea>
                                 <button type="button" onclick="">ค้นหาคำสำคัญ</button> <br></center>
+                            <center style="margin-top:10px;margin-left:-40px;">คำสำคัญ: <input type="text" class="" name="keyword_project_1" id="keyword_project_1">
+                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
+                                    <div class="list-group" id="show-list">
+
+                                    </div>
+                                </div>
+                            </center>
+                            <input type="text" class="" name="keyword_project_1" id="keyword_project_1">
+                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
+                                    <div class="list-group" id="show-list">
+
+                                    </div>
+                                </div>
+                            </center>
+                            <input type="text" class="" name="keyword_project_1" id="keyword_project_1">
+                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
+                                    <div class="list-group" id="show-list">
+
+                                    </div>
+                                </div>
+                            </center>
+                            <input type="text" class="" name="keyword_project_1" id="keyword_project_1">
+                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
+                                    <div class="list-group" id="show-list">
+
+                                    </div>
+                                </div>
+                            </center>
 
                             <a href="homeBD"><button type="button" class="btnnn ">ย้อนกลับ</button></a>
 
@@ -341,10 +363,10 @@
                     });
                 }
 
-            $(document).on('click','a',function(){
-                $('#keyword_project_1').val($(this).text());
-                $('#show-list').html('');
-            });
+                $(document).on('click', 'a', function() {
+                    $('#keyword_project_1').val($(this).text());
+                    $('#show-list').html('');
+                });
             });
         });
 
