@@ -56,9 +56,7 @@ class ProjectController extends Controller
         $project->file_p=$fileproject;
         
         $project->save();
-
        
-        
         $imgproject1 = 'defaultimg1.png';
         $imgproject2 = 'defaultimg2.png';
         $imgproject3 = 'defaultimg3.png';
@@ -67,6 +65,15 @@ class ProjectController extends Controller
         $imgproject->imp_p_2=$imgproject2;
         $imgproject->imp_p_3=$imgproject3;
         DB::INSERT("INSERT INTO img_project (img_p_1, img_p_2, img_p_3, p_id) VALUES ('$imgproject1','$imgproject1','$imgproject1','$userid')");
+        
+        $codeu = 'R';
+        $cont = count(DB::select("SELECT NO_R FROM rating_p"));
+        $nextint = $cont+1;
+        $string_id = substr("00".$nextint,-3);
+        $nextidrate = $codeu.$string_id;
+        $project_id=$nextid;
+        DB::INSERT("INSERT INTO rating_p (img_p_1, rate_index, project_id) VALUES ('$nextidrate','0','$project_id'");
+
         return redirect('homeBD')->with('successappproject', 'สร้างผลงานเรียบร้อย');
     }
 
@@ -74,31 +81,88 @@ class ProjectController extends Controller
     {
         if($request->key_p_1) {
             $key_p_1=$request->key_p_1;
-            $chk_key = DB::select("SELECT name_key FROM keyword_p WHERE name_key LIKE '$key_p_1%' ");
+            $chk_key = DB::select("SELECT * FROM keyword_p WHERE name_key LIKE '$key_p_1%' ");
+            session_start();
+            $key_1 = $_SESSION['key_p_1']=$key_p_1;
             if(isset($chk_key)?$chk_key:''){
-                $output1 = "<a href='#' class='list-group-item list-group-item-action border-1' style='width: 80%;'>";
                 foreach ($chk_key as $chk_key) {
-                    $output1.=$chk_key->name_key;
+                    echo "<a href='#' class='list-group-item list-group-item-action border-1' style='width: 80%;'>".$chk_key->name_key."</a>";
                 }
-                $output1.='</a>';
-                echo $output1;
             }
+            else{
+                // echo "<p class='list-group-item border-1'>ไม่พบคำสำคัญ</p>";
+            }
+        }
+
+        elseif($request->key_p_2){
+            $key_p_2=$request->key_p_2;
+            $chk_key = DB::select("SELECT * FROM keyword_p WHERE name_key LIKE '$key_p_2%' ");
+         
+            if(isset($chk_key)?$chk_key:''){
+                foreach ($chk_key as $chk_key) {
+                    echo "<a href='#' class='list-group-item list-group-item-action border-1' style='width: 80%;'>".$chk_key->name_key."</a>";
+                }
+            }
+            else{
+                // echo "<p class='list-group-item border-1'>ไม่พบคำสำคัญ</p>";
+            }
+        }
+
+        elseif($request->key_p_3){
+            $key_p_3=$request->key_p_3;
+            $chk_key = DB::select("SELECT * FROM keyword_p WHERE name_key LIKE '$key_p_3%' ");
+         
+            if(isset($chk_key)?$chk_key:''){
+                foreach ($chk_key as $chk_key) {
+                    echo "<a href='#' class='list-group-item list-group-item-action border-1' style='width: 80%;'>".$chk_key->name_key."</a>";
+                }
+            }
+            else{
+                // echo "<p class='list-group-item border-1'>ไม่พบคำสำคัญ</p>";
+            }
+            
+        }
+
+        elseif($request->key_p_4){
+            $key_p_4=$request->key_p_4;
+            $chk_key = DB::select("SELECT * FROM keyword_p WHERE name_key LIKE '$key_p_4%' ");
+         
+            if(isset($chk_key)?$chk_key:''){
+                foreach ($chk_key as $chk_key) {
+                    echo "<a href='#' class='list-group-item list-group-item-action border-1' style='width: 80%;'>".$chk_key->name_key."</a>";
+                }
+            }
+            else{
+                // echo "<p class='list-group-item border-1'>ไม่พบคำสำคัญ</p>";
+            }
+            
+        }
+        else{
+            // echo "<p class='list-group-item border-1'>ไม่พบคำสำคัญ2</p>";
         }
     }
 
     public function downloadfile(Request $request) {
+        session_start();
         $project_id = $request->project_id;
         $rating = $request->rating;
+        $userID = $_SESSION['usersid'];
 
-        DB::INSERT("INSERT INTO rating_p (rating_id, rate_index, project_id, user_id) VALUES ('1','$rating','1','1')");
-        $file_p = DB::select("SELECT namefile,file_p FROM projects WHERE project_id='$project_id'");
-        compact('file_p');
-        foreach($file_p as $file_p){
-            $file = $file_p->file_p;
-            $namefile = $file_p->namefile;
-        }
-        $file_path = public_path('project/'.$file);
-        return response()->download($file_path,$namefile);
+        $codeu = 'R';
+        $cont = count(DB::select("SELECT NO_R FROM rating_p"));
+        $nextint = $cont+1;
+        $string_id = substr("00".$nextint,-3);
+        $nextid = $codeu.$string_id;
+
+        DB::INSERT("INSERT INTO rating_p (rating_id, rate_index, project_id, users_id) VALUES ('$nextid','$rating','$project_id','$userID')");
+        // $file_p = DB::select("SELECT namefile,file_p FROM projects WHERE project_id='$project_id'");
+        // compact('file_p');
+        // foreach($file_p as $file_p){
+        //     $file = $file_p->file_p;
+        //     $namefile = $file_p->namefile;
+        // }
+        // $file_path = public_path('project/'.$file);
+        // return response()->download($file_path,$namefile);
         
 
     }
@@ -433,6 +497,13 @@ class ProjectController extends Controller
                 // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
                 $itemlg0 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
                 AND projects.project_id='$ite0'"); 
+
+                $svg0 = DB::select("SELECT AVG(rate_index) FROM rating_p WHERE project_id='$ite0'");
+                $svgrateg0 = $svg0[0];
+                compact('svgrateg0');
+                foreach($svgrateg0 as $svgrateg0){
+                    $svgrateg0=round($svgrateg0,$percision=1);;
+                }
             }
             
         }else {
@@ -448,6 +519,13 @@ class ProjectController extends Controller
                 $ite1;
                 $itemlg1 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
                 AND projects.project_id='$ite1'");
+
+                $svg1 = DB::select("SELECT AVG(rate_index) FROM rating_p WHERE project_id='$ite1'");
+                $svgrateg1 = $svg1[0];
+                compact('svgrateg1');
+                foreach($svgrateg1 as $svgrateg1){
+                    $svgrateg1=round($svgrateg1,$percision=1);;
+                }
             }
             
         }else {
@@ -462,6 +540,13 @@ class ProjectController extends Controller
                 $ite2;
                 $itemlg2 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
                 AND projects.project_id='$ite2'");
+
+                $svg2 = DB::select("SELECT AVG(rate_index) FROM rating_p WHERE project_id='$ite2'");
+                $svgrateg2 = $svg2[0];
+                compact('svgrateg2');
+                foreach($svgrateg2 as $svgrateg2){
+                    $svgrateg2=round($svgrateg2,$percision=1);;
+                }
             }
         }else {
             $itemlg2='';
@@ -475,6 +560,13 @@ class ProjectController extends Controller
                 $ite3;
                 $itemlg3 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
                 AND projects.project_id='$ite3'");
+
+                $svg3 = DB::select("SELECT AVG(rate_index) FROM rating_p WHERE project_id='$ite3'");
+                $svgrateg3 = $svg3[0];
+                compact('svgrateg3');
+                foreach($svgrateg3 as $svgrateg3){
+                    $svgrateg3=round($svgrateg3,$percision=1);;
+                }
             }
         }else {
             $itemlg3='';
@@ -488,6 +580,13 @@ class ProjectController extends Controller
                 $ite4;
                 $itemlg4 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
                 AND projects.project_id='$ite4'");
+
+                $svg4 = DB::select("SELECT AVG(rate_index) FROM rating_p WHERE project_id='$ite4'");
+                $svgrateg4 = $svg4[0];
+                compact('svgrateg4');
+                foreach($svgrateg4 as $svgrateg4){
+                    $svgrateg4=round($svgrateg4,$percision=1);;
+                }
             }
         }else {
             $itemlg4='';
@@ -501,6 +600,13 @@ class ProjectController extends Controller
                 $ite5;
                 $itemlg5 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
                 AND projects.project_id='$ite5'");
+
+                $svg5 = DB::select("SELECT AVG(rate_index) FROM rating_p WHERE project_id='$ite5'");
+                $svgrateg5 = $svg5[0];
+                compact('svgrateg5');
+                foreach($svgrateg5 as $svgrateg5){
+                    $svgrateg5=round($svgrateg5,$percision=1);;
+                }
             }
         }else {
             $itemlg5='';
@@ -514,6 +620,13 @@ class ProjectController extends Controller
                 $ite6;
                 $itemlg6 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
                 AND projects.project_id='$ite6'");
+
+                $svg6 = DB::select("SELECT AVG(rate_index) FROM rating_p WHERE project_id='$ite6'");
+                $svgrateg6 = $svg6[0];
+                compact('svgrateg6');
+                foreach($svgrateg6 as $svgrateg6){
+                    $svgrateg6=round($svgrateg6,$percision=1);;
+                }
             }
         }else {
             $itemlg6='';
@@ -527,18 +640,121 @@ class ProjectController extends Controller
                 $ite7;
                 $itemlg7 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
                 AND projects.project_id='$ite7'");
+
+                $svg7 = DB::select("SELECT AVG(rate_index) FROM rating_p WHERE project_id='$ite7'");
+                $svgrateg7 = $svg7[0];
+                compact('svgrateg7');
+                foreach($svgrateg7 as $svgrateg7){
+                    $svgrateg7=round($svgrateg7,$percision=1);;
+                }
             }
         }else {
             $itemlg7='';
         }
         
-        
+        //poppulay item 
+        $chk_p_pop = count(DB::select("SELECT project_id, AVG(rate_index) ratesum FROM rating_p GROUP BY project_id ORDER BY AVG(rate_index) DESC"));
+        // echo $chk_p_pop;
+        if($chk_p_pop>4){
+            $sum_pop_p = $chk_p_pop;
+        }else{$sum_pop_p = $chk_p_pop-$chk_p_pop;}
 
         
+        $itempop = DB::select("SELECT project_id, AVG(rate_index) ratesum FROM rating_p GROUP BY project_id ORDER BY AVG(rate_index) DESC");
+        // print_r($itempop);
+        if(isset($itempop[0])? $itempop[0]:'') {
+            $item0 = $itempop[0]; //เลือกตำเเหน่งของข้อมูล
+            // print_r($item0);
+            $pop0 = $item0->project_id;
+            $avgpop0 = round($item0->ratesum,$percision=1);
+            $itempop0 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id 
+            AND projects.project_id='$pop0'"); 
+            // print_r($itemlpop0);
+        }else {
+            $itemlg0='';
+        }
+
+        if(isset($itempop[1])?$itempop[1]:''){
+            $item1 = $itempop[1];
+            $pop1 = $item1->project_id;
+            $avgpop1 = round($item1->ratesum,$percision=1);
+            $itempop1 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+            AND projects.project_id='$pop1'");
+            
+        }else {
+            $itemlg1='';
+        }
+       
+        if(isset($itempop[2])?$itempop[2]:''){
+            $item2 = $itempop[2];
+            $pop2 = $item2->project_id;
+            $avgpop2 = round($item2->ratesum,$percision=1);
+            $itempop2 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+            AND projects.project_id='$pop2'");
+
+        }else {
+            $itemlg2='';
+        }
+        
+        if(isset($itempop[3])?$itempop[3]:''){
+            $item3 = $itempop[3];
+            $pop3 = $item3->project_id;
+            $avgpop3 = round($item3->ratesum,$percision=1);
+            $itempop3 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+            AND projects.project_id='$pop3'");
+
+        }else {
+            $itemlg3='';
+        }
+
+        if(isset($itempop[4])?$itempop[4]:''){
+            $item4 = $itempop[4];
+            $pop4 = $item4->project_id;
+            $avgpop4 = round($item4->ratesum,$percision=1);
+            $itempop4 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+            AND projects.project_id='$pop4'");
+    
+        }else {
+            $itemlg4='';
+        }
+
+        if(isset($itempop[5])?$itempop[5]:''){
+            $item5 = $itempop[5];
+            $pop5 = $item5->project_id;
+            $avgpop5 = round($item5->ratesum,$percision=1);
+            $itempop5 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+            AND projects.project_id='$pop5'");
+
+        }else {
+            $itemlg5='';
+        }
+
+        if(isset($itempop[6])?$itempop[6]:''){
+            $item6 = $itempop[6];
+            $pop6 = $item6->project_id;
+            $avgpop6 = round($item6->ratesum,$percision=1);
+            $itempop6 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+            AND projects.project_id='$pop6'");
+
+        }else {
+            $itemlg6='';
+        }
+
+        if(isset($itempop[7])?$itempop[7]:''){
+            $item7 = $itempop[7];
+            $pop7 = $item7->project_id;
+            $avgpop7 = round($item7->ratesum,$percision=1);
+            $itempop7 = DB::select("SELECT * FROM projects,genre_project,type_project WHERE projects.type_id=type_project.type_id AND projects.genre_id=genre_project.genre_id
+            AND projects.project_id='$pop7'");
+
+        }else {
+            $itemlg7='';
+        }
 
         return view('homeBD',compact('itemlp0','itemlp1','itemlp2','itemlp3','itemlp4','itemlp5','itemlp6','itemlp7','itemlp8',
         'itemlg0','itemlg1','itemlg2','itemlg3','itemlg4','itemlg5','itemlg6','itemlg7','imgaccount','adminaccount','itemgenre','sum_type_p','sum_project',
-        'svgrate0','svgrate1','svgrate2','svgrate3','svgrate4','svgrate5','svgrate6','svgrate7'));
+        'svgrate0','svgrate1','svgrate2','svgrate3','svgrate4','svgrate5','svgrate6','svgrate7','svgrateg0','svgrateg1','svgrateg2','svgrateg3',
+        'itempop0','itempop1','itempop2','itempop3','itempop4','avgpop0','avgpop1','avgpop2','avgpop3','avgpop4','sum_pop_p'));
     }
 
     public function detailitem($project_id){

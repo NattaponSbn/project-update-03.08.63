@@ -33,8 +33,15 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>addproject</title>
     <style>
-        .body1 {
+        body {
             background-image: url("img/background-body-addproject-3.jpg");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            -o-background-size: 100% 100%, auto;
+            -moz-background-size: 100% 100%, auto;
+            -webkit-background-size: 100% 100%, auto;
+            background-size: 100% 100%, auto;
         }
 
         .textadd {
@@ -102,11 +109,25 @@
         }
 
         input {
-            padding: 5px;
-            width: 30%;
-            font-size: 17px;
-            font-family: Raleway;
-            border: 1px solid #aaaaaa;
+            display: block;
+            width: 70%;
+            margin-left: 20px;
+            height: calc(1.6em + 0.75rem + 2px);
+            padding: 0.375rem 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            position: relative;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+
         }
 
         /* Mark input boxes that gets an error on validation: */
@@ -116,11 +137,24 @@
         }
 
         select {
-            padding: 5px;
-            width: 30%;
-            font-size: 17px;
-            font-family: Raleway;
-            border: 1px solid #aaaaaa;
+            display: block;
+            width: 70%;
+            margin-left: 20px;
+            height: calc(1.6em + 0.75rem + 2px);
+            padding: 0.375rem 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            position: relative;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
         }
 
         select.invalid {
@@ -209,135 +243,178 @@
     </style>
 </head>
 
-<body class="body1">
-    <div class="border2">
-        <ul class="app-breadcrumb breadcrumb magne-right">
-            <li class="breadcrumb-item magne-right-text"><a href="{{action('ProjectController@itemproject')}}">หน้าหลัก</a></li>
-            <li class="breadcrumb-item magne-right-text"><a href="#">สร้างผลงาน</a></li>
-        </ul><br>
-        <div class="tile">
-            <div class="tile-body">
-                <div class="containeradd ">
-                    <div style="text-align:center;margin-top:40px;">
-                        <span class="step font">1</span>
-                        <span class="step font">2</span>
-                        <span class="step font">3</span>
-                        <span class="step font">4</span>
+<body>
+    <div class="addproject">
+        <div class="border2">
+            <ul class="app-breadcrumb breadcrumb magne-right">
+                <li class="breadcrumb-item magne-right-text"><a href="{{action('ProjectController@itemproject')}}">หน้าหลัก</a></li>
+                <li class="breadcrumb-item magne-right-text"><a href="#">สร้างผลงาน</a></li>
+            </ul><br>
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="containeradd ">
+                        <div style="text-align:center;margin-top:40px;">
+                            <span class="step font">1</span>
+                            <span class="step font">2</span>
+                            <span class="step font">3</span>
+                        </div>
+                        <center>
+                            <h1>
+                                <div class="containeradd textadd">กรอกรายละเอียดผลงาน</div>
+                            </h1>
+                        </center>
+                        <form id="addprojectfrom" action="insertproject" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="tab">
+                                <center><label for="text" class="" style="margin-top: -5px;">ขั้นตอนที่ 1</label><br></center>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="align-self-start " style="margin-left:-40px;">
+                                                <div class="form-group">
+                                                    <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชื่อเรื่อง(TH):</label>
+                                                    <div class="col-sm-11">
+                                                        <input type="text" class="form-control" name="project_name" id="project_name" oninput="this.className = ''">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="text" class="text-left fontdetail control-label" style="margin-top:-20px;">ชื่อเรื่อง(EH):</label>
+                                                    <div class="col-sm-11">
+                                                        <input type="text" class="form-control" ame="project_name" id="project_name" oninput="this.className = ''">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="align-self-start " style="margin-left:40px;">
+                                                <div class="form-group ">
+                                                    <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชนิดเอกสาร:</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="type_project" class="form-control" id="type_project" oninput="this.className = ''">
+                                                            <option value="" disabled selected>เลือกชนิดเอกสาร</option>
+                                                            @foreach($chk_type as $type)
+                                                            <option value="{{$type->type_id}}">{{$type->type_name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
 
+                                                <div class="form-group ">
+                                                    <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชนิดเอกสาร:</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="genre_project" class="form-control" id="genre_project" oninput="this.className = ''">
+                                                            <option value="" disabled selected>เลือกประเภท</option>
+                                                            @foreach($chk_genre as $genre)
+                                                            <option value="{{$genre->genre_id}}">{{$genre->genre_name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชนิดเอกสาร:</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="category_project" class="form-control" id="category_project" oninput="this.className = ''">
+                                                            <option value="" disabled selected>เลือกหมวดหมู่</option>
+                                                            @foreach($chk_category as $category)
+                                                            <option value="{{$category->category_id}}">{{$category->category_name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="homeBD"><button type="button" class="btnnn ">ย้อนกลับ</button></a>
+                            </div>
+                            <div class="tab">
+                                <center><label for="text" class="">ขั้นตอนที่ 2</label><br></center>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <div class="form-group">
+                                                <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำอธิบายย่อ:</label>
+                                                <div class="col-sm-11">
+                                                    <textarea type="text" class="form-control" name="des_project" id="des_project" rows="7" oninput="this.className = ''"></textarea>
+                                                </div><br>
+                                                <center><button type="button" class="" onclick="">ค้นหาคำสำคัญ</button></center>
+                                            </div>
+
+
+
+                                            <div class="form-group">
+                                                <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ1:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="rounded-0 border-info" name="keyword_project_1" id="keyword_project_1">
+                                                </div>
+                                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
+                                                    <div class="list-group" id="show-list">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ2:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="" name="keyword_project_2" id="keyword_project_2">
+                                                </div>
+                                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
+                                                    <div class="list-group2" id="show-list2">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ3:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="" name="keyword_project_3" id="keyword_project_3">
+                                                </div>
+                                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
+                                                    <div class="list-group3" id="show-list3">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ4:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="" name="keyword_project_4" id="keyword_project_4">
+                                                </div>
+                                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
+                                                    <div class="list-group4" id="show-list4">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab">
+                                <center><label for="text" class="" style="margin-top: -5px;">ขั้นตอนที่ 3</label><br></center>
+                                <center><label for="text" class="">อัปโหลดไฟล์เอกสาร</label><br></center>
+                                <input type="file" name="fileproject" id="">
+
+
+                            </div>
+
+                            <div style="overflow:10px;">
+                                <div style="float:center;">
+                                    <button type="button" id="prevBtn" class="btnp btnnn" onclick="nextPrev(-1)">ย้อนกลับ</button>
+                                </div>
+                                <div style="float:left; margin-left: 380px; margin-top: -41px;">
+                                    <button type="button" id="nextBtn" class="btnn" onclick="nextPrev(1)">ถัดไป</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <center>
-                        <h1>
-                            <div class="containeradd textadd">กรอกรายละเอียดผลงาน</div>
-                        </h1>
-                    </center>
-                    <form id="addprojectfrom" action="insertproject" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="tab">
-                            <center><label for="text" class="" style="margin-top: -5px;">ขั้นตอนที่ 1</label><br></center>
-                            <center><label for="text" class="">เกี่ยวกับผลงาน</label><br></center>
-                            <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่อง(TH): <input type="text" class="" name="project_name" id="project_name" oninput="this.className = ''"><br></center>
-                            <center style="margin-top:10px;margin-left:-40px;">ชื่อเรื่อง(EN): <input type="text" class="" name="project_name" id="project_name" oninput="this.className = ''"><br></center>
-
-                            <!-- <center style="margin-top:10px;margin-left:-40px;"> <input type="text" class="" name="keyword_project_2" id="keyword_project_2" oninput="this.className = ''" autocomplete="off" required>
-                                <div class="col-md-5" style="position: relative;margin-top: -1px;margin-left: 57px;">
-                                    <div class="list-group" id="show-list2">
-
-                                    </div>
-                                </div>
-                            </center>
-                            <center style="margin-top:10px;margin-left:-40px;"> <input type="text" class="" name="keyword_project_3" id="keyword_project_3" oninput="this.className = ''" autocomplete="off" required>
-                                <div class="col-md-5" style="position: relative;margin-top: -1px;margin-left: 57px;">
-                                    <div class="list-group" id="show-list3">
-
-                                    </div>
-                                </div>
-                            </center>
-                            <center style="margin-top:10px;margin-left:-40px;"> <input type="text" class="" name="keyword_project_4" id="keyword_project_4" oninput="this.className = ''" autocomplete="off" required>
-                                <div class="col-md-5" style="position: relative;margin-top: -1px;margin-left: 57px;">
-                                    <div class="list-group" id="show-list4">
-
-                                    </div>
-                                </div>
-                            </center> -->
-
-
-
-                            <center style="margin-top:10px;margin-left:-71px;">คำอธิบายย่อ: <textarea type="text" class="input-tb" name="des_project" id="des_project" oninput="this.className = ''"></textarea>
-                                <button type="button" onclick="">ค้นหาคำสำคัญ</button> <br></center>
-                            <center style="margin-top:10px;margin-left:-40px;">คำสำคัญ: <input type="text" class="" name="keyword_project_1" id="keyword_project_1">
-                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
-                                    <div class="list-group" id="show-list">
-
-                                    </div>
-                                </div>
-                            </center>
-                            <input type="text" class="" name="keyword_project_1" id="keyword_project_1">
-                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
-                                    <div class="list-group" id="show-list">
-
-                                    </div>
-                                </div>
-                            </center>
-                            <input type="text" class="" name="keyword_project_1" id="keyword_project_1">
-                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
-                                    <div class="list-group" id="show-list">
-
-                                    </div>
-                                </div>
-                            </center>
-                            <input type="text" class="" name="keyword_project_1" id="keyword_project_1">
-                                <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
-                                    <div class="list-group" id="show-list">
-
-                                    </div>
-                                </div>
-                            </center>
-
-                            <a href="homeBD"><button type="button" class="btnnn ">ย้อนกลับ</button></a>
-
-                        </div>
-
-                        <div class="tab">
-                            <center><label for="text" class="">ขั้นตอนที่ 2</label><br></center>
-                            <center style="margin-top:10px;margin-left:-63px;">ชนิดเอกสาร: <select name="type_project" class="select-tbb" id="type_project" oninput="this.className = ''">
-                                    <option value="" disabled selected>เลือกชนิดเอกสาร</option>
-                                    @foreach($chk_type as $type)
-                                    <option value="{{$type->type_id}}">{{$type->type_name}}</option>
-                                    @endforeach
-                                </select><br></center>
-
-                            <center style="margin-top:10px;margin-left:-40px;">ประเภท: <select name="genre_project" class="select-tbbb" id="genre_project" oninput="this.className = ''">
-                                    <option value="" disabled selected>เลือกประเภท</option>
-                                    @foreach($chk_genre as $genre)
-                                    <option value="{{$genre->genre_id}}">{{$genre->genre_name}}</option>
-                                    @endforeach
-                                </select><br></center>
-                            <center style="margin-top:10px;margin-left:-50px;">หมวดหมู่: <select name="category_project" class="select-tbbbb" id="category_project" oninput="this.className = ''">
-                                    <option value="" disabled selected>เลือกหมวดหมู่</option>
-                                    @foreach($chk_category as $category)
-                                    <option value="{{$category->category_id}}">{{$category->category_name}}</option>
-                                    @endforeach
-                                </select><br></center>
-                        </div>
-
-                        <div class="tab">
-                            <center><label for="text" class="" style="margin-top: -5px;">ขั้นตอนที่ 3</label><br></center>
-                            <center><label for="text" class="">อัปโหลดไฟล์เอกสาร</label><br></center>
-                            <input type="file" name="fileproject" id="">
-
-
-                        </div>
-
-                        <div style="overflow:10px;">
-                            <div style="float:center;">
-                                <button type="button" id="prevBtn" class="btnp btnnn" onclick="nextPrev(-1)">ย้อนกลับ</button>
-                            </div>
-                            <div style="float:left; margin-left: 380px; margin-top: -41px;">
-                                <button type="button" id="nextBtn" class="btnn" onclick="nextPrev(1)">ถัดไป</button>
-                            </div>
-                        </div>
-                    </form>
-
                 </div>
             </div>
         </div>
@@ -346,9 +423,9 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#keyword_project_1').keyup(function() {
-                if ($(this).val() != "") {
-                    var key_p_1 = $(this).val();
-                    var _token = $('input[name="_token"]').val();
+                var key_p_1 = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                if (key_p_1 != '') {
                     $.ajax({
                         url: "{{route('keyword_project')}}",
                         method: 'POST',
@@ -356,96 +433,98 @@
                             key_p_1: key_p_1,
                             _token: _token
                         },
-                        success: function(data) {
-                            $('#show-list').html(data);
+                        success: function(response) {
+                            $('#show-list').html(response);
                         }
-
                     });
+                } else {
+                    $('#show-list').html('');
                 }
-
                 $(document).on('click', 'a', function() {
                     $('#keyword_project_1').val($(this).text());
                     $('#show-list').html('');
+
                 });
             });
         });
 
+        $(document).ready(function() {
+            $('#keyword_project_2').keyup(function() {
+                var key_p_2 = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                if (key_p_2 != '') {
+                    $.ajax({
+                        url: "{{route('keyword_project')}}",
+                        method: 'POST',
+                        data: {
+                            key_p_2: key_p_2,
+                            _token: _token
+                        },
+                        success: function(response) {
+                            $('#show-list2').html(response);
+                        }
+                    });
+                } else {
+                    $('#show-list2').html('');
+                }
+                $(document).on('click', 'a', function() {
+                    $('#keyword_project_2').val($(this).text());
+                    $('#show-list2').html('');
+                });
+            });
+        });
 
+        $(document).ready(function() {
+            $('#keyword_project_3').keyup(function() {
+                var key_p_3 = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                if (key_p_3 != '') {
+                    $.ajax({
+                        url: "{{route('keyword_project')}}",
+                        method: 'POST',
+                        data: {
+                            key_p_3: key_p_3,
+                            _token: _token
+                        },
+                        success: function(response) {
+                            $('#show-list3').html(response);
+                        }
+                    });
+                } else {
+                    $('#show-list3').html('');
+                }
+                $(document).on('click', 'a', function() {
+                    $('#keyword_project_3').val($(this).text());
+                    $('#show-list3').html('');
+                });
+            });
+        });
 
-        // $(document).ready(function() {
-        //     $("#keyword_project_1").keyup(function() {
-        //         var searchkey = $(this).val();
-        //         if (searchkey != '') {
-        //             $.ajax({
-        //                 url: "{{url ('action')}}",
-        //                 method: 'post',
-        //                 data: {
-        //                     query: searchkey
-        //                 },
-        //                 success: function(response) {
-        //                     $("#show-list").html(response);
-        //                 }
-        //             });
-        //         } else {
-        //             $("#show-list").html('');
-        //         }
-        //     });
-
-        // $("#keyword_project_2").keyup(function() {
-        //     var searchkey2 = $(this).val();
-        //     if (searchkey2 != '') {
-        //         $.ajax({
-        //             url: 'action',
-        //             method: 'post',
-        //             data: {
-        //                 query2: searchkey2
-        //             },
-        //             success: function(response) {
-        //                 $("#show-list2").html(response);
-        //             }
-        //         });
-        //     } else {
-        //         $("#show-list2").html('');
-        //     }
-        // });
-
-        // $("#keyword_project_3").keyup(function() {
-        //     var searchkey3 = $(this).val();
-        //     if (searchkey3 != '') {
-        //         $.ajax({
-        //             url: 'action',
-        //             method: 'post',
-        //             data: {
-        //                 query3: searchkey3
-        //             },
-        //             success: function(response) {
-        //                 $("#show-list3").html(response);
-        //             }
-        //         });
-        //     } else {
-        //         $("#show-list3").html('');
-        //     }
-        // });
-
-        // $("#keyword_project_4").keyup(function() {
-        //     var searchkey4 = $(this).val();
-        //     if (searchkey4 != '') {
-        //         $.ajax({
-        //             url: 'action',
-        //             method: 'post',
-        //             data: {
-        //                 query4: searchkey4
-        //             },
-        //             success: function(response) {
-        //                 $("#show-list4").html(response);
-        //             }
-        //         });
-        //     } else {
-        //         $("#show-list4").html('');
-        //     }
-        // // });
-
-        // });
+        $(document).ready(function() {
+            $('#keyword_project_4').keyup(function() {
+                var key_p_4 = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                if (key_p_4 != '') {
+                    $.ajax({
+                        url: "{{route('keyword_project')}}",
+                        method: 'POST',
+                        data: {
+                            key_p_4: key_p_4,
+                            _token: _token
+                        },
+                        success: function(response) {
+                            $('#show-list4').html(response);
+                        }
+                    });
+                } else {
+                    $('#show-list4').html('');
+                }
+                $(document).on('click', 'a', function() {
+                    $('#keyword_project_4').val($(this).text());
+                    $('#show-list4').html('');
+                });
+            });
+        });
     </script>
 
     <script class="text/javascript">
@@ -494,24 +573,6 @@
             }
         });
     </script>
-
-    <!-- <script>
-            if ($message = Session::get('success')) {
-                    swal({
-                        title: "เกิดข้อผิดพลาด",
-                        text: "กรุณากรอกข้อมูลให้ครบ",
-                        icon: "warning",
-                        button: "ตกลง",
-                        });
-                    }else {
-                        swal({
-                            title: "เรียบร้อย",
-                            text: "ข้อมูลได้บันทึกเรียบร้อยเเล้ว",
-                            icon: "success",
-                            button: "ตกลง",
-                            });
-            }
-        </script> -->
 
     <script>
         var currentTab = 0; // Current tab is set to be the first tab (0)

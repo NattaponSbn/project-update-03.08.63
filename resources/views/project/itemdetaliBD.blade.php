@@ -269,16 +269,19 @@
                         @foreach($item as $datas)
                         <input type="text" name="project_id" id="project_id" value="<?php echo $datas->project_id; ?>">
                         @endforeach
+                        @foreach($itemadmin as $datas)
+                        <input type="text" name="project_id" id="project_id" value="<?php echo $datas->project_id; ?>">
+                        @endforeach
                         <div class="rateyo" name="rating" id="rating" data-rateyo-rating="5" data-rateyo-num-stars="5" data-rateyo-score="3">
                         </div>
                         <input type="hidden" name="rating">
                 </div>
-           
-            <button type="submit" class="btn btn-primary">ดาวน์โหลดไฟล์ข้อมูล</button>
-            </form>
+
+                <button type="submit" class="btn btn-primary">ดาวน์โหลดไฟล์ข้อมูล</button>
+                </form>
             </div>
         </div>
-        
+
 
     </div>
     </div>
@@ -839,10 +842,16 @@
                                                     </table>
 
                                                     <div class="a-top-layout">
+                                                    @if(!isset($_SESSION['status'])=='user')
+                                                        <p>ดาวน์โหลดไฟล์ข้อมูล<a href="" class="a-layout">คลิก</a></p>
+                                                    @elseif(isset($_SESSION['status'])=='user')
                                                         <p>ดาวน์โหลดไฟล์ข้อมูล<a href="#" class="a-layout" data-toggle="modal" data-target="#exampleModalLong">คลิก</a></p>
+                                                    @endif
                                                     </div>
                                                 </div>
                                                 @endforeach
+                                                
+
                                                 @foreach($itemadmin as $datas)
                                                 <div class="D-text D-layout">
                                                     <table style="width:100%">
@@ -872,12 +881,17 @@
                                                             <td colspan=1><?php echo $datas->des_project; ?></td>
                                                         </tr>
                                                     </table>
-
+                                                    
                                                     <div class="a-top-layout">
+                                                    @if(!isset($_SESSION['status'])=='user')
                                                         <p>ดาวน์โหลดไฟล์ข้อมูล<a href="" class="a-layout">คลิก</a></p>
+                                                    @elseif(isset($_SESSION['status'])=='user')
+                                                        <p>ดาวน์โหลดไฟล์ข้อมูล<a href="#" class="a-layout" data-toggle="modal" data-target="#exampleModalLong">คลิก</a></p>
+                                                    @endif
                                                     </div>
                                                 </div>
                                                 @endforeach
+                                            
                                             </div>
 
                                         </div>
@@ -902,7 +916,6 @@
 
                                                     </table>
 
-
                                                 </div>
                                                 @endforeach
                                                 @foreach($itemadmin as $datas)
@@ -919,8 +932,6 @@
                                                             <td colspan=1><?php echo $datas->phone_p; ?></td>
 
                                                     </table>
-
-
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -942,39 +953,39 @@
             </div>
         </div>
 
-        
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
-            <script src="{{ asset('js/app.js') }}" defer></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src="{{ asset('js/app.js') }}" defer></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-            <script src="js/jquery-3.3.1.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="js/main.js"></script>
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-            <script src="js/scripts.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 
-            <script>
-                $(function() {
-                    $(".rateyo").rateYo().on("rateyo.change", function(e, data) {
-                        var rating = data.rating;
-                        $(this).parent().find('.score').text('score :' + $(this).attr('data-rateyo-score'));
-                        $(this).parent().find('.result').text('rating :' + rating);
-                        $(this).parent().find('input[name=rating]').val(rating); //add rating value to input field
-                    });
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+        <script>
+            $(function() {
+                $(".rateyo").rateYo().on("rateyo.change", function(e, data) {
+                    var rating = data.rating;
+                    $(this).parent().find('.score').text('score :' + $(this).attr('data-rateyo-score'));
+                    $(this).parent().find('.result').text('rating :' + rating);
+                    $(this).parent().find('input[name=rating]').val(rating); //add rating value to input field
                 });
-            </script>
-            <!-- The javascript plugin to display page loading on top-->
-            <script src="js/plugins/pace.min.js"></script>
-            <!-- Page specific javascripts-->
-            <!-- <script>
+            });
+        </script>
+        <!-- The javascript plugin to display page loading on top-->
+        <script src="js/plugins/pace.min.js"></script>
+        <!-- Page specific javascripts-->
+        <!-- <script>
             $(window).scroll(function(){
                 var scroll = $(window).scrollTop();
                 $(".img-down .img-top").css({
@@ -982,8 +993,8 @@
                 })
             })
         </script> -->
-        </div>
-        <!-- Modal -->
+    </div>
+    <!-- Modal -->
 </body>
 
 </html>

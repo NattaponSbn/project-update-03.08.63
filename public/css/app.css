@@ -44,13 +44,37 @@
 
 html,
 body {
-    background-color: #582B9E;
+    /* background-image: url("background-body-addproject-2.jpg");
+    background-size: cover; */
+    width: 100%;
+    height: auto;
     color: #636b6f;
     font-weight: 300;
-    height: 100vh;
     margin: 0;
     font-family: 'Athiti', sans-serif;
     font-weight: 600;
+}
+
+.imghtml {
+    background-image: url('background-body-addproject-2.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -o-background-size: 100% 100%, auto;
+    -moz-background-size: 100% 100%, auto;
+    -webkit-background-size: 100% 100%, auto;
+    background-size: 100% 100%, auto;
+}
+
+.addproject {
+    background-image: url("img/background-body-addproject-4.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -o-background-size: 100% 100%, auto;
+    -moz-background-size: 100% 100%, auto;
+    -webkit-background-size: 100% 100%, auto;
+    background-size: 100% 100%, auto;
 }
 
 .font-Athiti {

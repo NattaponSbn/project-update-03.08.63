@@ -48,12 +48,13 @@ Route::get('projectviewmdd', 'Project_MDDController@project');
 // Route::get('db', 'ListdataController@addproject');
 
 Route::get('Newarrival', 'ListdataController@Newarrivaldata');
+Route::get('Popular', 'ListdataController@ratingMax');
 Route::get('itemtypeBD/{type_id}', 'ProjectController@typeitem');
 Route::get('pageIot', 'ListdataController@dataIot');
 
-Route::get('Popular', function () {
-    return view('pagewedsum.pagePopular');
-});
+// Route::get('Popular', function () {
+//     return view('pagewedsum.pagePopular');
+// });
 
 Route::get('wed', function () {
     return view('wedType.wed');

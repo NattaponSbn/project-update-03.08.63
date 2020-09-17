@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html class="img-down">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Twitter meta-->
-    <!-- Open Graph Meta-->
-    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
-    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv=”refresh” content="0;/homeBD">
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
@@ -181,11 +176,7 @@
     </style>
 </head>
 
-<body class="img-top">
-
-
-    <!-- error addproject -->
-
+<body>
     <!-- successappproject -->
     @if ($message = Session::get('successappproject'))
     <script>
@@ -753,14 +744,12 @@
                         </div>
                     <?php }
                     ?>
-
                 </div>
                 </li>
             </ul>
-
         </aside>
 
-        <div>@yield('content')</div>
+        <div class="imghtml">@yield('content')</div>
         <!-- The Modal -->
 
 
@@ -793,7 +782,7 @@
         <!-- <script>
             $(window).scroll(function(){
                 var scroll = $(window).scrollTop();
-                $(".img-down .img-top").css({
+                $("").css({
                     width: (100 + scroll/5) + "%"
                 })
             })
