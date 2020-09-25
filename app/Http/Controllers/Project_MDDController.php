@@ -8,82 +8,7 @@ use App\Projectmdd;
 
 class Project_MDDController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
+    
     //เพิ่มข้อมูล project
     public function insertproject(Request $request) {
 
@@ -93,6 +18,16 @@ class Project_MDDController extends Controller
         $string_id = substr("000".$nextint,-4);
         $nextid = $codeu.$string_id;
 
+        $status_m='0';
+
+        $foder = 'project/fileproject/p_MDD';
+        $fileP = $request->file('fileproject');
+        $filename = $request->file('fileproject')->getClientOriginalName();
+        $nameimg = '/'.rand() . '.' . $filename;
+        $fileP->move(public_path($foder),$nameimg);
+
+        $fileproject='/fileproject/p_MDD'.$nameimg;
+
         $project = new Projectmdd;
         session_start();
         $userid = $_SESSION['usersid'];
@@ -101,6 +36,7 @@ class Project_MDDController extends Controller
         $project->project_m_name=$request->project_name;
         $project->keyword_m_project=$request->keyword_project;
         $project->des_m_project=$request->des_project;
+        $project->status_m=$status_m;
         // $dataproject->facebook=$request->facebook;
         // $dataproject->email=$request->email;
         // $dataproject->phone=$request->phone;
@@ -108,6 +44,8 @@ class Project_MDDController extends Controller
         $project->genre_id=$request->genre_project;
         $project->category_id=$request->category_project;
         $project->branch_id=$request->branch_project;
+        $project->file_m=$fileproject;
+        $project->filename=$filename;
         $project->save();
         return redirect('homeMDD')->with('successappproject', 'สร้างผลงานเรียบร้อย');
     }
@@ -176,17 +114,133 @@ class Project_MDDController extends Controller
 
         // $item = DB::select("SELECT * FROM projectmdd,type_project,category_project,users WHERE projectmdd.type_id=type_project.type_id and projectmdd.user_id=users.U_id
         // and projectmdd.category_id=category_project.category_id ORDER BY projectmdd.category_id=1");
-        $item = DB::select("SELECT * FROM users,projectmdd,genre_project,type_project,category_project WHERE category_project.category_name in ('ติดตาม') AND projectmdd.type_id=type_project.type_id 
+        $item_m = DB::select("SELECT project_m_id FROM users,projectmdd,genre_project,type_project,category_project WHERE category_project.category_name in ('ติดตาม') AND projectmdd.type_id=type_project.type_id 
         AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projectmdd.user_id=users.U_id ORDER BY RAND()");
+        // print_r($item_m);
+        if(isset($item_m[0])? $item_m[0]:'') {
+            $item0 = $item_m[0]; //เลือกตำเเหน่งของข้อมูล
+            compact('item0'); // ส่งค่า item0 จากการเลือกตำเเหน่ง
+            foreach($item0 as $ite0){ // ทำการวง loop foreach เพื่อ เอาค่า id ออกจาก array
+                $ite0; // id ของ ตำเเหน่งที่ 0 ที่ได้มาจากการ loop 
+                // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
+                // $item = DB::select("SELECT * FROM projectmdd,type_project,genre_project,type_project,category_project WHERE projectmdd.type_id=type_project.type_id 
+                // AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projects.project_m_id='$ite0'");  
+                
+                $item_m0 = DB::select("SELECT *,AVG(rate_m_index) AS AvgRate FROM rating_m,users,projectmdd,genre_project,type_project,category_project WHERE projectmdd.type_id=type_project.type_id 
+                AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projectmdd.user_id=users.U_id AND projectmdd.project_m_id=rating_m.project_m_id AND projectmdd.project_m_id='$ite0' ");
+                //rateingproject
+                // print_r($item);
+                // $rate0 = DB::select("SELECT * FROM rating_p WHERE projects.type_id=type_project.type_id 
+                // AND projects.project_id='$ite0'");  
 
-        $itemA = DB::select("SELECT * FROM owner_projectmdd,projectmdd,genre_project,type_project,category_project WHERE category_project.category_name in ('ติดตาม') AND projectmdd.type_id=type_project.type_id 
+                $svg0 = DB::select("SELECT AVG(rate_m_index) AS AvgRate FROM rating_m WHERE project_m_id='$ite0' GROUP BY rating_m.project_m_id"); 
+                $svgrate0 = $svg0[0];
+                compact('svgrate0');
+                foreach($svgrate0 as $svgrate0){
+                   $svgrate0 = round($svgrate0,$percision=1);
+                }
+                
+            }
+        }else {
+            $item_m0='';
+        }
+
+        if(isset($item_m[1])? $item_m[1]:'') {
+            $item1 = $item_m[1]; //เลือกตำเเหน่งของข้อมูล
+            compact('item1'); // ส่งค่า item0 จากการเลือกตำเเหน่ง
+            foreach($item1 as $ite1){ // ทำการวง loop foreach เพื่อ เอาค่า id ออกจาก array
+                $ite1; // id ของ ตำเเหน่งที่ 0 ที่ได้มาจากการ loop 
+                // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
+                // $item = DB::select("SELECT * FROM projectmdd,type_project,genre_project,type_project,category_project WHERE projectmdd.type_id=type_project.type_id 
+                // AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projects.project_m_id='$ite0'");  
+                // echo $ite1;
+                $item_m1 = DB::select("SELECT * FROM users,projectmdd,genre_project,type_project,category_project WHERE projectmdd.type_id=type_project.type_id 
+                AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projectmdd.user_id=users.U_id AND projectmdd.project_m_id='$ite1' ");
+                //rateingproject
+                // print_r($item);
+                // $rate0 = DB::select("SELECT * FROM rating_p WHERE projects.type_id=type_project.type_id 
+                // AND projects.project_id='$ite0'");  
+
+                $svg1 = DB::select("AVG(rate_m_index) AS AvgRate FROM rating_m WHERE project_m_id='$ite1' GROUP BY rating_m.project_m_id"); 
+                $svgrate1 = $svg0[0];
+                compact('svgrate0');
+                foreach($svgrate0 as $svgrate0){
+                   $svgrate0 = round($svgrate0,$percision=1);
+                }
+                
+            }
+        }else {
+            $item_m1='';
+        }
+
+        $itemA = DB::select("SELECT project_m_id FROM owner_projectmdd,projectmdd,genre_project,type_project,category_project WHERE category_project.category_name in ('ติดตาม') AND projectmdd.type_id=type_project.type_id 
         AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projectmdd.user_id=owner_projectmdd.owner_m_id  ORDER BY RAND()");
+        // print_r($itemA);
+        if(isset($itemA[0])? $itemA[0]:'') {
+            $item0 = $itemA[0]; //เลือกตำเเหน่งของข้อมูล
+            compact('item0'); // ส่งค่า item0 จากการเลือกตำเเหน่ง
+            foreach($item0 as $ite0){ // ทำการวง loop foreach เพื่อ เอาค่า id ออกจาก array
+                $ite0; // id ของ ตำเเหน่งที่ 0 ที่ได้มาจากการ loop 
+                // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
+                // $item = DB::select("SELECT * FROM projectmdd,type_project,genre_project,type_project,category_project WHERE projectmdd.type_id=type_project.type_id 
+                // AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projects.project_m_id='$ite0'");  
+                
+                $itemA0 = DB::select("SELECT *,AVG(rate_m_index) AS AvgRate FROM rating_m,owner_projectmdd,projectmdd,genre_project,type_project,category_project WHERE projectmdd.type_id=type_project.type_id 
+                AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projectmdd.user_id=owner_projectmdd.owner_m_id AND projectmdd.project_m_id=rating_m.project_m_id AND projectmdd.project_m_id='$ite0' GROUP BY rating_m.project_m_id");
+                //rateingproject
+                // print_r($item);
+                // $rate0 = DB::select("SELECT * FROM rating_p WHERE projects.type_id=type_project.type_id 
+                // AND projects.project_id='$ite0'");  
+
+                $svgA0 = DB::select("SELECT AVG(rate_m_index) AS AvgRate FROM rating_m WHERE project_m_id='$ite0' GROUP BY rating_m.project_m_id"); 
+                // print_r($svg0);
+                $svgrate0 = $svg0[0];
+                compact('svgrate0');
+                foreach($svgrate0 as $svgrate0){
+                  $svgrateA = round($svgrate0,$percision=1);
+                }
+                
+            }
+        }else {
+            $itemA0='';
+        }
+
+        if(isset($itemA[1])? $itemA[1]:'') {
+            $item1 = $itemA[1]; //เลือกตำเเหน่งของข้อมูล
+            compact('item1'); // ส่งค่า item0 จากการเลือกตำเเหน่ง
+            foreach($item1 as $ite1){ // ทำการวง loop foreach เพื่อ เอาค่า id ออกจาก array
+                $ite1; // id ของ ตำเเหน่งที่ 0 ที่ได้มาจากการ loop 
+                // หลังจากได้ id ที่ เป็น str ก็นำมา select จาก database ทีละ id เเล้วส่งค่าไปแสดงผลหน้า homeBD
+                // $item = DB::select("SELECT * FROM projectmdd,type_project,genre_project,type_project,category_project WHERE projectmdd.type_id=type_project.type_id 
+                // AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projects.project_m_id='$ite0'");  
+                
+                $itemA1 = DB::select("SELECT * FROM owner_projectmdd,projectmdd,genre_project,type_project,category_project WHERE projectmdd.type_id=type_project.type_id 
+                AND projectmdd.genre_id=genre_project.genre_id AND projectmdd.category_id=category_project.category_id AND projectmdd.user_id=owner_projectmdd.owner_m_id AND projectmdd.project_m_id='$ite1'");
+                
+                //rateingproject
+                // print_r($item);
+                // $rate0 = DB::select("SELECT * FROM rating_p WHERE projects.type_id=type_project.type_id 
+                // AND projects.project_id='$ite0'");  
+
+                $svgA1 = DB::select("SELECT AVG(rate_m_index) AS AvgRate
+                 FROM rating_m WHERE project_m_id='$ite1' 
+                 GROUP BY rating_m.project_m_id"); 
+                $svgrate0 = $svg0[0];
+                compact('svgrate0');
+                foreach($svgrate0 as $svgrate0){
+                    echo $svgrateA = round($svgrate0,$percision=1);
+                }
+                
+            }
+        }else {
+            $itemA1='';
+        }
         // $item2 = DB::select("SELECT * FROM projectmdd,type_project,category_project,admin_company,owner_projectmdd WHERE projectmdd.type_id=type_project.type_id 
         // and projectmdd.user_id=owner_projectmdd.owner_m_id and projectmdd.adm_id=admin_company.admin_id 
         // and projectmdd.category_id=category_project.category_id ORDER BY projectmdd.category_id=1");
        
 
-        return view('homeMDD',compact('item','adminaccount','userimg','imgaccount','itemA','sum_follow'));
+        return view('homeMDD',compact('item_m0','item_m1','svgrate0','svgrateA','adminaccount','userimg','imgaccount','sum_follow','itemA1','itemA0'));
     }
     
     public function editprojectadmin(Request $request) {
@@ -225,5 +279,30 @@ class Project_MDDController extends Controller
         return view('project.detailprojectMDD_Ad',compact('data','chk_type','chk_genre','chk_category','chk_branch','project_m_id','dataA'));
     }
 
+    public function downloadfile(Request $request) {
+        session_start();
+        $project_id = $request->project_id;
+        $rating = $request->rating;
+        // $userID = $_SESSION['usersid'];
+
+        $codeu = 'R';
+        $cont = count(DB::select("SELECT NO_PM FROM rating_m"));
+        $nextint = $cont+1;
+        $string_id = substr("00".$nextint,-3);
+        $nextid = $codeu.$string_id;
+
+        DB::INSERT("INSERT INTO rating_m (rating_m_id, rate_m_index, project_m_id, user_m_id) VALUES ('$nextid','$rating','$project_id','1')");
+        
+        $file_m = DB::select("SELECT namefile,file_m FROM projectmdd WHERE project_m_id='$project_id'");
+        compact('file_m');
+        foreach($file_m as $file_m){
+            $file = $file_m->file_m;
+            $namefile = $file_m->namefile;
+        }
+        $file_path = public_path('project/'.$file);
+        return response()->download($file_path,$namefile);
+
+    }
+   
     
 }

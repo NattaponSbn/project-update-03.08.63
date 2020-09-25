@@ -26,6 +26,8 @@
         <!-- font Athiti -->
         <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500;600&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
         
         <title>ICTSTORE</title>
 
@@ -239,6 +241,35 @@
                 });
                 </script>
             @endif
+
+            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">ความพึ่งพอใจ</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{action ('Project_MDDController@downloadfile')}}" method="POST">
+                                @csrf
+                                @foreach($item as $datas)
+                                <input type="text" name="project_id" id="project_id" value="<?php echo $datas->project_m_id; ?>">
+                                @endforeach
+                                @foreach($itemadmin as $datas)
+                                <input type="text" name="project_id" id="project_id" value="<?php echo $datas->project_m_id; ?>">
+                                @endforeach
+                                <div class="rateyo" name="rating" id="rating" data-rateyo-rating="5" data-rateyo-num-stars="5" data-rateyo-score="3">
+                                </div>
+                                <input type="hidden" name="rating">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">ดาวน์โหลดไฟล์ข้อมูล</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
             
         <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -721,7 +752,7 @@
                                     </table>
                                     
                                     <div class="a-top-layout">
-                                        <p>ดาวน์โหลดไฟล์ข้อมูล<a href="" class="a-layout">คลิก</a></p>
+                                        <p>ดาวน์โหลดไฟล์ข้อมูล<a href="" class="a-layout" data-toggle="modal" data-target="#exampleModalLong">คลิก</a></p>
                                     </div>
                                 </div>
                                 @endforeach  
@@ -747,7 +778,7 @@
                                         <td colspan=1 ><?php echo $items->des_m_project; ?></td></tr>
                                     </table>
                                     <div class="a-top-layout">
-                                        <p>ดาวน์โหลดไฟล์ข้อมูล<a href="" class="a-layout">คลิก</a></p>
+                                        <p>ดาวน์โหลดไฟล์ข้อมูล<a href="" class="a-layout" data-toggle="modal" data-target="#exampleModalLong">คลิก</a></p>
                                     </div>
                                 </div>
                                 @endforeach  
@@ -784,6 +815,19 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+        <script>
+            $(function() {
+                $(".rateyo").rateYo().on("rateyo.change", function(e, data) {
+                    var rating = data.rating;
+                    $(this).parent().find('.score').text('score :' + $(this).attr('data-rateyo-score'));
+                    $(this).parent().find('.result').text('rating :' + rating);
+                    $(this).parent().find('input[name=rating]').val(rating); //add rating value to input field
+                });
+            });
+        </script>
         <!-- The javascript plugin to display page loading on top-->
         <script src="js/plugins/pace.min.js"></script>
         <!-- Page specific javascripts-->

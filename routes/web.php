@@ -21,13 +21,19 @@ Route::view('index', 'homeBD');
 
 
 
+
 Route::get('intest', function () {
     return view('test1');
 });
 
 Route::post('keyword_project', 'ProjectController@keyword')->name('keyword_project');
+Route::post('des_project', 'ProjectController@des_project')->name('des_project');
 
 Route::get('input_rate', 'ProjectController@test');
+// Route::get('test_input', function () {
+//     return view('api.page');
+// });
+
 
 
 Route::get('test', function () {
@@ -47,10 +53,16 @@ Route::get('projectviewmdd', 'Project_MDDController@project');
 
 // Route::get('db', 'ListdataController@addproject');
 
-Route::get('Newarrival', 'ListdataController@Newarrivaldata');
-Route::get('Popular', 'ListdataController@ratingMax');
-Route::get('itemtypeBD/{type_id}', 'ProjectController@typeitem');
-Route::get('pageIot', 'ListdataController@dataIot');
+// page BD
+    
+    Route::get('Newarrival', 'ListdataController@Newarrivaldata');
+    Route::get('Popular', 'ListdataController@ratingMax');
+    Route::get('itemtypeBD/{type_id}', 'ProjectController@typeitem');
+    Route::get('pageIot', 'ListdataController@dataIot');
+
+// page MDD
+    Route::get('pursue', 'ListdataController@pursue');
+    Route::post('download_m', 'Project_MDDController@downloadfile');
 
 // Route::get('Popular', function () {
 //     return view('pagewedsum.pagePopular');
@@ -58,6 +70,23 @@ Route::get('pageIot', 'ListdataController@dataIot');
 
 Route::get('wed', function () {
     return view('wedType.wed');
+});
+
+
+Route::get('copyapi', function () {
+    return view('api.page');
+});
+
+Route::get('testapi', function () {
+    return view('api.copy');
+});
+
+Route::get('copylek', function () {
+    return view('api.example_asynchronous');
+});
+
+Route::get('prepostseos', function () {
+    return view('api.prepostseo');
 });
 
 Route::get('wedapp', function () {

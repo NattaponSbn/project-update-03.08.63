@@ -22,6 +22,8 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
@@ -120,20 +122,41 @@
             color: #495057;
             background-color: #fff;
             background-clip: padding-box;
-            border: 1px solid #ced4da;
+            border: 1px solid #6c757d;
             border-radius: 0.25rem;
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             position: relative;
             width: 100%;
             padding-right: 15px;
             padding-left: 15px;
+        }
 
+        .input-ses{
+            border-color: #38c172;
+        }
+
+        textarea {
+            display: block;
+            flex: 0 0 91.6666666667%;
+            max-width: 91.6666666667%;
+            width: 91.6666666667%;
+            margin-left: 20px;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #6c757d;
+            border-radius: 0.25rem;
+            padding-right: 15px;
+            padding-left: 15px;
         }
 
         /* Mark input boxes that gets an error on validation: */
         input.invalid {
-            background-color: #ffdddd;
-            border: 1px solid red;
+            border-color: #e3342f;
         }
 
         select {
@@ -148,9 +171,9 @@
             color: #495057;
             background-color: #fff;
             background-clip: padding-box;
-            border: 1px solid #ced4da;
+            border: 1px solid #6c757d;
             border-radius: 0.25rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            transition: border-color 1s ease-in-out, box-shadow 0.15s ease-in-out;
             position: relative;
             width: 100%;
             padding-right: 15px;
@@ -158,9 +181,31 @@
         }
 
         select.invalid {
-            background-color: #ffdddd;
-            border: 1px solid red;
+            border-color: #e3342f;
         }
+
+        input.success {
+            border-color: #38c172;
+        }
+
+        select.success {
+            border-color: #38c172;
+        }
+
+        textarea.success {
+            border-color: #38c172;
+        }
+
+        textarea:focus, input:focus{
+            outline: none;
+        }
+        
+        *:focus {
+            outline: none;
+        }
+
+        
+
 
         /* Hide all steps by default: */
         .tab {
@@ -168,7 +213,6 @@
         }
 
         button {
-
             background-color: #4CAF50;
             color: #ffffff;
             border: none;
@@ -240,6 +284,26 @@
         .input-tbbbb {
             width: 29.9%;
         }
+
+        .danger {
+            background-color: #ffffcc;
+            width: 30%;
+            height: auto;
+            
+        }
+
+        .danger_d {
+            font-size: 15px;
+            color: red;
+            
+        }
+
+        .form-control::placeholder {
+            color: #6c757d;
+            opacity: 1;
+            font-size: 14px;
+        }
+
     </style>
 </head>
 
@@ -268,61 +332,56 @@
                             <div class="tab">
                                 <center><label for="text" class="" style="margin-top: -5px;">ขั้นตอนที่ 1</label><br></center>
                                 <div class="container">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="align-self-start " style="margin-left:-40px;">
-                                                <div class="form-group">
-                                                    <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชื่อเรื่อง(TH):</label>
-                                                    <div class="col-sm-11">
-                                                        <input type="text" class="form-control" name="project_name" id="project_name" oninput="this.className = ''">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="text" class="text-left fontdetail control-label" style="margin-top:-20px;">ชื่อเรื่อง(EH):</label>
-                                                    <div class="col-sm-11">
-                                                        <input type="text" class="form-control" ame="project_name" id="project_name" oninput="this.className = ''">
-                                                    </div>
-                                                </div>
+                                    <div class="align-self-start " style="margin-left:-20px;">
+                                        <div class="form-group">
+                                            <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชื่อเรื่อง(TH):<span style="color: red;font-size: 20;">*</span></label>
+                                            <div class="col-sm-11">
+                                                <input type="text" class="form-control" name="project_name" id="project_name"  oninput="this.className = ''" placeholder="ชื่อโครงงานภาษาไทย" >
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <div class="align-self-start " style="margin-left:40px;">
-                                                <div class="form-group ">
-                                                    <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชนิดเอกสาร:</label>
-                                                    <div class="col-sm-9">
-                                                        <select name="type_project" class="form-control" id="type_project" oninput="this.className = ''">
-                                                            <option value="" disabled selected>เลือกชนิดเอกสาร</option>
-                                                            @foreach($chk_type as $type)
-                                                            <option value="{{$type->type_id}}">{{$type->type_name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group ">
-                                                    <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชนิดเอกสาร:</label>
-                                                    <div class="col-sm-9">
-                                                        <select name="genre_project" class="form-control" id="genre_project" oninput="this.className = ''">
-                                                            <option value="" disabled selected>เลือกประเภท</option>
-                                                            @foreach($chk_genre as $genre)
-                                                            <option value="{{$genre->genre_id}}">{{$genre->genre_name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group ">
-                                                    <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชนิดเอกสาร:</label>
-                                                    <div class="col-sm-9">
-                                                        <select name="category_project" class="form-control" id="category_project" oninput="this.className = ''">
-                                                            <option value="" disabled selected>เลือกหมวดหมู่</option>
-                                                            @foreach($chk_category as $category)
-                                                            <option value="{{$category->category_id}}">{{$category->category_name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                        <div class="form-group">
+                                            <label for="text" class="text-left fontdetail control-label" style="margin-top:-20px;">ชื่อเรื่อง(EH):<span style="color: red;font-size: 20;">*</span></label>
+                                            <div class="col-sm-11">
+                                                <input type="text" class="form-control" ame="project_name" id="project_name_en" oninput="this.className = ''" placeholder="ชื่อโครงงานภาษาอังกฤษ">
                                             </div>
+                                        </div>
+                                    </div>
+                                
+                                
+                                    <div class="align-self-start " style="margin-left:60px;">
+                                        <div class="form-group ">
+                                            <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชนิดเอกสาร:<span style="color: red;font-size: 20;">*</span></label>
+                                            <div class="col-sm-9">
+                                                <select name="type_project" class="form-control " id="type_project" oninput="this.className = ''">
+                                                    <option value="" disabled selected>เลือกชนิดเอกสาร</option>
+                                                    @foreach($chk_type as $type)
+                                                    <option value="{{$type->type_id}}">{{$type->type_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
 
+                                        <div class="form-group ">
+                                            <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชนิดเอกสาร:<span style="color: red;font-size: 20;">*</span></label>
+                                            <div class="col-sm-9">
+                                                <select name="genre_project" class="form-control" id="genre_project" oninput="this.className = ''">
+                                                    <option value="" disabled selected>เลือกประเภท</option>
+                                                    @foreach($chk_genre as $genre)
+                                                    <option value="{{$genre->genre_id}}">{{$genre->genre_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="text" class="text-left fontdetail" style="margin-top:-20px;">ชนิดเอกสาร:<span style="color: red;font-size: 20;">*</span></label>
+                                            <div class="col-sm-9">
+                                                <select name="category_project" class="form-control" id="category_project" oninput="this.className = ''">
+                                                    <option value="" disabled selected>เลือกหมวดหมู่</option>
+                                                    @foreach($chk_category as $category)
+                                                    <option value="{{$category->category_id}}">{{$category->category_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -333,21 +392,28 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-sm">
+                                        <div class="align-self-start " style="margin-left:30px;">
                                             <div class="form-group">
-                                                <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำอธิบายย่อ:</label>
+                                                <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำอธิบายย่อ:<span style="color: red;font-size: 20;">* <span class="danger_d">ป้อนบทคัดย่อลงช่องข้างล่างนี้เพื่อหาคำสำคัญ</span></span></label>
                                                 <div class="col-sm-11">
-                                                    <textarea type="text" class="form-control" name="des_project" id="des_project" rows="7" oninput="this.className = ''"></textarea>
+                                                    <textarea type="text" class="form-control" name="des_project" id="des_project" rows="7" oninput="this.className = ''" data-toggle="tooltip" data-placement="top" title="ใส่บทคัทย่อ หลังจากนั้นกดปุ่มค้นหาคำสำคัญ" ></textarea>
                                                 </div><br>
-                                                <center><button type="button" class="" onclick="">ค้นหาคำสำคัญ</button></center>
+                                                <center><button type="button" class="Sse_des" onClick="UpdateStatus()" >ค้นหาคำสำคัญ</button></center>
                                             </div>
 
-
-
+                                        </div>
+                                        <div class="align-self-start " style="margin-left:120px;">
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ1:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="rounded-0 border-info" name="keyword_project_1" id="keyword_project_1">
+                                                @if(!isset($_SESSION['key']))
+                                                <div class="col-sm-8" id="hok">
+                                                    <input type="text" class="hol" name="keyword_project_1" id="keyword_project_1" disabled>
                                                 </div>
+                                                @elseif(isset($_SESSION['key']))
+                                                <div class="col-sm-8" id="hok">
+                                                    
+                                                </div>
+                                                @endif
                                                 <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
                                                     <div class="list-group" id="show-list">
 
@@ -358,8 +424,8 @@
 
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ2:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="" name="keyword_project_2" id="keyword_project_2">
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="hol" name="keyword_project_2" id="keyword_project_2" disabled>
                                                 </div>
                                                 <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
                                                     <div class="list-group2" id="show-list2">
@@ -368,11 +434,10 @@
                                                 </div>
                                             </div>
 
-
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ3:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="" name="keyword_project_3" id="keyword_project_3">
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="" name="keyword_project_3" id="keyword_project_3" disabled>
                                                 </div>
                                                 <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
                                                     <div class="list-group3" id="show-list3">
@@ -383,8 +448,8 @@
                                             
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ4:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="" name="keyword_project_4" id="keyword_project_4">
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="" name="keyword_project_4" id="keyword_project_4" >
                                                 </div>
                                                 <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
                                                     <div class="list-group4" id="show-list4">
@@ -396,12 +461,18 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
                             <div class="tab">
                                 <center><label for="text" class="" style="margin-top: -5px;">ขั้นตอนที่ 3</label><br></center>
-                                <center><label for="text" class="">อัปโหลดไฟล์เอกสาร</label><br></center>
-                                <input type="file" name="fileproject" id="">
-
+                                <center>
+                                    <label for="text" class="">อัปโหลดไฟล์เอกสาร<span style="color: red;font-size: 20;">*</span></label><br>
+                                    <p class="danger">เลือกไฟล์ต้องเป็น .pdf เท่านั้น</p>
+                                    <input type="file" class="" name="fileproject" id="file_project" accept=".pdf" required>      
+                                    <div class="invalid-feedback">
+                                        กรุณาเลือกไฟล์
+                                    </div>
+                                </center>
 
                             </div>
 
@@ -420,7 +491,37 @@
         </div>
     </div>
 
+  
+
     <script type="text/javascript">
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        function UpdateStatus(){  
+            //make an ajax call and get status value using the same 'id'
+            var var1= document.getElementById("des_project").value;
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                    method:"POST",
+                    url:"{{route('des_project')}}",    
+                    data:{data1:var1,_token: _token},
+                    success:function(responsedata){
+                        $('#hok').html(responsedata);
+                    }
+                })
+            document.getElementById("keyword_project_1").disabled = false;
+            document.getElementById("keyword_project_2").disabled = false;
+            document.getElementById("keyword_project_3").disabled = false;
+            document.getElementById("keyword_project_4").disabled = false;
+        }
+    </script>
+
+    <script type="text/javascript">
+
         $(document).ready(function() {
             $('#keyword_project_1').keyup(function() {
                 var key_p_1 = $(this).val();
@@ -599,6 +700,7 @@
             // This function will figure out which tab to display
             // นำค่าที่ได้จาก class tab มาเก็บไว้ที่ตัวเเปร x
             var x = document.getElementsByClassName("tab");
+           
             // Exit the function if any field in the current tab is invalid:
             //เช็คข้อมูลว่ามีใน textbox หรือไม่ ไปเช็คที่ฟังก์ชัน validateForm เเละ retrun false ไป 
             if (n == 1 && !validateForm()) return false;
@@ -611,7 +713,7 @@
             if (currentTab >= x.length) {
                 // ... the form gets submitted:
                 document.getElementById("addprojectfrom").submit();
-
+               
             }
             // Otherwise, display the correct tab:
             showTab(currentTab);
@@ -644,8 +746,10 @@
             // This function deals with validation of the form fields
             var x, y, i, z, valid = true;
             x = document.getElementsByClassName("tab");
+            k = x[currentTab].getElementsByTagName("textarea");
             y = x[currentTab].getElementsByTagName("input");
             z = x[currentTab].getElementsByTagName("select");
+            
             // A loop that checks every input field in the current tab:
             for (i = 0; i < y.length; i++) {
                 // If a field is empty...
@@ -653,8 +757,35 @@
                     // add an "invalid" class to the field:
                     y[i].className += " invalid";
                     // and set the current valid status to false
+                    $(document).keyup(function() {
+                        for (i = 0; i < y.length; i++) {
+                            if(y[i].value == ""){
+                                y[i].className += " invalid";
+                                valid = false;
+                            }else{
+                                y[i].className += " success";
+                            }
+                            
+                        }
+                    })
                     valid = false;
                 }
+                else if(y[i].value !== ""){
+                    y[i].className += " success";
+                    $(document).keyup(function() {
+                        for (i = 0; i < y.length; i++) {
+                            if(y[i].value == ""){
+                                y[i].className += " success";
+                                
+                                valid = false;
+                            }else{
+                                y[i].className += " invalid";
+                            }
+                            
+                        }
+                    })
+                }
+                
             }
             for (i = 0; i < z.length; i++) {
                 // If a field is empty...
@@ -662,9 +793,77 @@
                     // add an "invalid" class to the field:
                     z[i].className += " invalid";
                     // and set the current valid status to false
+                    $(document).change(function() {
+                        for (i = 0; i < z.length; i++) {
+                            if(z[i].value == ""){
+                                z[i].className += " invalid";
+                                
+                                valid = false;
+                            }else{
+                                z[i].className += " success";
+                            }
+                            
+                        }
+                    })
                     valid = false;
                 }
+                else if(z[i].value !== ""){
+                   
+                    z[i].className += " success";
+                    $(document).change(function() {
+                        for (i = 0; i < z.length; i++) {
+                            if(z[i].value == ""){
+                                z[i].className += " success";
+                                
+                                valid = false;
+                            }else{
+                                z[i].className += " invalid";
+                            }
+                            
+                        }
+                    })
+                }
             }
+         
+            // If a field is empty...
+            for (i = 0; i < k.length; i++) {
+                // If a field is empty...
+                if (k[i].value == "") {
+                    // add an "invalid" class to the field:
+                    k[i].className += " invalid";
+                    // and set the current valid status to false
+                    $(document).change(function() {
+                        for (i = 0; i < k.length; i++) {
+                            if(k[i].value == ""){
+                                k[i].className += " invalid";
+                                
+                                valid = false;
+                            }else{
+                                k[i].className += " success";
+                            }
+                            
+                        }
+                    })
+                    valid = false;
+                }
+                else if(k[i].value !== ""){
+                    k[i].className += " success";
+                    $(document).change(function() {
+                        for (i = 0; i < k.length; i++) {
+                            if(k[i].value == ""){
+                                k[i].className += " success";
+                                
+                                valid = false;
+                            }else{
+                                k[i].className += " invalid";
+                            }
+                            
+                        }
+                    })
+                }
+            }
+
+            
             // If the valid status is true, mark the step as finished and valid:
             if (valid) {
                 document.getElementsByClassName("step")[currentTab].className += " finish";

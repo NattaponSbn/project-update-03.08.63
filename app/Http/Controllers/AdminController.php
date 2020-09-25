@@ -100,6 +100,7 @@ class AdminController extends Controller
         $logo = 'defaultlogo.png';
 
         $user_id=$request->owner_m;
+        $status_m='0';
         
         // echo $user_id;
         $chk_yet=DB::select("SELECT projectmdd.user_id FROM projectmdd WHERE projectmdd.user_id='$user_id'");
@@ -123,6 +124,7 @@ class AdminController extends Controller
                 $project->project_m_name_en=$request->project_name_en;
                 $project->keyword_m_project=$request->keyword_project;
                 $project->des_m_project=$request->des_project;
+                $project->status_m=$status_m;
                 $project->type_id=$request->type_project;
                 $project->genre_id=$request->genre_project;
                 $project->category_id=$request->category_project;

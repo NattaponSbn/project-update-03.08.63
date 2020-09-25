@@ -10923,4 +10923,5 @@ a.text-dark:focus {
 label.fontdetail {
     font-family: 'Athiti', sans-serif;
     font-size: 17px;
+    font-weight: bold;
 }

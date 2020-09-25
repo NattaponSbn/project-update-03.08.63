@@ -8,7 +8,10 @@ use App\Imgproject;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\HTPP;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+
 use Intervention\Image\ImageManagerStatic as Image;
 
 
@@ -54,6 +57,7 @@ class ProjectController extends Controller
         $project->branch_id=$request->branch_project;
         $project->logo=$logo;
         $project->file_p=$fileproject;
+        $project->filename=$filename;
         
         $project->save();
        
@@ -75,6 +79,13 @@ class ProjectController extends Controller
         DB::INSERT("INSERT INTO rating_p (img_p_1, rate_index, project_id) VALUES ('$nextidrate','0','$project_id'");
 
         return redirect('homeBD')->with('successappproject', 'สร้างผลงานเรียบร้อย');
+    }
+
+    public function des_project(Request $request){
+        $dse = $request->data1;
+        session_start();
+        $_SESSION["key"] = "1";
+        echo '<input type="text" class="rounded-0 border-info" name="keyword_project_1" id="keyword_project_1" value="'.$dse.'">';
     }
 
     public function keyword(Request $request)
@@ -155,14 +166,14 @@ class ProjectController extends Controller
         $nextid = $codeu.$string_id;
 
         DB::INSERT("INSERT INTO rating_p (rating_id, rate_index, project_id, users_id) VALUES ('$nextid','$rating','$project_id','$userID')");
-        // $file_p = DB::select("SELECT namefile,file_p FROM projects WHERE project_id='$project_id'");
-        // compact('file_p');
-        // foreach($file_p as $file_p){
-        //     $file = $file_p->file_p;
-        //     $namefile = $file_p->namefile;
-        // }
-        // $file_path = public_path('project/'.$file);
-        // return response()->download($file_path,$namefile);
+        $file_p = DB::select("SELECT namefile,file_p FROM projects WHERE project_id='$project_id'");
+        compact('file_p');
+        foreach($file_p as $file_p){
+            $file = $file_p->file_p;
+            $namefile = $file_p->namefile;
+        }
+        $file_path = public_path('project/'.$file);
+        return response()->download($file_path,$namefile);
         
 
     }
@@ -1099,16 +1110,28 @@ class ProjectController extends Controller
         return view('project.detailproject_Ad_admin',compact('chk_type','chk_genre','chk_category','chk_branch','imglogoproject','dataimgA','dataA'));
     }
 
-    public function test()
-    {
-        $name = $_POST["name"];
-        
-        // $rateing = DB::select("SELECT user_id FROM rating_p");
-        // if(isset($rateing) ? $rateing:'') {
+    public function test(){
+        // // $query="Insidethatcagetherewasagreenteddybear";
+        // $url = 'https://www.prepostseo.com/apis/checkPlag/key=8405791ef34d67710469e7fc10fc6e50/';
+        // // $config['permitted_uri_chars'] = 'a-z 0-9~%.:\_\=+%\&';
+        // $data = array(
+        //     'query'=>"Insidethatcagetherewasagreenteddybear",
+        //     // "config['permitted_uri_chars']" => 'a-z 0-9~%.:_\-',
+        //     // 'Content-type' => 'application/json',
+        // );
+        // $ch = curl_init(); // เริ่มต้นใช้งาน cURL
+        // curl_setopt($ch, CURLOPT_URL, $url); // กำหนดค่า URL
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // กำหนดค่า HTTP Request
+        // curl_setopt($ch, CURLOPT_POST, true); // กำหนดรูปแบบการส่งข้อมูลเป็นแบบ $_POST
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // กำหนดให้ cURL คืนค่าผลลัพท์
+        // $response = curl_exec($ch); // ประมวลผล cURL
+        // curl_close($ch); // ปิดการใช้งาน cURL
+        // print_r($response);
+        // // $data = json_decode(file_get_contents($response), true);
+        // // echo $data;
+        return Http::get('https://www.prepostseo.com/plagiarism-checker');
 
-        // }else {
-            
-        // }
     }
 
 }
