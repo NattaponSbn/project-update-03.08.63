@@ -46,7 +46,7 @@
                                     create_str($count,$str,$items);
                                 ?></div>
                                 <div class="textMDD" ><b>ผู้สร้างผลงาน :</b> <?php echo $items->owner_m_name?></div>
-                                <div class="textMDD" ><b>คำสำคัญ :</b> <?php echo $items->keyword_m_project?></div>
+                                <div class="textMDD" ><b>คำสำคัญ :</b> <?php echo $items->keyword_m_project?> </div>
                                 <div class="textMDD" ><b>ประเภท :</b> <?php echo $items->type_name?></div>
                                 <div class="rating">
                                     <?php 

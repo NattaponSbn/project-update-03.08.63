@@ -53,8 +53,7 @@
     box-sizing: border-box;
 }
 
-
-/* html,
+html,
 body {
     font-family: sans-serif;
     line-height: 1.15;
@@ -66,7 +65,18 @@ body {
     line-height: 1.5;
     color: #212529;
     text-align: left;
-} */
+}
+
+.imgadmin {
+    background-image: url('tech-background-admin.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -o-background-size: 100% 100%, auto;
+    -moz-background-size: 100% 100%, auto;
+    -webkit-background-size: 100% 100%, auto;
+    background-size: 100% 100%, auto;
+}
 
 article,
 aside,
@@ -15077,7 +15087,12 @@ be a descendant of the grid when it is being dragged.
     min-height: calc(100vh - 50px);
     margin-top: 50px;
     padding: 30px;
-    background-color: #E5E5E5;
+    /* background-color: #E5E5E5; */
+    background-image: url("img/tech-background-admin.jpg");
+    height: 100%;
+    background-position: center 550px;
+    background-repeat: no-repeat;
+    background-size: cover;
     -webkit-transition: margin-left 0.3s ease;
     -o-transition: margin-left 0.3s ease;
     transition: margin-left 0.3s ease;

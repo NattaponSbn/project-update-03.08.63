@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="img-down">
+<html >
 
 <head>
     <meta charset="utf-8">
@@ -74,16 +74,14 @@
 
         }
 
-        html {
-            background-image: url("/img/background-BD-item.jpg");
-        }
-
+ 
         .img-top {
             background-image: url("/img/background-BD-item.jpg");
             height: 100%;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+            
         }
 
         .img-down {
@@ -92,6 +90,7 @@
             background-position: center 550px;
             background-repeat: no-repeat;
             background-size: cover;
+            /* opacity: 0.5; */
         }
 
         .span-i-user {
@@ -187,7 +186,7 @@
     </style>
 </head>
 
-<body class="img-top">
+<body >
 
 
     <!-- successappproject -->
@@ -687,7 +686,8 @@
 
         </header>
         </aside>
-        <div class="rowcolumn1">
+
+        <div class="rowcolumn1 img-top">
             <div class="col-md-12">
                 <ul class="app-breadcrumb breadcrumb magne-right">
                     <li class="breadcrumb-item magne-right-text"><a href="{{action('ProjectController@itemproject')}}">หน้าหลัก</a></li>
@@ -702,13 +702,12 @@
                     </li>
                     @endforeach
 
-
                 </ul><br>
-                <div class="tile">
+             
+                <div class="tile ">
                     <div class="tile-body">
                         <div class="row">
                             <div class="imgfromming">
-
                                 @foreach($item as $datas)
                                 <div class="columnimgitem">
                                     <img src="/project/img_logo/<?php echo $datas->logo; ?>" alt="" class="fromimg">
@@ -727,7 +726,7 @@
                                 @foreach($item as $datas)
                                 <label for="text"><?php echo $datas->project_name; ?></label>
                                 <div class="text-auth-d">
-                                    <label for="text">คำสำคัญ : <?php echo $datas->keyword_project; ?></label><br>
+                                    <label for="text">คำสำคัญ : <?php echo $datas->keyword_project_1; ?> <?php echo $datas->keyword_project_2; ?> <?php echo $datas->keyword_project_3; ?> <?php echo $datas->keyword_project_4; ?></label><br>
                                     <label for="text">หมวดหมู่ : <?php echo $datas->genre_name; ?></label>
                                 </div>
                                 <div class="text-auth-N-d">
@@ -739,7 +738,7 @@
                                 @foreach($itemadmin as $itemadmins)
                                 <label for="text"><?php echo $itemadmins->project_name; ?></label>
                                 <div class="text-auth-d">
-                                    <label for="text">คำสำคัญ : <?php echo $itemadmins->keyword_project; ?></label><br>
+                                    <label for="text">คำสำคัญ : <?php echo $itemadmins->keyword_project_1; ?> <?php echo $itemadmins->keyword_project_2; ?> <?php echo $itemadmins->keyword_project_3; ?> <?php echo $itemadmins->keyword_project_4; ?></label><br>
                                     <label for="text">หมวดหมู่ : <?php echo $itemadmins->genre_name; ?></label>
                                 </div>
                                 <div class="text-auth-N-d">
@@ -949,6 +948,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

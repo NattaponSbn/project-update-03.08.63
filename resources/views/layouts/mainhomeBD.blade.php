@@ -436,12 +436,18 @@
     <div class="app sidebar-mini ">
         <header class="app-header">
             <!-- font Athiti -->
+            <nav class="app-menu navbar navbar-expand-lg navbar-light" style="height: 52px;">
             <a href="homeBD" class="app-header__logo font-Athiti">ICTThesis</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- main.css-->
-            <ul class="app-nav">
                 <li class="app-search search-left">
-                    <input class="app-search__input" type="search" placeholder="ค้นหา...">
-                    <button class="app-search__button"><i class="fa fa-search"></i></button>
+                    <form action="#" method="post">
+                        <input class="app-search__input" type="search" placeholder="ค้นหา...">
+                        <button type="submit" class="app-search__button"><i class="fa fa-search"></i></button>
+                    </form>
                 </li>
                 <!-- <div class="app-navbar__overlay" data-toggle="sidebar" aria-label="Hide Sidebar"></div> -->
                 <nav class="app-navmenu ">
@@ -450,10 +456,8 @@
                     <li class="active3 menulink fontlink"><a href="#">เกี่ยวกับ</a></li>
                     <li class="active4 menulink fontlink"><a href="#">ติดต่อ</a></li>
                 </nav>
-                <div class="navbar-dark layoutaccout ">
+                <div class="navbar-dark layoutaccout">
                     <ul class="navbar-nav ml-auto ml-md-0">
-
-
                         <?php
                         if (!isset($_SESSION['status']) == 'user' & !isset($_SESSION['statusA']) == 'admin') { ?>
                             <div class="front nav-item" style="margin-top: px;font-family: 'Athiti', sans-serif;font-size: 16px;">
@@ -643,8 +647,9 @@
                         <?php } ?>
                     </ul>
                 </div>
-                <a class="app-navbar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
-                <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+            </div>
+            </nav>
+               
         </header>
         <div class="app-sidebar__overlay" data-toggle="sidebar" aria-label="Hide Sidebar"></div>
         <!-- app-sidebar css ของ main.css ส่วนของ เเท็บ ซ้ายมือ -->

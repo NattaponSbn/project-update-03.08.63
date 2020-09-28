@@ -28,11 +28,28 @@ Route::get('intest', function () {
 
 Route::post('keyword_project', 'ProjectController@keyword')->name('keyword_project');
 Route::post('des_project', 'ProjectController@des_project')->name('des_project');
+    
+    //ส่งค่าให้ไปตัดคีย์
+    Route::get('adddes_project', 'ProjectController@getdes_project')->name('adddes_project');
+    //เรียกค่ากลับมาโชว์
+    Route::get('list_keyword', 'ProjectController@list_keyword')->name('list_keyword');
 
 Route::get('input_rate', 'ProjectController@test');
 // Route::get('test_input', function () {
 //     return view('api.page');
 // });
+
+
+    //search engine
+    //Route::get('/search1', 'AutocompleteController@index');
+    Route::get('/search', 'AutocompleteController@easysearch')->name('search');
+    Route::get('/AVsearch', 'AutocompleteController@detailsearch')->name('AVsearch');
+    Route::get('/autocomplete/fetch', 'AutocompleteController@dropdownsearch')->name('autocomplete.dropdownsearch');
+    Route::get('SearchAdvance', 'AutocompleteController@detailview')->name('SearchAdvance');
+    Route::get('dropdownsearch', 'AutocompleteController@dropdown')->name('dropdownsearch');
+    // Route::get('search', function () {
+    //     return view('beforesearchBD');
+    // });
 
 
 

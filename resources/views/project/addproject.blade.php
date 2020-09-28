@@ -398,19 +398,19 @@
                                                 <div class="col-sm-11">
                                                     <textarea type="text" class="form-control" name="des_project" id="des_project" rows="7" oninput="this.className = ''" data-toggle="tooltip" data-placement="top" title="ใส่บทคัทย่อ หลังจากนั้นกดปุ่มค้นหาคำสำคัญ" ></textarea>
                                                 </div><br>
-                                                <center><button type="button" class="Sse_des" onClick="UpdateStatus()" >ค้นหาคำสำคัญ</button></center>
+                                                <center><button type="button" class="Sse_des" id="des_p" onClick="UpdateStatus()" >ค้นหาคำสำคัญ</button></center>
                                             </div>
 
                                         </div>
                                         <div class="align-self-start " style="margin-left:120px;">
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ1:</label>
-                                                @if(!isset($_SESSION['key']))
-                                                <div class="col-sm-8" id="hok">
+                                                @if(!isset($_SESSION['keyid1']))
+                                                <div class="col-sm-8" id="listkey1">
                                                     <input type="text" class="hol" name="keyword_project_1" id="keyword_project_1" disabled>
                                                 </div>
-                                                @elseif(isset($_SESSION['key']))
-                                                <div class="col-sm-8" id="hok">
+                                                @elseif(isset($_SESSION['keyid1']))
+                                                <div class="col-sm-8" id="listkey1">
                                                     
                                                 </div>
                                                 @endif
@@ -424,8 +424,8 @@
 
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ2:</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="hol" name="keyword_project_2" id="keyword_project_2" disabled>
+                                                <div class="col-sm-8" id="listkey2">
+                                                    <!-- <input type="text" class="hol" name="keyword_project_2" id="keyword_project_2" disabled> -->
                                                 </div>
                                                 <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
                                                     <div class="list-group2" id="show-list2">
@@ -436,8 +436,8 @@
 
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ3:</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="" name="keyword_project_3" id="keyword_project_3" disabled>
+                                                <div class="col-sm-8" id="listkey3">
+                                                    <!-- <input type="text" class="" name="keyword_project_3" id="keyword_project_3" disabled> -->
                                                 </div>
                                                 <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
                                                     <div class="list-group3" id="show-list3">
@@ -448,8 +448,8 @@
                                             
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ4:</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="" name="keyword_project_4" id="keyword_project_4" >
+                                                <div class="col-sm-8" id="listkey4">
+                                                    <!-- <input type="text" class="" name="keyword_project_4" id="keyword_project_4" > -->
                                                 </div>
                                                 <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
                                                     <div class="list-group4" id="show-list4">
@@ -501,6 +501,76 @@
 
 
     <script type="text/javascript">
+            function UpdateStatus(){
+                var var1= document.getElementById("des_project").value;
+                
+                $.ajax({
+                        method:"GET",
+                        url:"{{route('adddes_project')}}",    
+                        data:{data1:var1},
+                        success:function(responsedata){
+                            // $('#keyword_project_1').html(responsedata);
+                        }
+                    })
+            }
+                
+        </script>
+
+    <script type="text/javascript">
+        $("#des_p").bind("click", function() {
+            var des = document.getElementById("des_project").value;
+            $.ajax({
+                    method:"GET",
+                    url:"{{route('list_keyword')}}",    
+                    data:{key1:des},
+                    success:function(response){
+                        $('#listkey1').html(response);
+                        
+                    }
+                })
+        });
+
+        $("#des_p").bind("click", function() {
+            var des = document.getElementById("des_project").value;
+            $.ajax({
+                    method:"GET",
+                    url:"{{route('list_keyword')}}",    
+                    data:{key2:des},
+                    success:function(response){
+                        $('#listkey2').html(response);
+                        
+                    }
+                })
+        });
+
+        $("#des_p").bind("click", function() {
+            var des = document.getElementById("des_project").value;
+            $.ajax({
+                    method:"GET",
+                    url:"{{route('list_keyword')}}",    
+                    data:{key3:des},
+                    success:function(response){
+                        $('#listkey3').html(response);
+                        
+                    }
+                })
+        });
+
+        $("#des_p").bind("click", function() {
+            var des = document.getElementById("des_project").value;
+            $.ajax({
+                    method:"GET",
+                    url:"{{route('list_keyword')}}",    
+                    data:{key4:des},
+                    success:function(response){
+                        $('#listkey4').html(response);
+                        
+                    }
+                })
+        });
+    </script>
+
+    <!-- <script type="text/javascript">
         function UpdateStatus(){  
             //make an ajax call and get status value using the same 'id'
             var var1= document.getElementById("des_project").value;
@@ -518,7 +588,7 @@
             document.getElementById("keyword_project_3").disabled = false;
             document.getElementById("keyword_project_4").disabled = false;
         }
-    </script>
+    </script> -->
 
     <script type="text/javascript">
 

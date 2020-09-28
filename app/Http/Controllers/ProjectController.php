@@ -8,11 +8,11 @@ use App\Imgproject;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Http\Controllers\HTPP;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-
 use Intervention\Image\ImageManagerStatic as Image;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 
 class ProjectController extends Controller
@@ -41,6 +41,81 @@ class ProjectController extends Controller
         $fileP->move(public_path($foder),$nameimg);
 
         $fileproject='/fileproject/p_BD'.$nameimg;
+
+        //add keyword
+        $keyword1 =$request->keyword_project_1;
+        $keyword2 =$request->keyword_project_2;
+        $keyword3 =$request->keyword_project_3;
+        $keyword4 =$request->keyword_project_4;
+
+        // keyword
+        $kw1 = DB::select("SELECT * FROM keyword_p WHERE keyword_p.name_key LIKE '%$keyword1%'");
+        $kw2 = DB::select("SELECT * FROM keyword_p WHERE keyword_p.name_key LIKE '%$keyword2%'");
+        $kw3 = DB::select("SELECT * FROM keyword_p WHERE keyword_p.name_key LIKE '%$keyword3%'");
+        $kw4 = DB::select("SELECT * FROM keyword_p WHERE keyword_p.name_key LIKE '%$keyword4%'");
+
+        if(empty($kw1)) {
+            $key = 'K';
+            $countkw = count(DB::select("SELECT id FROM keyword_p"));
+            $num = $countkw+1;
+            $kw_id = substr("000".$num,-4);
+            $keyword_id = $key.$kw_id;
+            
+            DB::INSERT("INSERT INTO keyword_p (keyp_id, name_key ) VALUES ('$keyword_id','$keyword1')");
+
+            
+        }
+        if(empty($kw2)) {
+            $key = 'K';
+            $countkw = count(DB::select("SELECT id FROM keyword_p"));
+            $num = $countkw+1;
+            $kw_id = substr("000".$num,-4);
+            $keyword_id = $key.$kw_id;
+            DB::INSERT("INSERT INTO keyword_p (keyp_id, name_key ) VALUES ('$keyword_id','$keyword2')");
+            
+        }
+        if(empty($kw3)) {
+            $key = 'K';
+            $countkw = count(DB::select("SELECT id FROM keyword_p"));
+            $num = $countkw+1;
+            $kw_id = substr("000".$num,-4);
+            $keyword_id = $key.$kw_id;
+            DB::INSERT("INSERT INTO keyword_p (keyp_id, name_key ) VALUES ('$keyword_id','$keyword3')");
+            
+        }
+        if(empty($kw4)) {
+            $key = 'K';
+            $countkw = count(DB::select("SELECT id FROM keyword_p"));
+            $num = $countkw+1;
+            $kw_id = substr("000".$num,-4);
+            $keyword_id = $key.$kw_id;
+            DB::INSERT("INSERT INTO keyword_p (keyp_id, name_key ) VALUES ('$keyword_id','$keyword4')");
+            
+        }
+
+        //add keyword to project
+        $addkw1 = DB::select("SELECT * FROM keyword_p WHERE keyword_p.name_key LIKE '%$keyword1%'");
+        $addkw2 = DB::select("SELECT * FROM keyword_p WHERE keyword_p.name_key LIKE '%$keyword2%'");
+        $addkw3 = DB::select("SELECT * FROM keyword_p WHERE keyword_p.name_key LIKE '%$keyword3%'");
+        $addkw4 = DB::select("SELECT * FROM keyword_p WHERE keyword_p.name_key LIKE '%$keyword4%'");
+        // print_r($addkw4);
+
+        if(isset($addkw1)){
+            $keyid1 = $addkw1[0]->keyp_id;
+        }
+        if(isset($addkw2)){
+            $keyid2 = $addkw2[0]->keyp_id;
+        }
+        if(isset($addkw3)){
+            $keyid3 = $addkw3[0]->keyp_id;
+        }
+        if(isset($addkw4)){
+            $keyid4 = $addkw4[0]->keyp_id;
+        }
+
+        // $item='example';
+        // $tmp = exec("C:/xampp/htdocs/projectmange-code/resources/views/elasticsearch/querydata.py .$item");
+        // echo $tmp;
     
         $project->project_id=$nextid;
         $project->user_id=$userid;
@@ -58,9 +133,9 @@ class ProjectController extends Controller
         $project->logo=$logo;
         $project->file_p=$fileproject;
         $project->filename=$filename;
-        
         $project->save();
        
+        //รูปโปรเจค
         $imgproject1 = 'defaultimg1.png';
         $imgproject2 = 'defaultimg2.png';
         $imgproject3 = 'defaultimg3.png';
@@ -70,6 +145,7 @@ class ProjectController extends Controller
         $imgproject->imp_p_3=$imgproject3;
         DB::INSERT("INSERT INTO img_project (img_p_1, img_p_2, img_p_3, p_id) VALUES ('$imgproject1','$imgproject1','$imgproject1','$userid')");
         
+        //เก็บค่า ดาว=0
         $codeu = 'R';
         $cont = count(DB::select("SELECT NO_R FROM rating_p"));
         $nextint = $cont+1;
@@ -79,6 +155,79 @@ class ProjectController extends Controller
         DB::INSERT("INSERT INTO rating_p (img_p_1, rate_index, project_id) VALUES ('$nextidrate','0','$project_id'");
 
         return redirect('homeBD')->with('successappproject', 'สร้างผลงานเรียบร้อย');
+    }
+
+    public function getdes_project(Request $request)
+    {   
+        
+        $des_p ="IoT Web Ai game&talk:";
+        
+        // $des_p = $request->var1;
+        // echo $des_p;
+        
+        // $process = new Process("python3 C:/xampp/htdocs/projectmange-code/resources/views/elasticsearch/querydata.py \"{$des_p}\"");
+        
+        // // $process = new Process(['ls', '-lsa']);
+        // $process->run();
+
+        // // executes after the command finishes
+        // if (!$process->isSuccessful()) {
+        //     throw new ProcessFailedException($process);
+        // }
+
+        // echo $process->getOutput();
+
+        return response()->json($des_p,200);
+        
+    }
+
+    public function list_keyword(Request $request)
+    {   
+
+        $listkey = DB::select("SELECT * FROM temp_keyword ");
+        
+        session_start();
+        if ($request->key1){
+            
+            if (isset($listkey[0])){
+                $listkey1 = $listkey[0];
+                
+                $_SESSION['keyid1'] = 1 ;
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_1" id="keyword_project_1" value="'.$listkey1->name_key.'">';
+            }else{
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_4" id="keyword_project_4" value="'.$listkey1="".'">';
+            }
+        }
+        if ($request->key2){
+            if (isset($listkey[1])){
+                $listkey2 = $listkey[1];
+                $_SESSION['keyid2'] = 1 ;
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_2" id="keyword_project_2" value="'.$listkey2->name_key.'">';
+            } else{
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_4" id="keyword_project_4" value="'.$listkey2="".'">';
+            }
+        }
+        if ($request->key3) {
+            if (isset($listkey[2])){
+                $listkey3 = $listkey[2];
+                $_SESSION['keyid3'] = 1 ;
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_3" id="keyword_project_3" value="'.$listkey3->name_key.'">';
+            } else{
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_4" id="keyword_project_4" value="'.$listkey3="".'">';
+            }
+        }   
+        if ($request->key4){
+            if (isset($listkey[3])){
+                $listkey4 = $listkey[3];
+                $_SESSION['keyid4'] = 1 ;
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_4" id="keyword_project_4" value="'.$listkey4->name_key.'">';
+            } else{
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_4" id="keyword_project_4" value="'.$listkey4="".'">';
+            }
+        }    
+            
+        // DB::table('temp_keyword')->truncate();
+        
     }
 
     public function des_project(Request $request){
