@@ -10,7 +10,7 @@
 ?>
 
 <!DOCTYPE html>
-<html class="imgadmin">
+<html class="imgadmin" style="font-family:'Athiti', sans-serif;">
 
 <head>
     <meta charset="utf-8">
@@ -232,10 +232,14 @@
         background-size: cover;
         border: none;
     }
+
+    .display-0{
+        display: none;
+    }
     </style>
 </head>
 
-<body class="app sidebar-mini imgadmin">
+<body class="app sidebar-mini imgadmin" style="font-family:'Athiti', sans-serif;">
 
     <!-- login pupup -->
     @if(isset($_SESSION['successloginadmin'])){
@@ -277,8 +281,8 @@
             <!-- main.css-->
             <ul class="app-nav">
                 <li class="app-search search-left">
-                    <input class="app-search__input" type="search" placeholder="ค้นหา...">
-                    <button class="app-search__button"><i class="fa fa-search"></i></button>
+                    <input class="app-search__input display-0" type="search" placeholder="ค้นหา...">
+                    <button class="app-search__button display-0"><i class="fa fa-search"></i></button>
                 </li>
                 <div class="app-navbar__overlay" data-toggle="sidebar" aria-label="Hide Sidebar"></div>
                 <nav class="app-navmenu">

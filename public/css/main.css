@@ -15269,13 +15269,15 @@ be a descendant of the grid when it is being dragged.
     display: flex;
     -ms-flex-item-align: center;
     align-self: center;
-    margin-right: 700px;
-    padding: 10px 0;
+    margin-right: 600px;
+    width: 70%;
+    padding: 6px 0;
     font-family: 'Athiti', sans-serif;
 }
 
 .app-navmenu {
-    margin-left: -10px;
+    margin-left: 30px;
+    margin-right: -100px;
     display: flex;
     -ms-flex-item-align: center;
     align-self: center;
@@ -15390,9 +15392,9 @@ be a descendant of the grid when it is being dragged.
 }
 
 .app-search__input {
-    border: 0;
-    padding: 5px 10px;
-    padding-right: 200px;
+    border: none;
+    /* padding: 5px 10px; */
+    text-align: left;
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.8);
     -webkit-transition: background-color 0.3s ease;
@@ -15425,7 +15427,7 @@ be a descendant of the grid when it is being dragged.
     right: 0;
     top: 10px;
     bottom: 10px;
-    padding: 0 10px;
+    padding: 0 17px;
     border: 0;
     color: rgba(0, 0, 0, 0.8);
     background: none;

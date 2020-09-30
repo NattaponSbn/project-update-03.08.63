@@ -183,6 +183,7 @@ class AdminController extends Controller
             }
             if(DB::select("SELECT * FROM projects,users WHERE projects.user_id=users.U_id AND projects.user_id='$chk_id'")){
                 $project0 = DB::select("SELECT * FROM projects,users WHERE projects.user_id=users.U_id AND projects.user_id='$chk_id'");
+                // print_r($project0);
             }
             elseif(DB::select("SELECT * FROM projects,owner_project WHERE owner_project.owner_id=projects.user_id AND projects.user_id='$chk_id'")){
                 $project0 = DB::select("SELECT * FROM projects,owner_project WHERE owner_project.owner_id=projects.user_id AND projects.user_id='$chk_id'");
@@ -205,5 +206,24 @@ class AdminController extends Controller
         $confirm = '1';
         DB::update("UPDATE projects SET projects.status_p='$confirm' WHERE projects.project_id ='$project_id'");
         return back()->with('successconfirm', 'ยืนยันเรียบร้อย');
+    }
+
+    public function readfile($project_id){
+        $chk_file = DB::select("SELECT * FROM projects WHERE project_id='$project_id' ");
+        compact('chk_file');
+        // print_r($chk_file);
+        foreach($chk_file as $chk_file){
+            $file_chk = $chk_file->temp_file_chk;
+            $namefile_chk = $chk_file->temp_namefile_chk;
+        }
+        // $file = 'project'.$file_chk;
+        // $filename = $namefile_chk;
+        // // echo $filename;
+        // // header('Content-type: application/html');
+        // // header('Content-Disposition: inline; filename="' . $filename . '"');
+        // // header('Content-Transfer-Encoding: binary');
+        // // header('Accept-Ranges: bytes');
+        // @readfile($file);
+        return view('admin.readfile',compact('file_chk','namefile_chk'));
     }
 }

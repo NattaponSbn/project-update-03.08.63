@@ -1,79 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+    // function callAPI($method, $url, $data){
+    //     $curl = curl_init();
+    //     switch ($method){
+    //     case "POST":
+    //         curl_setopt($curl, CURLOPT_POST, 1);
+    //         if ($data)
+    //             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    //         break;
+    //     case "PUT":
+    //         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+    //         if ($data)
+    //             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);			 					
+    //         break;
+    //     default:
+    //         if ($data)
+    //             $url = sprintf("%s?%s", $url, http_build_query($data));
+    //     }
+    //     // OPTIONS:
+    //     curl_setopt($curl, CURLOPT_URL, $url);
+    //     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+    //     'APIKEY: 8405791ef34d67710469e7fc10fc6e50',
+    //     'Content-Type: application/json',
+    //     ));
+    //     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    //     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    //     // EXECUTE:
+    //     $result = curl_exec($curl);
+    //     if(!$result){die("Connection Failure");}
+    //     curl_close($curl);
+    //     return $result;
+    // }
 
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    // $data_array = "Inside that cage there was a green teddy bear";
+    // $make_call = callAPI('POST', 'https://www.prepostseo.com/apis/checkSentence', json_encode($data_array));
+    // $response = json_decode($make_call, true);
+    // // $errors   = $response['response']['errors'];
+    // // $data     = $response['response']['data'][0];
+    // print_r($response);
 
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    // $curl = curl_init();
 
-    <style>
-        .panel-heading {
-    position: sticky;
-    width: 100%;
-    z-index: 99999;
-    top: 0;
-}
-.div1 {
-    opacity: 0.4;
-    filter: alpha(opacity=40);
-}
-    </style>
+    // curl_setopt_array($curl, array(
+    // CURLOPT_URL => "https://www.prepostseo.com/apis/checkSentence?key=8405791ef34d67710469e7fc10fc6e50&query=Inside that cage there was a green teddy bear",
+    // CURLOPT_RETURNTRANSFER => true,
+    // CURLOPT_ENCODING => "",
+    // CURLOPT_MAXREDIRS => 10,
+    // CURLOPT_TIMEOUT => 0,
+    // CURLOPT_FOLLOWLOCATION => true,
+    // CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    // CURLOPT_CUSTOMREQUEST => "POST",
+    // ));
 
-</head>
+    // $response = curl_exec($curl);
 
-
-
-<body>
-    <div class="container">
-        <div class="row">
-
-            <form action="input_rate" method="post">
-                @csrf
-                <div>
-                    <h3>Student Rating System</h3>
-                </div>
-
-                <div>
-                    <label>Name</label>
-                    <input type="text" name="name">
-                </div >
-               
-                   <img src="img/test1.png" class="rateyo"  id="rating" data-rateyo-rating="4" data-rateyo-num-stars="5" data-rateyo-score="3">
-              
-                    
-               
-
-
-                <span class='result'>0</span>
-                <input type="hidden" name="rating">
-
-        </div>
-
-        <div><input type="submit" name="add"> </div>
-
-        </form>
-    </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-
-    <script>
-        $(function() {
-            $(".rateyo").rateYo().on("rateyo.change", function(e, data) {
-                var rating = data.rating;
-                $(this).parent().find('.score').text('score :' + $(this).attr('data-rateyo-score'));
-                $(this).parent().find('.result').text('rating :' + rating);
-                $(this).parent().find('input[name=rating]').val(rating); //add rating value to input field
-            });
-        });
-    </script>
-</body>
-
-</html>
+    // curl_close($curl);
+    // echo $response;
+?>

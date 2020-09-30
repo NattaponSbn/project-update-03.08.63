@@ -1022,13 +1022,15 @@ pre code {
 
 .textimg {
     margin-top: 7px;
-    font-size: 20px;
+    font-size: 19px;
     padding: 2px;
-    color: black;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
 }
 
 .textimg2 {
     color: black;
+    font-size: 16px;
 }
 
 .row {

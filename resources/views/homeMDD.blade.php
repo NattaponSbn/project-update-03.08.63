@@ -27,7 +27,6 @@
                                     <div class="rating">
                                         <?php 
                                             $rate = $items->AvgRate;
-                                            echo $rate;
                                             rating_star($rate); 
                                         ?>
                                     </div>

@@ -135,6 +135,28 @@
             box-shadow: 0 0 0 0.1rem #fff;
         }
 
+        .btn-outline-warning-c {
+            /* margin-right: 60px; */
+            color: #ffc107;
+            /* border-color: #ffc107; */
+           
+        }
+
+        .btn-outline-warning-c:hover {
+            color: #212529;
+            /* background-color: #ffc107; */
+            /* border-color: #ffc107; */
+            
+        }
+
+        .btn-outline-warning-c:focus,
+        .btn-outline-warning-c.focus {
+            /* box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5); */
+            outline: none;
+        }
+
+     
+
         .btn-primaryyy {
             font-size: 18px;
             color: #fff;
@@ -172,11 +194,13 @@
         .font-Athiti {
             font-family: 'Athiti', sans-serif;
             font-weight: 600;
+            
+            
         }
     </style>
 </head>
 
-<body>
+<body >
     <!-- successappproject -->
     @if ($message = Session::get('successappproject'))
     <script>
@@ -433,35 +457,51 @@
         </div>
     </div>
 
-    <div class="app sidebar-mini ">
+    <div class="app sidebar-mini " >
         <header class="app-header">
             <!-- font Athiti -->
-            <nav class="app-menu navbar navbar-expand-lg navbar-light" style="height: 52px;">
-            <a href="homeBD" class="app-header__logo font-Athiti">ICTThesis</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a href="homeBD" class="app-header__logo font-Athiti" >ICTSTORE</a> 
             <!-- main.css-->
+            <ul class="app-nav">
                 <li class="app-search search-left">
-                    <form action="#" method="post">
-                        <input class="app-search__input" type="search" placeholder="ค้นหา...">
-                        <button type="submit" class="app-search__button"><i class="fa fa-search"></i></button>
+                    <form action='/search' method='GET'>
+                        <input class="app-search__input form-control input-lg" style="opacity: 0.9;font-size:17px;width: 500px;" name='search' id="search" type="text" placeholder="ค้นหา...">
+                        <button type="submit" class="app-search__button btn-outline-warning-c" ><i class="fa fa-search"></i></button>
                     </form>
+                    <!-- <div id="searchList" style="margin-top: -160px;margin-left:10px;">
+                        
+                    </div> -->
+                    
+                    <!-- <div class="form-group">
+                        <div style="opacity: 0.9;font-size:17px;width: 500px;margin-top:20px;">
+                            <input id="search_p_key" class="form-control input-lg" type="text" placeholder="ค้นหา..." > -->
+                            <!-- <div class="" id="search_list" style="margin-top: 10px;">
+                                <li class='form-control list-group-item list-group-item-action border-1' style='width: 80%;'></li>
+                            </div> -->
+                        <!-- </div>
+                    </div>
+                    <form action="#" method="post">
+                        @csrf
+                        <button type="submit" class="app-search__button btn-outline-warning-c" ><i class="fa fa-search"></i></button>
+                    </form> -->
+                    
                 </li>
+
+                
+
                 <!-- <div class="app-navbar__overlay" data-toggle="sidebar" aria-label="Hide Sidebar"></div> -->
-                <nav class="app-navmenu ">
-                    <li class="active1 menulink fontlink"><a href="homeBD">หน้าเเรก</a></li>
-                    <li class="active2 menulink fontlink"><a href="SearchAdvance">ค้นหาเเบบละเอียด</a></li>
+                <nav class="app-navmenu">    
+                    <li class="active1 menulink fontlink" ><a href="homeBD">หน้าเเรก</a></li>
+                    <li class="active2 menulink fontlink"><a href="SearchAdvance" >ค้นหาเเบบละเอียด</a></li>
                     <li class="active3 menulink fontlink"><a href="#">เกี่ยวกับ</a></li>
                     <li class="active4 menulink fontlink"><a href="#">ติดต่อ</a></li>
                 </nav>
-                <div class="navbar-dark layoutaccout">
+                <div class="navbar-dark layoutaccout-BD" >
                     <ul class="navbar-nav ml-auto ml-md-0">
                         <?php
                         if (!isset($_SESSION['status']) == 'user' & !isset($_SESSION['statusA']) == 'admin') { ?>
                             <div class="front nav-item" style="margin-top: px;font-family: 'Athiti', sans-serif;font-size: 16px;">
-                                <a class="text-item" id="userDropdown" href="login" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><button class="btn-login btn btn-outline-primaryy"><i class="fas fa-user-circle span-i-user"></i>
+                                <a class="text-item" id="userDropdown" href="login" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><button class="btn-login btn btn-outline-primaryy" style="border-radius: 8px;"><i class="fas fa-user-circle span-i-user"></i>
                                         <div class="text-mage">เข้าสู่ระบบ</div>
                                     </button></a>
                                 <div class="dropdown-menu dropdown-menu-right" style="margin-top: 13px;" aria-labelledby="userDropdown">
@@ -478,7 +518,7 @@
 
                                                         <div class="form-group row">
                                                             <div class="col-md-6">
-                                                                <input id="username" type="username" class="form-control @error('email') is-invalid @enderror" style="width: 210px;height: 40px;margin-left:31px;" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="ชื่อผู้ใช้ของคุณ">
+                                                                <input id="username" type="username" class="form-control @error('email') is-invalid @enderror" style="width: 210px;height: 40px;margin-left:31px;font-size:17px;" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="ชื่อผู้ใช้ของคุณ">
 
                                                                 @error('username')
                                                                 <span class="invalid-feedback" role="alert">
@@ -490,7 +530,7 @@
 
                                                         <div class="form-group row">
                                                             <div class="col-md-6">
-                                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" style="width: 210px; height: 40px;margin-left:31px;" name="password" required autocomplete="current-password" placeholder="รหัสผ่านของคุณ">
+                                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" style="width: 210px; height: 40px;margin-left:31px;font-size:17px;" name="password" required autocomplete="current-password" placeholder="รหัสผ่านของคุณ">
 
                                                                 @error('password')
                                                                 <span class="invalid-feedback" role="alert">
@@ -645,10 +685,8 @@
                                 </div>
                             </li>
                         <?php } ?>
-                    </ul>
+                        </ul>
                 </div>
-            </div>
-            </nav>
                
         </header>
         <div class="app-sidebar__overlay" data-toggle="sidebar" aria-label="Hide Sidebar"></div>
@@ -754,7 +792,7 @@
             </ul>
         </aside>
 
-        <div class="imghtml">@yield('content')</div>
+        <div class="imghtml" style="font-family: 'Athiti';">@yield('content')</div>
         <!-- The Modal -->
 
 
@@ -780,6 +818,110 @@
                 $(".rateyo").rateYo()
             });
         </script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#search').keyup(function() {
+                    var keysearch = $(this).val();
+                    var _token = $('input[name="_token"]').val();
+                
+                        $.ajax({
+                            url: "{{route('search_auto')}}",
+                            method: 'POST',
+                            data: {
+                                keysearch: keysearch,
+                                _token: _token
+                            },
+                            success: function(response) {
+                                $('#searchList').html(response);
+                            }
+                        });
+                    $(document).on('click', 'a', function() {
+                        $('#search').val($(this).text());
+                        $('#searchList').html('');
+
+                    });
+                });
+            });
+        </script>
+
+        <!-- <script type="text/javascript">
+            $(document).ready(function() {
+                $('#search_p_key').keyup(function() {
+                    var keysearch = $(this).val();
+                    var _token = $('input[name="_token"]').val();
+                   
+                        $.ajax({
+                            url: "{{route('search_auto')}}",
+                            method: 'POST',
+                            data: {
+                                keysearch: keysearch,
+                                _token: _token
+                            },
+                            success: function(response) {
+                                $('#search_list').html(response);
+                            }
+                        });
+                    $(document).on('click', 'a', function() {
+                        $('#search_p_key').val($(this).text());
+                        $('#search_list').html('');
+
+                    });
+                });
+            });
+        </script> -->
+
+        <!-- <script>
+        $(document).ready(function(){
+            $('#search_key').keyup(function(){
+                var keysearch = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{route('search_auto')}}",
+                    method:"POST",
+                    data:{keysearch:keysearch,_token: _token},
+                    success:function(data){
+                        $('#search_list').fadeIn();
+                        $('#search_list').html(data);
+                    }
+                })
+                
+            });
+        });
+        $(document).on('click','li',function(){
+            $('#search_list').fadeOut();
+            $('#search_key').val($(this).text());
+        });
+        </script> -->
+
+        <!-- <script type="text/javascript">
+            $(document).ready(function() {
+                $('#search_key').keyup(function() {
+                    var search_key = $(this).val();
+                    var _token = $('input[name="_token"]').val();
+                    if (search_key != '') {
+                        $.ajax({
+                            url: "{{route('search_key')}}",
+                            method: 'POST',
+                            data: {
+                                search_key: search_key,
+                                _token: _token
+                            },
+                            success: function(responsesearch) {
+                                $('#list').html(responsesearch);
+                            }
+                        });
+                    } else {
+                        $('#list').html('');
+                    }
+                    $(document).on('click', 'a', function() {
+                        $('#search_key').val($(this).text());
+                        $('#list').html('');
+
+                    });
+                });
+            });
+        </script> -->
 
         <!-- The javascript plugin to display page loading on top-->
         <script src="js/plugins/pace.min.js"></script>

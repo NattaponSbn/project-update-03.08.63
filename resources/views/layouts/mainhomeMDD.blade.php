@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <!-- import icon -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -230,6 +232,25 @@
             color: #fff;
             background-color: rgb(87, 212, 87);
             border-color: #707070;
+        }
+
+        .btn-outline-warning-c {
+            color: #ffc107;
+            /* border-color: #ffc107; */
+           
+        }
+
+        .btn-outline-warning-c:hover {
+            color: #212529;
+            /* background-color: #ffc107; */
+            /* border-color: #ffc107; */
+            
+        }
+
+        .btn-outline-warning-c:focus,
+        .btn-outline-warning-c.focus {
+            /* box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5); */
+            outline: none;
         }
 
         .user-size-size {
@@ -494,8 +515,10 @@
             <!-- main.css-->
             <ul class="app-nav">
                 <li class="app-search search-left">
-                    <input class="app-search__input" type="search" placeholder="ค้นหา...">
-                    <button class="app-search__button"><i class="fa fa-search"></i></button>
+                <input class="col app-search__input form-control" style="opacity: 0.9;font-size:17px;border-radius: 10px;" type="search" placeholder="ค้นหา...">
+                    <form action="#" method="post">
+                        <button type="submit" class="app-search__button btn-outline-warning-c"><i class="fa fa-search"></i></button>
+                    </form>
                 </li>
                 <nav class="app-navmenu">
                     <li class="active1 menulink fontlink"><a href="homeBD">หน้าเเรก</a></li>
@@ -509,7 +532,7 @@
                         <?php
                         if (!isset($_SESSION['status']) == 'user' & !isset($_SESSION['statusA']) == 'admin') { ?>
                             <div class="front nav-item" style="margin-top: px;font-family: 'Athiti', sans-serif;font-size: 16px;">
-                                <a class="text-item" id="userDropdown" href="login" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><button class="btn-login btn btn-outline-primaryy"><i class="fas fa-user-circle span-i-user"></i>
+                                <a class="text-item" id="userDropdown" href="login" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><button class="btn-login btn btn-outline-primaryy" style="border-radius: 8px;"><i class="fas fa-user-circle span-i-user"></i>
                                         <div class="text-mage">เข้าสู่ระบบ</div>
                                     </button></a>
                                 <div class="dropdown-menu dropdown-menu-right" style="margin-top: 13px;" aria-labelledby="userDropdown">
@@ -526,7 +549,7 @@
 
                                                         <div class="form-group row">
                                                             <div class="col-md-6">
-                                                                <input id="username" type="username" class="form-control @error('email') is-invalid @enderror" style="width: 210px;height: 40px;margin-left:31px;" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="ชื่อผู้ใช้ของคุณ">
+                                                                <input id="username" type="username" class="form-control @error('email') is-invalid @enderror" style="width: 210px;height: 40px;margin-left:31px;font-size:17px;" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="ชื่อผู้ใช้ของคุณ">
 
                                                                 @error('username')
                                                                 <span class="invalid-feedback" role="alert">
@@ -538,7 +561,7 @@
 
                                                         <div class="form-group row">
                                                             <div class="col-md-6">
-                                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" style="width: 210px; height: 40px;margin-left:31px;" name="password" required autocomplete="current-password" placeholder="รหัสผ่านของคุณ">
+                                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" style="width: 210px; height: 40px;margin-left:31px;font-size:17px;" name="password" required autocomplete="current-password" placeholder="รหัสผ่านของคุณ">
 
                                                                 @error('password')
                                                                 <span class="invalid-feedback" role="alert">
@@ -695,7 +718,7 @@
                         <?php } ?>
                     </ul>
                 </div>
-                <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+                
         </header>
         <div class="app-sidebar__overlay" data-toggle="sidebar" aria-label="Hide Sidebar"></div>
         <!-- app-sidebar css ของ main.css ส่วนของ เเท็บ ซ้ายมือ -->

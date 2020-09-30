@@ -407,7 +407,7 @@
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ1:</label>
                                                 @if(!isset($_SESSION['keyid1']))
                                                 <div class="col-sm-8" id="listkey1">
-                                                    <input type="text" class="hol" name="keyword_project_1" id="keyword_project_1" disabled>
+                                                    <input type="text" class="hol" name="keyword_project_1" id="keyword_project_1" maxlength ="10">
                                                 </div>
                                                 @elseif(isset($_SESSION['keyid1']))
                                                 <div class="col-sm-8" id="listkey1">
@@ -424,9 +424,15 @@
 
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ2:</label>
+                                                @if(!isset($_SESSION['keyid2']))
                                                 <div class="col-sm-8" id="listkey2">
-                                                    <!-- <input type="text" class="hol" name="keyword_project_2" id="keyword_project_2" disabled> -->
+                                                    <input type="text" class="hol" name="keyword_project_2" id="keyword_project_2" maxlength ="10">
                                                 </div>
+                                                @elseif(isset($_SESSION['keyid2']))
+                                                <div class="col-sm-8" id="listkey2">
+                                                    
+                                                </div>
+                                                @endif
                                                 <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
                                                     <div class="list-group2" id="show-list2">
 
@@ -436,9 +442,15 @@
 
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ3:</label>
+                                                @if(!isset($_SESSION['keyid3']))
                                                 <div class="col-sm-8" id="listkey3">
-                                                    <!-- <input type="text" class="" name="keyword_project_3" id="keyword_project_3" disabled> -->
+                                                    <input type="text" class="hol" name="keyword_project_3" id="keyword_project_3" maxlength ="10" >
                                                 </div>
+                                                @elseif(isset($_SESSION['keyid3']))
+                                                <div class="col-sm-8" id="listkey3">
+                                                    
+                                                </div>
+                                                @endif
                                                 <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
                                                     <div class="list-group3" id="show-list3">
 
@@ -448,9 +460,15 @@
                                             
                                             <div class="form-group">
                                                 <label for="text" class="text-left fontdetail" style="margin-top:-20px;">คำสำคัญ4:</label>
+                                                @if(!isset($_SESSION['keyid4']))
                                                 <div class="col-sm-8" id="listkey4">
-                                                    <!-- <input type="text" class="" name="keyword_project_4" id="keyword_project_4" > -->
+                                                    <input type="text" class="hol" name="keyword_project_4" id="keyword_project_4" maxlength ="10">
                                                 </div>
+                                                @elseif(isset($_SESSION['keyid4']))
+                                                <div class="col-sm-8" id="listkey4">
+                                                    
+                                                </div>
+                                                @endif
                                                 <div class="col-md-5" style="position: relative;margin-top: -2px;margin-left: 125px;">
                                                     <div class="list-group4" id="show-list4">
 
@@ -465,14 +483,27 @@
 
                             <div class="tab">
                                 <center><label for="text" class="" style="margin-top: -5px;">ขั้นตอนที่ 3</label><br></center>
-                                <center>
-                                    <label for="text" class="">อัปโหลดไฟล์เอกสาร<span style="color: red;font-size: 20;">*</span></label><br>
-                                    <p class="danger">เลือกไฟล์ต้องเป็น .pdf เท่านั้น</p>
-                                    <input type="file" class="" name="fileproject" id="file_project" accept=".pdf" required>      
-                                    <div class="invalid-feedback">
-                                        กรุณาเลือกไฟล์
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <center><label for="text" class="">อัปโหลดไฟล์เอกสาร<span style="color: red;font-size: 20;">*</span></label><br></center>
+                                            <center><p class="danger">เลือกไฟล์ต้องเป็น .pdf เท่านั้น</p></center>
+                                            <input type="file" class="" name="fileproject" id="file_project" accept=".pdf" required>      
+                                            <div class="invalid-feedback">
+                                                กรุณาเลือกไฟล์
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <center><label for="text" class="">อัปโหลดไฟล์เอกสารตรวจสอบเอกสาร<span style="color: red;font-size: 20;">*</span></label><br></center>
+                                            <center><p class="danger_d">**กรุณาตรวจสอบเอกสารผ่านเว็บไซต์นี้<a href="https://www.prepostseo.com/plagiarism-checker" target="_blank">คลิก</a>เเละทำการดาวน์โหลดไฟล์เอกสารเพื่อนำมาอัปโหลด**</p></center>
+                                            <input type="file" class="" name="fileproject_chk" id="file_project_chk" required>      
+                                            <div class="invalid-feedback">
+                                                กรุณาเลือกไฟล์
+                                            </div>
+                                        </div>
                                     </div>
-                                </center>
+                                </div>
+                                
 
                             </div>
 

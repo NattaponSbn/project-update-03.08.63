@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('homeBD', 'ProjectController@itemproject');
+Route::post('search_key', 'ProjectController@search_key')->name('search_key');
+Route::post('search_auto', 'ProjectController@search_auto')->name('search_auto');
 
 Route::view('index', 'homeBD');
 
@@ -24,6 +26,10 @@ Route::view('index', 'homeBD');
 
 Route::get('intest', function () {
     return view('test1');
+});
+
+Route::get('Plagiarism_Checker', function () {
+    return view('PHP-Plagiarism-Checker-master.example_asynchronous');
 });
 
 Route::post('keyword_project', 'ProjectController@keyword')->name('keyword_project');
@@ -274,3 +280,6 @@ Route::post('adddata', 'ListdataController@adduser');
 
     //ลบข้อมูล โปรเจคป.โท
     Route::get('delete_p_mdd/{project_m_id}','AdminController@delete_projectmdd');
+
+    //อ่านไฟล์ตรวจสอบ
+    Route::get('read_chk/{project_id}', 'AdminController@readfile');

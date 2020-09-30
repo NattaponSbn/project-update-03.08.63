@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use App\Http\Controllers\callAPI;
 
 
 class ProjectController extends Controller
@@ -42,6 +43,15 @@ class ProjectController extends Controller
 
         $fileproject='/fileproject/p_BD'.$nameimg;
 
+        //file_chk
+        $foderchk = 'project/fileproject/p_chk';
+        $filePchk = $request->file('fileproject_chk');
+        $filenamechk = $request->file('fileproject_chk')->getClientOriginalName();
+        $namechk = '/'.rand() . '.' . $filenamechk;
+        $filePchk->move(public_path($foderchk),$namechk);
+
+        $fileproject_chk='/fileproject/p_chk'.$namechk;
+
         //add keyword
         $keyword1 =$request->keyword_project_1;
         $keyword2 =$request->keyword_project_2;
@@ -62,6 +72,7 @@ class ProjectController extends Controller
             $keyword_id = $key.$kw_id;
             
             DB::INSERT("INSERT INTO keyword_p (keyp_id, name_key ) VALUES ('$keyword_id','$keyword1')");
+            
 
             
         }
@@ -90,7 +101,6 @@ class ProjectController extends Controller
             $kw_id = substr("000".$num,-4);
             $keyword_id = $key.$kw_id;
             DB::INSERT("INSERT INTO keyword_p (keyp_id, name_key ) VALUES ('$keyword_id','$keyword4')");
-            
         }
 
         //add keyword to project
@@ -121,18 +131,21 @@ class ProjectController extends Controller
         $project->user_id=$userid;
         $project->status_p=$status_p;
         $project->project_name=$request->project_name;
-        $project->keyword_project=$request->keyword_project;
+        // $project->keyword_project=$request->keyword_project;
+        $project->keyword_project_1=$request->keyword_project_1;
+        $project->keyword_project_2=$request->keyword_project_2;
+        $project->keyword_project_3=$request->keyword_project_3;
+        $project->keyword_project_4=$request->keyword_project_4;
         $project->des_project=$request->des_project;
-        // $dataproject->facebook=$request->facebook;
-        // $dataproject->email=$request->email;
-        // $dataproject->phone=$request->phone;
         $project->type_id=$request->type_project;
         $project->genre_id=$request->genre_project;
         $project->category_id=$request->category_project;
         $project->branch_id=$request->branch_project;
         $project->logo=$logo;
         $project->file_p=$fileproject;
-        $project->filename=$filename;
+        $project->namefile=$filename;
+        $project->temp_file_chk=$fileproject_chk;
+        $project->temp_namefile_chk=$filenamechk;
         $project->save();
        
         //รูปโปรเจค
@@ -152,7 +165,8 @@ class ProjectController extends Controller
         $string_id = substr("00".$nextint,-3);
         $nextidrate = $codeu.$string_id;
         $project_id=$nextid;
-        DB::INSERT("INSERT INTO rating_p (img_p_1, rate_index, project_id) VALUES ('$nextidrate','0','$project_id'");
+        DB::INSERT("INSERT INTO rating_p(rating_id, rate_index, project_id) VALUES ('$nextidrate','0','$project_id')");
+        $_SESSION['project'];
 
         return redirect('homeBD')->with('successappproject', 'สร้างผลงานเรียบร้อย');
     }
@@ -161,7 +175,7 @@ class ProjectController extends Controller
     {   
         
         $des_p ="IoT Web Ai game&talk:";
-        
+        return response()->json($des_p,200);
         // $des_p = $request->var1;
         // echo $des_p;
         
@@ -177,7 +191,7 @@ class ProjectController extends Controller
 
         // echo $process->getOutput();
 
-        return response()->json($des_p,200);
+        
         
     }
 
@@ -195,7 +209,7 @@ class ProjectController extends Controller
                 $_SESSION['keyid1'] = 1 ;
                 echo '<input type="text" class="rounded-0 border-info" name="keyword_project_1" id="keyword_project_1" value="'.$listkey1->name_key.'">';
             }else{
-                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_4" id="keyword_project_4" value="'.$listkey1="".'">';
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_1" id="keyword_project_1" value="'.$listkey1="".'">';
             }
         }
         if ($request->key2){
@@ -204,7 +218,7 @@ class ProjectController extends Controller
                 $_SESSION['keyid2'] = 1 ;
                 echo '<input type="text" class="rounded-0 border-info" name="keyword_project_2" id="keyword_project_2" value="'.$listkey2->name_key.'">';
             } else{
-                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_4" id="keyword_project_4" value="'.$listkey2="".'">';
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_2" id="keyword_project_2" value="'.$listkey2="".'">';
             }
         }
         if ($request->key3) {
@@ -213,7 +227,7 @@ class ProjectController extends Controller
                 $_SESSION['keyid3'] = 1 ;
                 echo '<input type="text" class="rounded-0 border-info" name="keyword_project_3" id="keyword_project_3" value="'.$listkey3->name_key.'">';
             } else{
-                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_4" id="keyword_project_4" value="'.$listkey3="".'">';
+                echo '<input type="text" class="rounded-0 border-info" name="keyword_project_3" id="keyword_project_3" value="'.$listkey3="".'">';
             }
         }   
         if ($request->key4){
@@ -323,11 +337,8 @@ class ProjectController extends Controller
         }
         $file_path = public_path('project/'.$file);
         return response()->download($file_path,$namefile);
-        
-
     }
    
-
     // dropdown show
     public function viewadd() {
         $chk_type = DB::select("SELECT * FROM type_project");
@@ -1259,8 +1270,16 @@ class ProjectController extends Controller
         return view('project.detailproject_Ad_admin',compact('chk_type','chk_genre','chk_category','chk_branch','imglogoproject','dataimgA','dataA'));
     }
 
-    public function test(){
-        // // $query="Insidethatcagetherewasagreenteddybear";
+    public function test($method,$data,$url,$lease,$tenant_count){
+    //     $data_array =  array(
+    //         "key"        => "",
+    //         "data"         => ""
+    //   );
+    //   $make_call = callAPI('POST', 'https://api.example.com/post_url/', json_encode($data_array));
+    //   $response = json_decode($make_call, true);
+    //   $errors   = $response['response']['errors'];
+    //   $data     = $response['response']['data'][0];
+    //     // // $query="Insidethatcagetherewasagreenteddybear";
         // $url = 'https://www.prepostseo.com/apis/checkPlag/key=8405791ef34d67710469e7fc10fc6e50/';
         // // $config['permitted_uri_chars'] = 'a-z 0-9~%.:\_\=+%\&';
         // $data = array(
@@ -1279,8 +1298,71 @@ class ProjectController extends Controller
         // print_r($response);
         // // $data = json_decode(file_get_contents($response), true);
         // // echo $data;
-        return Http::get('https://www.prepostseo.com/plagiarism-checker');
+        // return Http::get('https://www.prepostseo.com/plagiarism-checker');
+        // $data = 'This is unique paragraph black permanent marker.';
 
+        // header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Headers: access");
+        // header("Access-Control-Allow-Methods: GET,POST");
+        // header("Access-Control-Allow-Credentials: true");
+        // header('Content-Type: application/json;charset=utf-8');
+
+
+        // $output= '{
+        // "messages": [
+        // {"text": "This Form OPDEV API"},
+        // {"text": "Connection Success !"}
+        // ]
+        // }';
+
+        // print_r($output);
+        // $url = 'http://server.com/path';
+        // $data = array('key1' => 'value1', 'key2' => 'value2');
+
+        // // use key 'http' even if you send the request to https://...
+        // $options = array(
+        //     'http' => array(
+        //         'header'  => "Content-type: application/json",
+        //         'method'  => 'POST',
+        //         'content' => http_build_query($data)
+        //     )
+        // );
+        // $context  = stream_context_create($options);
+        // $result = file_get_contents($url, false, $context);
+        // if ($result === FALSE) { /* Handle error */ }
+
+        // var_dump($result);
+
+        // $data = DB::select("SELECT name_en FROM projects WHERE project_id='PB0005' ");
+        // return response()->json($data);
+        // create & initialize a curl session
+
+           
+
+
+    }
+
+    public function search_auto(Request $request){
+        if($request->keysearch){
+            $key = $request->keysearch;
+            // echo $key;
+            $chk_search_key = DB::select("SELECT project_name FROM projects WHERE project_name LIKE '%$key%'");
+            compact('chk_search_key');
+            if(isset($chk_search_key)?$chk_search_key:''){
+                $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+                foreach ($chk_search_key as $chk_search_key) {
+                    $output .='<li><a href="#">'.$chk_search_key->project_name.'</a></li>';
+                    // echo"<a href='#' class='list-group-item list-group-item-action border-1' style='width: 80%;'>".$chk_search_key->project_name."</a>";;
+                }
+                $output .= '</ul>';
+                echo $output;
+
+            }
+            else{
+                // echo "<p class='list-group-item border-1'>ไม่พบคำสำคัญ</p>";
+            }
+
+        }
     }
 
 }

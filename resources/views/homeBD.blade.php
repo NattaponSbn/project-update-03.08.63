@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
         <!-- app.css -->
-        <div class="rowcolumn">
+        <div class="rowcolumn" style="color: black;">
             <div class="col-md-12">
                 <div class="tile1">
                     <div class="tile-body">
@@ -30,11 +30,11 @@
                                                                         <?php $status_p4 = $items->status_p;?>
                                                                             @foreach($itemlp4 as $items)
                                                                                 <a href="itemdetaliBD/{{$items->project_id}}"><div class="column" ><div class="columnimg"><img src="project\img_logo\<?php echo $items->logo;?>" alt="" class="fromimg"></div></a>
-                                                                                    <center><a href="itemdetaliBD/{{$items->project_id}}"><div class="textimg">
+                                                                                    <center><a href="itemdetaliBD/{{$items->project_id}}"><div class="textimg" >
                                                                                     <?php 
                                                                                         $str = $items->project_name;
                                                                                         $count = utf8_strlen("$str");
-                                                                                        create_str($count,$str,$items)  
+                                                                                        create_str($count,$str,$items);  
                                                                                     ?></div></a></center>
                                                                                     <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
                                                                                 </div>
@@ -48,7 +48,7 @@
                                                                                     <?php 
                                                                                         $str = $items->project_name;
                                                                                         $count = utf8_strlen("$str");
-                                                                                        create_str($count,$str,$items)  
+                                                                                        create_str($count,$str,$items);  
                                                                                     ?></div></a></center>
                                                                                     <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
                                                                                 </div>
@@ -199,6 +199,39 @@
                                                                                         create_str($count,$str,$items)  
                                                                                     ?></div></a></center>
                                                                                     <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
+                                                                                    <center>
+                                                                                        @if(isset($svgrate1)?$svgrate1:'')
+                                                                                            @if($svgrate1 < 2 & $svgrate1 > 0)
+                                                                                        <div class="rating">
+                                                                                        <?php check_rating(floor($svgrate1)); ?> @if(isset($svgrate1)?$svgrate1:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate1 >= 2 & $svgrate1 < 3)
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate1)); ?> @if(isset($svgrate1)?$svgrate1:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate1 >= 3 & $svgrate1 < 4)
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate1)); ?> @if(isset($svgrate1)?$svgrate0:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate1 >= 4 & $svgrate1 < 5)
+                                                                                            <div class="rating">
+                                                                                                <?php check_rating(floor($svgrate1)); ?>@if(isset($svgrate1)?$svgrate1:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate1 >= 5)
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate1)); ?> @if(isset($svgrate1)?$svgrate1:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @else
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate1)); ?> @if(isset($svgrate1)?$svgrate1:'')<span class="">(<?php echo round($svgrate1,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @endif
+                                                                                        @else
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor(0)); ?> <span class="">(0)</span>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                   </center>
                                                                                 </div>
                                                                             @endforeach
                                                                             @foreach($itemlp2 as $items)
@@ -210,6 +243,39 @@
                                                                                         create_str($count,$str,$items)
                                                                                     ?></div></a></center>
                                                                                     <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
+                                                                                    <center>
+                                                                                        @if(isset($svgrate2)?$svgrate2:'')
+                                                                                            @if($svgrate2 < 2 & $svgrate2 > 0)
+                                                                                        <div class="rating">
+                                                                                        <?php check_rating(floor($svgrate2)); ?> @if(isset($svgrate2)?$svgrate2:'')<span class="">(<?php echo round($svgrate2,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate2 >= 2 & $svgrate2 < 3)
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate2)); ?> @if(isset($svgrate2)?$svgrate2:'')<span class="">(<?php echo round($svgrate2,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate2 >= 3 & $svgrate2 < 4)
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate2)); ?> @if(isset($svgrate2)?$svgrate2:'')<span class="">(<?php echo round($svgrate2,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate2 >= 4 & $svgrate2 < 5)
+                                                                                            <div class="rating">
+                                                                                                <?php check_rating(floor($svgrate2)); ?>@if(isset($svgrate2)?$svgrate2:'')<span class="">(<?php echo round($svgrate2,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate2 >= 5)
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate2)); ?> @if(isset($svgrate2)?$svgrate2:'')<span class="">(<?php echo round($svgrate2,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @else
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate2)); ?> @if(isset($svgrate2)?$svgrate2:'')<span class="">(<?php echo round($svgrate2,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @endif
+                                                                                        @else
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor(0)); ?> <span class="">(0)</span>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                    </center>
                                                                                 </div>
                                                                             @endforeach
                                                                             @foreach($itemlp3 as $items)
@@ -221,6 +287,39 @@
                                                                                         create_str($count,$str,$items)
                                                                                     ?></div></a></center>
                                                                                     <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
+                                                                                    <center>
+                                                                                        @if(isset($svgrate3)?$svgrate3:'')
+                                                                                            @if($svgrate3 < 2 & $svgrate3 > 0)
+                                                                                        <div class="rating">
+                                                                                        <?php check_rating(floor($svgrate3)); ?> @if(isset($svgrate3)?$svgrate3:'')<span class="">(<?php echo round($svgrate3,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate3 >= 2 & $svgrate3 < 3)
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate3)); ?> @if(isset($svgrate3)?$svgrate3:'')<span class="">(<?php echo round($svgrate3,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate3 >= 3 & $svgrate3 < 4)
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate3)); ?> @if(isset($svgrate3)?$svgrate0:'')<span class="">(<?php echo round($svgrate3,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate3 >= 4 & $svgrate3 < 5)
+                                                                                            <div class="rating">
+                                                                                                <?php check_rating(floor($svgrate3)); ?>@if(isset($svgrate3)?$svgrate3:'')<span class="">(<?php echo round($svgrate3,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @elseif($svgrate3 >= 5)
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate3)); ?> @if(isset($svgrate3)?$svgrate3:'')<span class="">(<?php echo round($svgrate3,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @else
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor($svgrate3)); ?> @if(isset($svgrate3)?$svgrate3:'')<span class="">(<?php echo round($svgrate3,$precision=2); ?>)</span>@endif
+                                                                                            </div>
+                                                                                            @endif
+                                                                                        @else
+                                                                                            <div class="rating">
+                                                                                            <?php check_rating(floor(0)); ?> <span class="">(0)</span>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                   </center>
                                                                                 </div>
                                                                             @endforeach
                                                                             @foreach($itemlp4 as $items)
@@ -234,6 +333,39 @@
                                                                                                 create_str($count,$str,$items);  
                                                                                             ?></div></a></center>
                                                                                             <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
+                                                                                            <center>
+                                                                                                @if(isset($svgrate4)?$svgrate4:'')
+                                                                                                    @if($svgrate4 < 2 & $svgrate4 > 0)
+                                                                                                <div class="rating">
+                                                                                                <?php check_rating(floor($svgrate4)); ?> @if(isset($svgrate4)?$svgrate4:'')<span class="">(<?php echo round($svgrate4,$precision=2); ?>)</span>@endif
+                                                                                                    </div>
+                                                                                                    @elseif($svgrate4 >= 2 & $svgrate4 < 3)
+                                                                                                    <div class="rating">
+                                                                                                    <?php check_rating(floor($svgrate4)); ?> @if(isset($svgrate4)?$svgrate4:'')<span class="">(<?php echo round($svgrate4,$precision=2); ?>)</span>@endif
+                                                                                                    </div>
+                                                                                                    @elseif($svgrate4 >= 3 & $svgrate4 < 4)
+                                                                                                    <div class="rating">
+                                                                                                    <?php check_rating(floor($svgrate4)); ?> @if(isset($svgrate4)?$svgrate4:'')<span class="">(<?php echo round($svgrate4,$precision=2); ?>)</span>@endif
+                                                                                                    </div>
+                                                                                                    @elseif($svgrate4 >= 4 & $svgrate4 < 5)
+                                                                                                    <div class="rating">
+                                                                                                        <?php check_rating(floor($svgrate4)); ?>@if(isset($svgrate4)?$svgrate4:'')<span class="">(<?php echo round($svgrate4,$precision=2); ?>)</span>@endif
+                                                                                                    </div>
+                                                                                                    @elseif($svgrate4 >= 5)
+                                                                                                    <div class="rating">
+                                                                                                    <?php check_rating(floor($svgrate4)); ?> @if(isset($svgrate4)?$svgrate4:'')<span class="">(<?php echo round($svgrate4,$precision=2); ?>)</span>@endif
+                                                                                                    </div>
+                                                                                                    @else
+                                                                                                    <div class="rating">
+                                                                                                    <?php check_rating(floor($svgrate4)); ?> @if(isset($svgrate4)?$svgrate4:'')<span class="">(<?php echo round($svgrate4,$precision=2); ?>)</span>@endif
+                                                                                                    </div>
+                                                                                                    @endif
+                                                                                                @else
+                                                                                                    <div class="rating">
+                                                                                                    <?php check_rating(floor(0)); ?> <span class="">(0)</span>
+                                                                                                    </div>
+                                                                                                @endif
+                                                                                            </center>
                                                                                         </div>
                                                                                     @endforeach
                                                                             @endforeach
@@ -244,8 +376,8 @@
                                                                                     <center><a href="itemdetaliBD/{{$items->project_id}}"><div class="textimg">
                                                                                     <?php 
                                                                                         $str = $items->project_name;
-                                                                                        $count = utf8_strlen("$str");
-                                                                                        create_str($count,$str,$items)
+                                                                                        $count = utf8_strlen($str);
+                                                                                        create_str($count,$str,$items);
                                                                                     ?></div></a></center>
                                                                                     <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
                                                                                    <center>
@@ -424,7 +556,7 @@
                                                                                     <center><a href="itemdetaliBD/{{$items->project_id}}"><div class="textimg">
                                                                                     <?php 
                                                                                         $str = $items->project_name;
-                                                                                        $count = utf8_strlen("$str");
+                                                                                        $count = utf8_strlen($str);
                                                                                         create_str($count,$str,$items)
                                                                                     ?></div></a></center>
                                                                                     <center><a href="itemtypeBD/{{$items->type_id}}"><div class="textimg2"><?php echo $items->type_name;?></div></a></center>
@@ -719,7 +851,7 @@
                                                                 </div>
                                                                 @elseif($avgpop1 >= 3 & $avgpop1 < 4)
                                                                 <div class="rating">
-                                                                <?php check_rating(floor($avgpop1)); ?> @if(isset($avgpop1)?$svgrate0:'')<span class="">(<?php echo round($avgpop1,$precision=2); ?>)</span>@endif
+                                                                <?php check_rating(floor($avgpop1)); ?> @if(isset($avgpop1)?$avgpop1:'')<span class="">(<?php echo round($avgpop1,$precision=2); ?>)</span>@endif
                                                                 </div>
                                                                 @elseif($avgpop1 >= 4 & $avgpop1 < 5)
                                                                 <div class="rating">
@@ -763,7 +895,7 @@
                                                                 </div>
                                                                 @elseif($avgpop2 >= 3 & $avgpop2 < 4)
                                                                 <div class="rating">
-                                                                <?php check_rating(floor($avgpop2)); ?> @if(isset($avgpop2)?$svgrate0:'')<span class="">(<?php echo round($avgpop2,$precision=2); ?>)</span>@endif
+                                                                <?php check_rating(floor($avgpop2)); ?> @if(isset($avgpop2)?$avgpop2:'')<span class="">(<?php echo round($avgpop2,$precision=2); ?>)</span>@endif
                                                                 </div>
                                                                 @elseif($avgpop2 >= 4 & $avgpop2 < 5)
                                                                 <div class="rating">
@@ -807,7 +939,7 @@
                                                                 </div>
                                                                 @elseif($avgpop3 >= 3 & $avgpop3 < 4)
                                                                 <div class="rating">
-                                                                <?php check_rating(floor($avgpop3)); ?> @if(isset($avgpop3)?$svgrate0:'')<span class="">(<?php echo round($avgpop3,$precision=2); ?>)</span>@endif
+                                                                <?php check_rating(floor($avgpop3)); ?> @if(isset($avgpop3)?$avgpop3:'')<span class="">(<?php echo round($avgpop3,$precision=2); ?>)</span>@endif
                                                                 </div>
                                                                 @elseif($avgpop3 >= 4 & $avgpop3 < 5)
                                                                 <div class="rating">
@@ -1749,16 +1881,27 @@
                 $strcount1 = substr($strcount,0,-8);
                 $strcut = $strcount1."...";
                 echo $strcut;
-            }elseif($count>30){
+            }elseif($count>30 & $count<40){
                 $strcount = substr($str,0,-10);
                 $strcount1 = substr($strcount,0,-8);
                 $strcount2 = substr($strcount1,0,-10);
                 $strcount3 = substr($strcount2,0,-8);
                 $strcut = $strcount3."...";
                 echo $strcut;
+            }elseif($count>50){
+                $strcount = substr($str,0,-10);
+                $strcount1 = substr($strcount,0,-8);
+                $strcount2 = substr($strcount1,0,-10);
+                $strcount3 = substr($strcount2,0,-8);
+                $strcount4 = substr($strcount3,0,-8);
+                $strcount5 = substr($strcount4,0,-8).'...';
+                echo $strcount5;
+ 
             }else {
                 echo $items->project_name;
-            }  
+            }
+            
+            
         }
 
         function check_rating($rating) {

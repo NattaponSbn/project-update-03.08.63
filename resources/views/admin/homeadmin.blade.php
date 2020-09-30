@@ -51,18 +51,17 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
           <div class="tile">
             <h3 class="tile-title">คำขอ</h3>
               <div class="tile-body">
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered" id="sampleTable">
+                    <table class="table table-hover table-bordered" id="sampleTable" style="font-size: 17px;">
                         <thead>
                             <tr>
                                 <th>ลำดับที่</th>
                                 <th>ชื่อโปรเจค</th>
                                 <th>เจ้าของผลงาน</th>
+                                <th>เอกสารการตรวจการคัดลอก</th>
                                 <th>ตรวจสอบ</th>
                             </tr>
                         </thead>
@@ -75,6 +74,7 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td><a href="projectviewbd_A/{{$project0->project_id}}">{{$project0->project_name}}</a></td>
                                 <td>{{$project0->owner_name}}</td>
+                                <td><a href="read_chk/{{$project0->project_id}}" target="_blank">{{$project0->temp_namefile_chk}}</a></td> 
                                 <td>
                                     <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="confirm_p/{{$project0->project_id}}"><button class="btn-imgdata" type="submit"></button></a>
                                     <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href="delete/{{ $project0->owner_id }}"><button type="submit"></button></a>
@@ -88,8 +88,9 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td><a href="projectviewbd/{{$project0->project_id}}">{{$project0->project_name}}</a></td>
                                 <td>{{$project0->name}}</td> 
+                                <td><a href="read_chk/{{$project0->project_id}}" target="_blank">{{$project0->temp_namefile_chk}}</a></td> 
                                 <td>
-                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="confirm_p/{{$project0->project_id}}"><button class="btn-imgdata" type="submit"></button></a>
+                                    <a onClick="return confirm('การเเก้ไขข้อมูลจะต้องเช็คความถูกต้องทุกครั้งก่อนที่จะทำการบันทึก')" href="confirm_p/{{$project0->project_id}}"><i class="fas fa-check-circle fa-3x"><button class=""  type="submit"></button></i></a>
                                     
                                     <a onClick="return confirm('คุณต้องการลบข้อมูลใช่หรือไม่?')" href="delete/{{ $project0->U_id }}"><button type="submit"></button></a>
 
@@ -105,22 +106,21 @@
                         </tbody>
                         
                     </table>
-                    <button type="submit" class="btn-success"> ตกลง</button>
                 </div>
-                
-            <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
-            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="tile">
-            <h3 class="tile-title">เเจ้งปัญหา</h3>
-            <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
-            </div>
+     
+        <div class="row">
+          <div class="col-md-6">
+              <div class="tile">
+                <h3 class="tile-title">เเจ้งปัญหา</h3>
+                <div class="embed-responsive embed-responsive-16by9">
+                  <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
+                </div>
+              </div>
           </div>
         </div>
-      </div>
+    </div>
+        
     </main>
 @stop

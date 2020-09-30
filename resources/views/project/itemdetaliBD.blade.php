@@ -266,7 +266,7 @@
                     <form action="{{action('ProjectController@downloadfile')}}" method="POST">
                         @csrf
                         @foreach($item as $datas)
-                        <input type="text" name="project_id" id="project_id" value="<?php echo $datas->project_id; ?>">
+                        <input type="text" name="project_id" style="display: none;" id="project_id" value="<?php echo $datas->project_id; ?>">
                         @endforeach
                         @foreach($itemadmin as $datas)
                         <input type="text" name="project_id" id="project_id" value="<?php echo $datas->project_id; ?>">
@@ -276,7 +276,7 @@
                         <input type="hidden" name="rating">
                 </div>
 
-                <button type="submit" class="btn btn-primary">ดาวน์โหลดไฟล์ข้อมูล</button>
+                <button type="submit" class="btn btn-primary" target="_blank">ดาวน์โหลดไฟล์ข้อมูล</button>
                 </form>
             </div>
         </div>
@@ -482,8 +482,8 @@
             <!-- main.css-->
             <ul class="app-nav">
                 <li class="app-search search-left">
-                    <input class="app-search__input" type="search" placeholder="ค้นหา...">
-                    <button class="app-search__button"><i class="fa fa-search"></i></button>
+                    <input class="app-search__input" style="display: none;" type="search" placeholder="ค้นหา...">
+                    <button class="app-search__button" style="display: none;"><i class="fa fa-search"></i></button>
                 </li>
                 <!-- <div class="app-navbar__overlay" data-toggle="sidebar" aria-label="Hide Sidebar"></div> -->
                 <nav class="app-navmenu ">
